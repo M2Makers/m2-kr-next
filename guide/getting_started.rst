@@ -90,5 +90,12 @@ www.example.com 도메인을 설정한다. ::
    http://www.example.com/banner?model=sale&view=sample3
 
 
-   .. figure:: img/m2_09.png
-      :align: center
+
+.. figure:: img/m2_09.png
+   :align: center
+
+.. figure:: img/m2_10.png
+   :align: center
+
+.. figure:: img/m2_11.png
+   :align: center
