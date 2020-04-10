@@ -12,19 +12,13 @@
 - 고객중심의 마케팅 민첩성(Agile marketing) 향상
 - 컨텐츠 생산공정/시간 단축
 - 클라이언트 서비스 품질 향상
-- 옴니채널 컨텐츠 전파 (`A Study of 46,000 Shoppers Shows That Omnichannel Retailing Works <https://hbr.org/2017/01/a-study-of-46000-shoppers-shows-that-omnichannel-retailing-works>`_
+- 옴니채널 컨텐츠 전파 ( `A Study of 46,000 Shoppers Shows That Omnichannel Retailing Works <https://hbr.org/2017/01/a-study-of-46000-shoppers-shows-that-omnichannel-retailing-works>`_ )
 - 개인화
 - TCO 절감
 
 .. note::
 
-   Headless/Decoupled CMS에 대한 깊은 이해를 위해 [Core dna/CEO](https://www.coredna.com/), [Sam Saltis](https://www.linkedin.com/in/samsaltis/)의 글을 추천한다.
-   
-   - [Headless Commerce Explained in 5 Minutes](https://www.coredna.com/blogs/headless-commerce)
-   - [Headless CMS vs Decoupled CMS: The Ultimate Guide](https://www.coredna.com/blogs/headless-vs-decoupled-cms)
-   - [Headless CMS vs. Decoupled CMS - what is the difference?](https://www.contentful.com/r/knowledgebase/what-is-headless-cms/)
-   - [eCommerce API: What Is It & How to Harness the Power of the eCommerce API Economy](https://www.coredna.com/blogs/ecommerce-api)
-
+   **Headless/Decoupled CMS** 에 대한 더 많은 자료는 :ref:`references` 를 참고한다.
 
 
 CMS의 진화

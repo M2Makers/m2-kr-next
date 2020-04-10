@@ -1,4 +1,4 @@
-.. _release:
+.. _references:
 
 Appendix B: 레퍼런스
 ***********************
