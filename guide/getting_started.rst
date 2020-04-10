@@ -15,6 +15,15 @@ M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으
    :maxdepth: 2
 
 
+.. _getting-started-serverconf:
+
+서버 구성
+====================================
+
+- 최소 - 4코어 / 16GB
+- 권장 - 4코어 / 32GB
+
+
 .. _getting-started-os:
 
 OS 구성
