@@ -1,4 +1,4 @@
-﻿.. _intro:
+.. _intro:
 
 1장. M2
 **********************************
@@ -7,12 +7,12 @@
    :maxdepth: 2
 
 
-**M2**는 Headless/Decoupled CMS를 위한 미들웨어이다.
+**M2** 는 **Headless/Decoupled CMS** 를 위한 미들웨어이다.
 
 - 고객중심의 마케팅 민첩성(Agile marketing) 향상
 - 컨텐츠 생산공정/시간 단축
 - 클라이언트 서비스 품질 향상
-- 옴니채널 컨텐츠 전파 (["A Study of 46,000 Shoppers Shows That Omnichannel Retailing Works"](https://hbr.org/2017/01/a-study-of-46000-shoppers-shows-that-omnichannel-retailing-works))
+- 옴니채널 컨텐츠 전파 (`A Study of 46,000 Shoppers Shows That Omnichannel Retailing Works <https://hbr.org/2017/01/a-study-of-46000-shoppers-shows-that-omnichannel-retailing-works>`_
 - 개인화
 - TCO 절감
 
