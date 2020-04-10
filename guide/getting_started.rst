@@ -1,6 +1,6 @@
 .. _getting-started:
 
-2장. 시작하기
+3장. 시작하기
 ******************
 
 M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으로 동작한다. 따라서 STON이 제공하는 다양한 기능과 관리기법들을 그대로 사용 가능하다.

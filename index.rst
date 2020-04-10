@@ -16,6 +16,7 @@ M2 완벽 가이드
    :maxdepth: 2
 
    guide/intro
+   guide/usecases
    guide/getting_started
    guide/environment
 
