@@ -99,3 +99,15 @@ www.example.com 도메인을 설정한다. ::
 
 .. figure:: img/m2_11.png
    :align: center
+
+
+이상의 이미지들은 아래 URL들을 조합하한 결과이다. ::
+
+   // 모델 - 상품정보
+   http://demo.winesoft.co.kr/m2/models/sale.json
+
+   // 뷰 - 이미지 템플릿
+   http://demo.winesoft.co.kr/m2/views/sample1.html
+   http://demo.winesoft.co.kr/m2/views/sample2.html
+   http://demo.winesoft.co.kr/m2/views/sample3.html
+
