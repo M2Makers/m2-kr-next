@@ -23,6 +23,7 @@ OS 구성
 Cent OS 7.4이상만 지원한다.
 
 
+
 .. _getting-started-samplevhost:
 
 Hello World
@@ -62,18 +63,19 @@ STON 실행
       [root@localhost ~]# service m2 stop
 
 
+
 .. _getting-started-runcheck:
 
 가상호스트 동작확인
 -----------------------------------------------
 
-(Windows 7 기준) C:\\Windows\\System32\\drivers\\etc\\hosts 파일에 다음과 같이
+(Windows 10 기준) C:\\Windows\\System32\\drivers\\etc\\hosts 파일에 다음과 같이
 www.example.com 도메인을 설정한다. ::
 
     192.168.0.100        www.example.com
 
 브라우저로 www.example.com에 접근했을 때 다음 페이지가 정상적으로 서비스되면 성공이다.
 
-   .. figure:: img/helloworld3.png
+   .. figure:: img/m2_09.png
       :align: center
 
