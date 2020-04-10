@@ -35,6 +35,24 @@
 2차 이미지 가공               STON 이미지툴               추가 프로세스 필요
 =========================== ========================== ============================
 
+결과물은 `STON 이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 과의 결합을 통해 사용성이 한층 높아진다. ::
+
+   http://example.com/m2-endpoint?model=html&view=jpg/imagetool/resize/100x100
+   http://example.com/m2-endpoint?model=html&view=jpg/imagetool/format/webp
+
+
+How it works
+-----------------------------------------------
+
+-  소스는 이미 존재하는 웹 페이지`HTML`나 상품 API를 이용한다.
+-  소스를 반영할 이미지 템플릿은 `HTML`/`CSS`를 통해 제작한다.
+-  출력 포맷(`JPG`, `PNG`, `WEBP`, `BMP`, `PDF`)을 지정하고 URL을 게시한다.
+
+
+.. figure:: img/m2_04.png
+   :align: center
+
+
 
 상품기술서 최적화
 ====================================
@@ -53,3 +71,25 @@ E-Commerce에서 가장 무거운 콘텐츠는 상품기술서이다. 특히 오
 HTML 페이지 생성
 ====================================
 
+
+
+
+Web API 서버
+====================================
+
+웹 페이지를 수정 없이 Web API로 제공한다.
+
+.. figure:: img/m2_07.png
+   :align: center
+
+
+How it works
+-----------------------------------------------
+
+-  소스는 이미 존재하는 웹 페이지`HTML`를 이용한다.
+-  소스를 `JSON`으로 맵핑한다.
+-  엔드포인트를 게시한다.
+
+
+.. figure:: img/m2_05.png
+   :align: center
