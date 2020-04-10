@@ -18,7 +18,7 @@
 
 .. note::
 
-   :ref:`references`에서 **Headless/Decoupled CMS** 에 대한 더 많은 자료를 제공한다.
+   :ref:`references` 에서 **Headless/Decoupled CMS** 에 대한 더 많은 자료를 제공한다.
 
 
 CMS의 진화
