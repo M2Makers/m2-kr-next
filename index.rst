@@ -27,3 +27,4 @@ M2 완벽 가이드
    :maxdepth: 2
 
    guide/releasenote.rst
+   guide/references.rst
