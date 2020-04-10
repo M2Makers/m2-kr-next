@@ -44,7 +44,7 @@ CMS의 진화
 - 모든 컨텐츠가 미리 정의되어 있어야 한다.
 - 디자인 요소를 변경하려면 개발이 필요하다.
 
-MSA(Micro Service Architecture) 도입과 함께 재사용성과 유연성을 높이기 위한 다양한 시도가 Headless CMS라는 개념으로 정립되었다. 이 개념은 얼핏 생소해 보이지만 E-Commerce에서는 이미 널리 사용되고 있다. 셀러들이 오픈마켓등에 자신의 상품을 등록할 때 상품기술서등을 **HTML 코드조각**으로 올리고 있으며 이 **HTML 코드조각**이 각 사의 프론트엔드와 결합되어 엔드유저에게 전달된다.
+**MSA(Micro Service Architecture)** 도입과 함께 재사용성과 유연성을 높이기 위한 다양한 시도가 **Headless CMS**라는 개념으로 정립되었다. 이 개념은 얼핏 생소해 보이지만 E-Commerce에서는 이미 널리 사용되고 있다. 셀러들이 오픈마켓등에 자신의 상품을 등록할 때 상품기술서등을 **HTML 코드조각**으로 올리고 있으며 이 **HTML 코드조각**이 각 사의 프론트엔드와 결합되어 엔드유저에게 전달된다.
 
 .. figure:: img/coredna_02.png
    :align: center
@@ -58,12 +58,13 @@ MSA(Micro Service Architecture) 도입과 함께 재사용성과 유연성을 �
 왜 M2 인가?
 ===============
 
-시장에는 Headless/Decoupled CMS를 위한 다양한 플랫폼(["24 Headless CMS That Should Be On Your Radar in 2019"](https://www.cmswire.com/web-cms/13-headless-cmss-to-put-on-your-radar/))들이 존재한다. 하지만 기업의 복잡한 백엔드의 구조적 변화와 이에 대한 노력과 시간은 결코 적은 비용이 아니다. 
+시장에는 **Headless/Decoupled CMS**를 위한 다양한 플랫폼(["24 Headless CMS That Should Be On Your Radar in 2019"](https://www.cmswire.com/web-cms/13-headless-cmss-to-put-on-your-radar/))들이 존재한다. 하지만 기업의 복잡한 백엔드의 구조적 변화와 이에 대한 노력과 시간은 결코 적은 비용이 아니다. 
+
 
 .. figure:: img/espirit_01.png
    :align: center
 
-M2는 기업의 CMS와 API로 연동하는 미들웨어로 **Content as a Service**를 구축한다.
+**M2**는 기업의 CMS와 API로 연동하는 미들웨어로 **Content as a Service** 를 구축한다.
 
 - Headless/Decoupled 컨텐츠(웹페이지, 이미지 등) 생성
 - 프론트엔드 개발 없는 실시간 정보 바인딩
