@@ -86,22 +86,28 @@ www.example.com 도메인을 설정한다. ::
 브라우저로 다음주소에 접근했을 때 아래 이미지가 정상적으로 서비스되면 성공이다. ::
 
    http://www.example.com/banner?model=sale&view=sample1
-   http://www.example.com/banner?model=sale&view=sample2
-   http://www.example.com/banner?model=sale&view=sample3
-
-
 
 .. figure:: img/m2_09.png
    :align: center
 
+
+::
+
+   http://www.example.com/banner?model=sale&view=sample2
+
 .. figure:: img/m2_10.png
    :align: center
+
+::
+
+   http://www.example.com/banner?model=sale&view=sample3
 
 .. figure:: img/m2_11.png
    :align: center
 
 
-이상의 이미지들은 아래 URL들을 조합하한 결과이다. ::
+
+이상의 이미지들은 아래 URL들을 M2가 조합한 결과물이다. ::
 
    // 모델 - 상품정보
    http://demo.winesoft.co.kr/m2/models/sale.json
