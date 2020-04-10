@@ -3,11 +3,8 @@
 1장. M2
 **********************************
 
-.. toctree::
-   :maxdepth: 2
 
-
-**M2** 는 **Headless/Decoupled CMS** 를 위한 미들웨어이다.
+**M2** 는 E-Commerce의 **Headless/Decoupled CMS** 를 위한 미들웨어이다.
 
 - 고객중심의 마케팅 민첩성(Agile marketing) 향상
 - 컨텐츠 생산공정/시간 단축
@@ -18,7 +15,11 @@
 
 .. note::
 
-   :ref:`references` 에서 **Headless/Decoupled CMS** 에 대한 더 많은 자료를 제공한다.
+   **Headless/Decoupled CMS** 에 대한 더 많은 정보를 원한다면 :ref:`references` 를 참고한다.
+
+
+.. toctree::
+   :maxdepth: 2
 
 
 CMS의 진화
