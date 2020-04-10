@@ -59,7 +59,7 @@ CMS의 진화
 
 **M2** 는 기업의 CMS와 API로 연동하는 미들웨어로 **Content as a Service** 를 구축한다.
 
-- Headless/Decoupled 컨텐츠(웹페이지, 이미지 등) 생성
+- **Headless/Decoupled** 컨텐츠(웹페이지, 이미지 등) 생성
 - 프론트엔드 개발 없는 실시간 정보 바인딩
 - 이미지 전송 최적화 및 가속
 - 웹 페이지 가속
