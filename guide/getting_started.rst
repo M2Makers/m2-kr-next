@@ -59,7 +59,7 @@ vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
 
 .. _getting-started-runston:
 
-STON 실행
+M2 실행
 -----------------------------------------------
 1. 발급받은 license.xml을 설치 경로에 복사한다.
 
@@ -83,8 +83,12 @@ www.example.com 도메인을 설정한다. ::
 
     192.168.0.100        www.example.com
 
-브라우저로 www.example.com에 접근했을 때 다음 페이지가 정상적으로 서비스되면 성공이다.
+브라우저로 다음주소에 접근했을 때 아래 이미지가 정상적으로 서비스되면 성공이다. ::
+
+   http://www.example.com/banner?model=sale&view=sample1
+   http://www.example.com/banner?model=sale&view=sample2
+   http://www.example.com/banner?model=sale&view=sample3
+
 
    .. figure:: img/m2_09.png
       :align: center
-
