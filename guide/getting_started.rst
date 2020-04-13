@@ -11,7 +11,17 @@ M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으
    :align: center
 
 위 그림에서 알 수 있듯이 STON은 M2에 통합되어 있지만 다루는 계층이 명확히 구분되어 기능상 충돌은 없다. 
-따라서 M2에 추가된 기능에 대해서만 다룬다.
+
+.. note::
+
+   일관된 인터페이스를 위해 리눅스 콘솔명령 키워드도 ston을 그대로 사용한다. ::
+
+      service ston start
+      service ston stop
+      service ston restart
+
+
+M2에 추가된 기능에 대해서만 다룬다.
 
 
 .. toctree::
@@ -60,7 +70,7 @@ vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
     </Vhosts>
 
 
-.. _getting-started-runston:
+.. _getting-started-runm2:
 
 M2 실행
 -----------------------------------------------
@@ -68,11 +78,11 @@ M2 실행
 
 2. M2를 실행한다.  ::
 
-      [root@localhost ~]# service m2 start
+      [root@localhost ~]# service ston start
 
    M2를 중지하고 싶다면 stop 명령을 사용한다.  ::
 
-      [root@localhost ~]# service m2 stop
+      [root@localhost ~]# service ston stop
 
 
 
@@ -119,18 +129,6 @@ www.example.com 도메인을 설정한다. ::
    http://demo.winesoft.co.kr/m2/views/sample1.html
    http://demo.winesoft.co.kr/m2/views/sample2.html
    http://demo.winesoft.co.kr/m2/views/sample3.html
-
-
-
-
-콘솔 시작/종료
-====================================
-
-리눅스 콘솔에서 다음 명령으로 M2를 시작/종료한다. ::
-
-   service m2 start
-   service m2 stop
-   service m2 restart
 
 
 

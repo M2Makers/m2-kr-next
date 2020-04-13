@@ -19,11 +19,13 @@
             ... (생략) ...
          </M2>
          <Options>
-            <BypassPostRequest Sticky="OFF">ON</BypassPostRequest>
-            <BypassGetRequest Sticky="OFF">ON</BypassGetRequest>
-            <BypassPutRequest Sticky="OFF">ON</BypassPutRequest>
+            <!-- Bypass를 켜서 캐싱엔진을 거치지 않는다. -->
+            <BypassPostRequest>ON</BypassPostRequest>
+            <BypassGetRequest>ON</BypassGetRequest>
+            <BypassPutRequest>ON</BypassPutRequest>
          </Options>
          <OriginOptions>
+            <!-- M2를 배제시키지 않는다. -->
             <Exclusion>0</Exclusion>
             <ReuseTimeout>0</ReuseTimeout>
          </OriginOptions>
@@ -46,7 +48,7 @@
 엔드포인트 설정
 ====================================
 
-엔드포인트는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 의 `<M2>` 태그 하위에서 설정한다. ::
+엔드포인트는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 의 ``<M2>`` 태그 하위에서 설정한다. ::
 
    # vhosts.xml - <Vhosts><Vhost>
 
