@@ -4,7 +4,32 @@
 ******************
 
 이 장에서는 MVC 설정에 기반한 M2의 동작원리에 대해 설명한다. 
-M2의 MVC 동작구조는 다음과 같다.
+M2엔진은 STON 가상호스트의 원본서버로 동작한다. 따라서 다음과 같이 가상호스트가 설정되어 있어야 한다. ::
+
+   # vhosts.xml
+
+   <Vhosts>
+      <Vhost Name="www.example.com">
+         <Origin>
+            <!-- M2서비스 포트는 Loopback의 8585포트를 사용한다. -->
+            <Address>127.0.0.1:8585</Address>
+         </Origin>
+         <M2 Status="Active">
+            ... (생략) ...
+         </M2>
+         <Options>
+            <BypassPostRequest Sticky="OFF">ON</BypassPostRequest>
+            <BypassGetRequest Sticky="OFF">ON</BypassGetRequest>
+            <BypassPutRequest Sticky="OFF">ON</BypassPutRequest>
+         </Options>
+         <OriginOptions>
+            <Exclusion>0</Exclusion>
+            <ReuseTimeout>0</ReuseTimeout>
+         </OriginOptions>
+      </Vhost>
+   </Vhosts>
+
+M2는 MVC 구조로 동작한다.
 
 .. figure:: img/m2_13.png
     :align: center
