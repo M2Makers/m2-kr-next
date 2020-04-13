@@ -20,6 +20,7 @@ Endpoint
 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 에서 설정한다. ::
 
    # vhosts.xml - <Vhosts><Vhost>
+
    <M2 Status="Active">
        <Endpoints>
            <Endpoint Alias="inven" Post="ON" Get="ON">
@@ -411,7 +412,8 @@ JPG, PNG, WEBP, BMP, PDF
 ``quality``     JPEG 품질(%)      100
 ============== ================= ========================
 
- 이미지 포맷별 ``<meta>`` 태그 예제는 다음과 같다.
+
+이미지 포맷별 ``<meta>`` 태그 예제는 다음과 같다.
 
 -  JPG ::
       
