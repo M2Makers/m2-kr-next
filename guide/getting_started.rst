@@ -3,12 +3,15 @@
 3장. 시작하기
 ******************
 
-M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으로 동작한다. 따라서 STON이 제공하는 다양한 기능과 관리기법들을 그대로 사용 가능하다.
+이 장에서는 M2의 설정구조에 대해 설명한다. 
+M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으로 사용한다. 
+따라서 STON이 제공하는 다양한 기능과 관리기법들을 그대로 사용한다.
 
 .. figure:: img/m2_08.png
    :align: center
 
-위 그림에서 알 수 있듯이 STON은 M2에 통합되어 있지만 다루는 계층이 명확히 구분되어 기능상 충돌은 없다. 이 장에서는 M2에서 추가된 기능에 대해서만 살펴본다.
+위 그림에서 알 수 있듯이 STON은 M2에 통합되어 있지만 다루는 계층이 명확히 구분되어 기능상 충돌은 없다. 
+따라서 M2에 추가된 기능에 대해서만 다룬다.
 
 
 .. toctree::
@@ -116,4 +119,23 @@ www.example.com 도메인을 설정한다. ::
    http://demo.winesoft.co.kr/m2/views/sample1.html
    http://demo.winesoft.co.kr/m2/views/sample2.html
    http://demo.winesoft.co.kr/m2/views/sample3.html
+
+
+
+
+콘솔 시작/종료
+====================================
+
+리눅스 콘솔에서 다음 명령으로 M2를 시작/종료한다. ::
+
+   service m2 start
+   service m2 stop
+   service m2 restart
+
+
+
+설정구조
+====================================
+
+`STON Edge Server <https://ston.readthedocs.io/ko/latest/admin/environment.html>`_ 와 동일하다.
 

@@ -9,7 +9,7 @@ M2 완벽 가이드
 :최신버전: v20.04.0
 
 
-1부. M2 기본: 설정 배우기
+1부. M2 Ovewview
 =============================
 
 .. toctree::
@@ -18,10 +18,19 @@ M2 완벽 가이드
    guide/intro
    guide/usecases
    guide/getting_started
-   guide/environment
 
 
-5부. 부록
+2부. M2 동작/운영
+=============================
+
+.. toctree::
+   :maxdepth: 2
+
+   guide/mvc
+   guide/operation
+
+
+3부. 부록
 =============================
 
 .. toctree::
