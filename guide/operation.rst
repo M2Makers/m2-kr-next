@@ -3,9 +3,7 @@
 5장. 운영
 ******************
 
-이 장에서는 로그, 통계등 M2 운영시 점검지표들에 대해 설명한다.
-
-
+이 장에서는 M2운영에 필요한 다양한 도구들에 대해 설명한다.
 
 
 .. _op-purge:
@@ -71,3 +69,28 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
 -  ``503`` - 렌더링 실패
 
 
+.. _op-monitoring:
+
+통계
+====================================
+
+가상호스트에 M2가 설정되어 있다면 실시간/5분 평균 통계를 제공한다. ::
+
+   "M2":                                     <M2
+   {                                           Requests="30"
+     "Requests": 30,                           Converted="29"
+     "Converted": 29,                          Failed="1"
+     "Failed": 1,                              AvgRscsSize="1457969"
+     "AvgRscsSize": 1457969,                   AvgRscsCount="67"
+     "AvgRscsCount": 67,                       AvgRenderTime="124" />
+     "AvgRenderTime": 124,                     AvgTime="34" />
+     "AvgTime": 34
+   },
+
+-  ``Requests`` M2로 요청된 횟수
+-  ``Converted`` M2로 생성된 응답 (성공)
+-  ``Failed`` M2에서 실패한 응답
+-  ``AvgRscsSize (단위: Bytes)`` 엔드포인트에서 참조한 평균 리소스 크기
+-  ``AvgRscsCount`` 엔드포인트에서 참조한 평균 리소스 카운트
+-  ``AvgRenderTime (단위: ms)`` 렌더링 소요시간
+-  ``AvgTime (단위: ms)`` 요청 처리시간
