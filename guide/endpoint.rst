@@ -3,9 +3,8 @@
 4장. 엔드포인트
 ******************
 
-이 장에서는 M2의 동작단위인 엔드포인트와 그 안의 MVC 구조에 대해 설명한다. 
-이에 앞서 STON 가상호스트를 생성주어야 하는데 M2는 STON의 원본서버로 동작한다. 
-따라서 다음과 같이 설정되어 있어야 한다. ::
+이 장에서는 MVC 설정에 기반한 M2의 동작원리에 대해 설명한다. 
+M2엔진은 STON 가상호스트의 원본서버로 동작한다. 따라서 다음과 같이 가상호스트가 설정되어 있어야 한다. ::
 
    # vhosts.xml
 
@@ -30,23 +29,20 @@
       </Vhost>
    </Vhosts>
 
-엔드포인트는 멀티 구성이 가능하며 내부적으로 MVC 구조로 동작한다.
+M2는 MVC 구조로 동작한다.
 
 .. figure:: img/m2_13.png
     :align: center
 
-
-.. note::
-
-   생성된 결과를 STON이 캐싱할 경우 해당 엔드포인트는 TTL 시간동안 호출되지 않는다.
+Model-View-Control를 묶어 엔드포인트(Endpoint)라고 지칭한다. 엔드포인트는 멀티 구성이 가능하다.
 
 
 .. _mvc-conf:
 
-엔드포인트 설정
+Endpoint
 ====================================
 
-엔드포인트는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 의 `<M2>` 태그 하위에서 설정한다. ::
+`STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 에서 설정한다. ::
 
    # vhosts.xml - <Vhosts><Vhost>
 

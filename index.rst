@@ -9,7 +9,7 @@ M2 완벽 가이드
 :최신버전: v20.04.0
 
 
-1부. M2 Ovewview
+1부. M2 Overview
 =============================
 
 .. toctree::
@@ -26,7 +26,7 @@ M2 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
-   guide/mvc
+   guide/endpoint
    guide/operation
 
 
