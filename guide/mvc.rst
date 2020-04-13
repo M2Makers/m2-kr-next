@@ -63,10 +63,10 @@ Endpoint
    -  만약 단일한 모델 URL의 해석/맵핑 방식이 다양하다면 각각 구분된 ``<Endpoint>`` 로 구성해야 한다. 멀티 ``<Endpoint>`` 로의 라우팅은 STON이 처리한다.
 
 
-Model (Data)
+Model
 ====================================
 
-모델은 데이터를 의미하며 일반적으로 RESTful API로 제공된다. 다양한 상황에 대응할 수 있는 모델 사용법을 설명한다.
+모델은 데이터를 의미하며 일반적으로 RESTful API로 제공된다. 단일모델 사용시 접두어는 ``model.`` 이며 모델배열의 경우 ``model[0].`` 처럼 배열 인덱스를 사용한다.
 
 
 Model 배열
@@ -76,7 +76,7 @@ Model 배열
 
    /users/platinum?mym=[apple,banana,cherry]&view=catalog
 
-위와 같이 ``#model`` 에 대응하는 값을 [ ... ] 형식으로 입력한다. M2는 ``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. 이렇게 생성된 배열의 키는 쿼리스트링 키로 맵핑된다. ::
+위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. M2는 ``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. 이렇게 생성된 배열의 키는 쿼리스트링 키로 맵핑된다. ::
 
    {
       "mym" : [
@@ -234,7 +234,7 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
 
 규칙은 간단하다.
 
--  값 참조 구분자는 space(' ')이다. 예로 웹 페이지의 타이틀은 ``"html head title"`` 으로 표현한다.
+-  값 참조 구분자는 ``space`` 이다. 예로 웹 페이지의 타이틀은 ``"html head title"`` 으로 표현한다.
 -  맵핑하고 싶은 대상이 복수인 경우 값을 배열 ``["..."]`` 로 한다.
 
 
@@ -339,11 +339,12 @@ View
 
 `Nunjucks <https://mozilla.github.io/nunjucks/>`_ 형식으로 다음과 같이 참조 가능하다. ::
 
-   {{firstname}}
-   {{address.state}}
-   {{phoneNumber.0.number}}
+   {{ model.firstname }}
+   {{ model.address.state }}
+   {{ model.phoneNumber.0.number }}
 
-조건문, 반복문을 지원한다.
+
+조건문, 반복문을 지원한다. ::
 
    {% if hungry %}
      I am hungry
@@ -359,9 +360,9 @@ View
    <h1>Posts</h1>
    <ul>
    {% for item in items %}
-     <li>{{ item.title }}</li>
+      <li>{{ item.title }}</li>
    {% else %}
-     <li>This would display if the 'item' collection were empty</li>
+      <li>This would display if the 'item' collection were empty</li>
    {% endfor %}
    </ul>
 
@@ -373,8 +374,8 @@ HTML, XML 템플릿을 만든다. ::
 
    <html>
    <body>
-      <H1>{{firstname}} {{lastName}}</H1>
-      <p>{{address.city}}</p>
+      <H1>{{ model.firstname }} {{ model.lastName }}</H1>
+      <p>{{ model.address.city }}</p>
    </body>
    </html>
 
@@ -395,17 +396,22 @@ JPG, PNG, WEBP, BMP, PDF
          </style>
       </head>
       <body>
-         <H1>{{firstname}} {{lastName}}</H1>
-         <p>{{address.city}}</p>
+         <H1>{{ model.firstname }} {{ model.lastName }}</H1>
+         <p>{{ model.address.city }}</p>
       </body>
    </html>
 
 이하 이미지 포맷에 따라 ``name`` 값과 지원 옵션이 다르다. 입력되지 않은 기본 값은 다음과 같다.
 
--  가로( ``width`` ) = 400
--  세로( ``height`` ) = 300
--  품질( ``quality`` ) = 100
+============== ================= ========================
+속성            설명               기본값
+============== ================= ========================
+``width``       가로 픽셀         400
+``height``      세로 픽셀         300
+``quality``     JPEG 품질(%)      100
+============== ================= ========================
 
+ 이미지 포맷별 ``<meta>`` 태그 예제는 다음과 같다.
 
 -  JPG ::
       
@@ -431,7 +437,7 @@ JPG, PNG, WEBP, BMP, PDF
 MP4, GIF
 ------------------------------------
 
-비디오, Animated GIF 등 시간흐름이 필요한 포맷은 연속된 장면(Scene)을 연결하여 만든다.
+비디오, Animated GIF 등 시간흐름이 필요한 포맷은 연속된 장면( ``<Scene>``)을 연결하여 만든다.
 
 .. figure:: img/m2_userguide_09.png
     :align: center
@@ -450,26 +456,26 @@ MP4, GIF
       <body>
          <Scene>
             <Div style="background-color: blue;">
-               <H1>{{firstname}} {{lastName}}</H1>
+               <H1>{{ model.firstname }} {{ model.lastName }}</H1>
                <p>{{address.city}}</p>
             </Div>
          </Scene>
          <Scene>
             <Div style="background-color: blue;">
-               <H1>{{lastName}} {{firstname}} </H1>
-               <p>{{address.city}}</p>
+               <H1>{{ model.lastName }} {{ model.firstname }} </H1>
+               <p>{{ model.address.city }}</p>
             </Div>
          </Scene>
          <Scene>
             <Div style="background-color: green;">
-               <H1>{{lastName}} {{firstname}} ({{age}}</H1>
-               <p>{{address.city}}</p>
+               <H1>{{ model.lastName }} {{ model.firstname }} ({{ model.age }})</H1>
+               <p>{{ model.address.city }}</p>
             </Div>
          </Scene>
       </body>
    </html>
 
-<Scene> 태그는 의미가 없다. 따라서 <Div>를 넣어 영역을 구분하면 개발 단계에서 쉽게 확인이 가능하다.
+``<Scene>`` 태그는 의미가 없다. 따라서 ``<Div>`` 를 넣어 영역을 구분하면 개발 단계에서 쉽게 확인이 가능하다.
 
 -  MP4 ::
       
