@@ -37,15 +37,18 @@ Endpoint
    </M2>
 
 
-``<M2>`` 태그의 Status 속성이 Active일 때 활성화된다. 모델에 따라 독립된 ``<Endpoints>`` 를 멀티로 구성한다.
+``<M2>`` 태그의 ``Status`` 속성이 ``Active`` 일 때 활성화된다. 모델에 따라 독립된 ``<Endpoints>`` 를 멀티로 구성한다.
 
 -  ``<Endpoint>`` 단위 엔드포인트를 설정한다.
+
    -  속성
       -  ``Alias (옵션)`` 엔드포인트의 별칭. 복합모델 생성에 사용.
       -  ``Post (기본: ON)`` Post 메소드 허용 여부
       -  ``Get (기본: ON)`` Get 메소드 허용 여부
+
    -  하위 태그
-      -  ``<Control>`` M2로 서비스할 URL을 설정한다. ``ViewParam`` , ``ModelParam`` 속성을 통해 HTTP QueryString 키 값을 설정한다.
+
+      -  ``<Control>`` 서비스할 URL을 설정한다. ``ViewParam`` , ``ModelParam`` 속성을 통해 HTTP QueryString 키 값을 설정한다.
       -  ``<Model> 모델 API 주소를 설정한다. ``ModelParam`` 의 값이 ``#model`` 키워드로 치환된다.
       -  ``<Mapper>`` JSON 모델일 경우 바로 뷰에서 참조 가능하지만 ``Mapper`` 를 추가해 JSON을 변경하거나 다른 포맷을 공통 포맷(M2-JSON)으로 맵핑한다.
       -  ``<View>`` 뷰가 게시된 URL을 설정한다. ``ViewParam`` 의 값이 ``#view`` 키워드로 치환된다.
