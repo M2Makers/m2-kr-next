@@ -14,7 +14,7 @@ M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으
 
 .. note::
 
-   일관된 인터페이스를 위해 리눅스 콘솔명령 키워드도 ston을 그대로 사용한다. ::
+   일관된 인터페이스를 위해 리눅스 콘솔명령도 ston을 그대로 사용한다. ::
 
       service ston start
       service ston stop

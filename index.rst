@@ -27,6 +27,8 @@ M2 완벽 가이드
    :maxdepth: 2
 
    guide/endpoint
+   guide/model
+   guide/view
    guide/operation
 
 
