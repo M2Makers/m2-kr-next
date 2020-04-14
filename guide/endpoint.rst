@@ -3,8 +3,8 @@
 4장. Endpoint
 ******************
 
-이 장에서는 M2의 동작 단위인 엔드포인트(Endpoint)의 동작방식에 대해 설명한다.
-엔드포인트는 멀티로 구성이 가능하며 아래와 같이 내부적으로 MVC 구조로 동작한다.
+이 장에서는 M2의 동작 단위인 엔드포인트(Endpoint)에 대해 설명한다.
+엔드포인트는 멀티로 구성이 가능하며 내부적으로 MVC(Model-View-Control) 구조로 동작한다.
 
 .. figure:: img/m2_13.png
     :align: center
@@ -66,14 +66,14 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
    <M2 Status="Active">
       <Endpoints>
          
-         <Endpoint Alias="inven" Post="ON" Get="ON">
+         <Endpoint Alias="inven" Post="OFF" Get="ON">
             <Control ViewParam="view" ModelParam="model">/store/inventory</Control>
             <Model>https://foo.com/#model</Model>
             <Mapper>https://foo.com/mapper.json</Mapper>
             <View>https://bar.com/#view</View>
          </Endpoint>
 
-         <Endpoint Alias="platinum_user" Post="ON" Get="ON">
+         <Endpoint Alias="platinum_user" Post="OFF" Get="ON">
             <Control ViewParam="myv" ModelParam="mym">/users/platinum</Control>
             <Model>https://alice.com/bob/#model.json</Model>
             <View>https://bar.com/#view</View>
@@ -89,7 +89,7 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 
    -  속성
       -  ``Alias (옵션)`` 엔드포인트의 별칭. 복합모델 생성에 사용.
-      -  ``Post (기본: ON)`` Post 메소드 허용 여부
+      -  ``Post (기본: OFF)`` Post 메소드 허용 여부
       -  ``Get (기본: ON)`` Get 메소드 허용 여부
 
    -  하위 태그
@@ -132,7 +132,9 @@ GET Method
 POST Method
 ------------------------------------
 
-Post 메소드는 캐싱되지 않지만 단위 테스트 및 개발 용도로 지원된다. Body와 QueryString을 혼합해 사용 가능하다. ::
+Post 메소드는 캐싱되지 않지만 단위 테스트 및 개발 용도로 지원된다. 명시적으로 설정을 변경해주어야 
+
+Body와 QueryString을 혼합해 사용 가능하다. ::
 
    # GET 방식과 동일
    POST /myendpoint?model=wine&view=catalog
