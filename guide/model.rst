@@ -3,8 +3,87 @@
 5장. Model
 ******************
 
-모델은 엔드포인트가 참조하는 데이터를 의미한다. 
-일반적으로 RESTful API로 제공되는 JSON이나, HTML처럼 사람이 읽을 수 있는 포맷을 의미한다.
+이 장에서는 엔드포인트가 참조하는 데이터인 모델에 대해 설명한다.
+일반적으로 RESTful API로 제공되는 JSON이나, HTML처럼 사람이 읽을 수 있는 포맷을 의미한다. 
+
+다음과 같이 엔드포인트가 설정되어 있다고 가정한다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints>
+
+   <Endpoint Alias="inven" Post="OFF" Get="ON">
+      <Control ViewParam="view" ModelParam="model">/search</Control>
+      <Model>https://foo.com/#model</Model>
+      <View>https://bar.com/#view</View>
+   </Endpoint>
+
+
+M2-JSON 구조
+====================================
+
+엔드포인트를 ``/search`` 로 설정했으므로 클라이언트는 다음과 같이 호출한다. ::
+
+   http://www.example.com/search?model=100&view=list
+
+
+M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
+
+   https://foo.com/100
+
+::
+
+   {
+      "firstName": "John",
+      "lastName": "Smith",
+      "age": 25,
+      "address": {
+         "streetAddress": "21 2nd Street",
+         "city": "New York",
+         "state": "NY",
+      "postalCode": "10021"
+         },
+      "phoneNumber": [
+         { "type": "home", "number": "212 555-1234" },
+         { "type": "fax", "number": "646 555-4567" }
+      ]
+   }
+
+
+응답을 포함한 모은 컨텍스트 정보의 집합을 M2-JSON이라고 부른다. M2-JSON은 크게 ``model`` 과 ``req`` 나뉘며 이 경우 다음과 같이 구성된다. ::
+
+   {
+      "model": {
+         {
+            "firstName": "John",
+            "lastName": "Smith",
+            "age": 25,
+            "address": {
+               "streetAddress": "21 2nd Street",
+               "city": "New York",
+               "state": "NY",
+               "postalCode": "10021"
+            },
+            "phoneNumber": [
+               { "type": "home", "number": "212 555-1234" },
+               { "type": "fax", "number": "646 555-4567" }
+            ]
+         }
+      },
+      "req": { ... }
+   }
+
+.. note::
+
+   M2-JSON의 ``"model"`` 은 고정이 아니다. 만약 ``<Control ModelParam="myData">`` 라고 설정했다면 다음과 같이 구성된다. ::
+
+      {
+         "myData": { ... },         
+         "req": { ... }
+      }
+
+
+
+GET Method
+------------------------------------
 
 
 
