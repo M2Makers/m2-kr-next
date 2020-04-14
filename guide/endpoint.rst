@@ -51,7 +51,7 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 .. note::
    
    ``<Bypass***Request>`` 설정이 모두 ``ON`` 인 이유는 캐싱을 하지 않겠다는 의미이다. 
-   캐싱설정을 구성하면 MISS계열의 요청만 M2로 보내진다.
+   캐싱설정을 구성하면 ``TCP_MISS`` 계열의 요청만 M2로 보내진다.
 
 
 
@@ -83,11 +83,12 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
    </M2>
 
 
-``<M2>`` 태그의 ``Status`` 속성이 ``Active`` 일 때 활성화된다. 모델에 따라 독립된 ``<Endpoints>`` 를 멀티로 구성한다.
+``<M2>`` 태그의 ``Status`` 속성이 ``Active`` 일 때 활성화된다. 모델에 따라 독립된 ``<Endpoint>`` 를 멀티로 구성한다.
 
 -  ``<Endpoint>`` 단위 엔드포인트를 설정한다.
 
    -  속성
+
       -  ``Alias (옵션)`` 엔드포인트의 별칭. 복합모델 생성에 사용.
       -  ``Post (기본: OFF)`` Post 메소드 허용 여부
       -  ``Get (기본: ON)`` Get 메소드 허용 여부
@@ -95,7 +96,7 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
    -  하위 태그
 
       -  ``<Control>`` 서비스할 URL을 설정한다. ``ViewParam`` , ``ModelParam`` 속성을 통해 HTTP QueryString 키 값을 설정한다.
-      -  ``<Model> 모델 API 주소를 설정한다. ``ModelParam`` 의 값이 ``#model`` 키워드로 치환된다.
+      -  ``<Model>`` 모델 API 주소를 설정한다. ``ModelParam`` 의 값이 ``#model`` 키워드로 치환된다.
       -  ``<Mapper>`` JSON 모델일 경우 바로 뷰에서 참조 가능하지만 ``Mapper`` 를 추가해 JSON을 변경하거나 다른 포맷을 공통 포맷(M2-JSON)으로 맵핑한다.
       -  ``<View>`` 뷰가 게시된 URL을 설정한다. ``ViewParam`` 의 값이 ``#view`` 키워드로 치환된다.
 
@@ -114,7 +115,7 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 Web API
 ====================================
 
-클라이언트는 M2가 게시한 엔드포인트(API)를 HTTP로 호출한다.
+클라이언트는 ``<Control>`` 주소를 HTTP로 호출한다.
 
 .. note::
 
@@ -132,7 +133,7 @@ GET Method
 POST Method
 ------------------------------------
 
-Post 메소드는 캐싱되지 않지만 단위 테스트 및 개발 용도로 지원된다. 아래와 같이 설정을 활성화해준다. ::
+POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용도로 지원된다. 아래와 같이 설정을 활성화해준다. ::
 
    # vhosts.xml - <Vhosts><Vhost>
 
