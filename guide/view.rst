@@ -64,7 +64,7 @@
 
 
 
-출력 포맷
+포맷
 ====================================
 
 HTML, XML
@@ -203,3 +203,48 @@ JSON 템플릿을 만든다. ::
       "myCity" : "{{address.city}}"
    }
 
+
+
+필터
+====================================
+
+M2는 View에서 활용할 수 있는 필터를 제공한다. 
+필터는 ``<meta>`` 태그로 명시하며 다음 형식을 가진다. ::
+
+<meta name="m2-filter-XXX" content="키1=값1;키2=값2;...">
+
+
+m2-filter-image
+------------------------------------
+
+페이지에서 참조하는 이미지를 일괄처리한다. 
+View에 
+상품기술서처럼 크기와 용량이 큰 이미지를 효율적으로 전송하기에 적합니다. ::
+
+   <html>
+      <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <meta name="m2-filter-image" content="host=https://img.example.com/m2/images;splitheight=500;function=optimize,sref,fitimage;addclass=m2div;">
+         <style>
+            .m2div {
+               display: inline-block;
+               width: 100%
+            }
+         </style>
+      </head>
+      <body>
+         {{ model.__raw }}
+      </body>
+   </center>
+
+
+===================== ===================================================================================
+키                     값
+===================== ===================================================================================
+host                   프로토콜`이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 을 설정한 URL
+splitheight            이미지가 설정된 값(px)을 초과할 경우 여러 이미지로 분할한다.
+function               이미지 가공함수
+sref                   원본이미지 주소를 넘길 파라미터 키
+fitimage
+addclass               ???
+===================== =====================================
