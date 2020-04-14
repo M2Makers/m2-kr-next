@@ -1,6 +1,6 @@
 .. _nunjucks:
 
-Appendix C: Nunjucks
+Appendix B: Nunjucks
 ***********************
 
 Nunjucks 한글 레퍼런스
