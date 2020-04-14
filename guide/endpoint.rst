@@ -132,7 +132,18 @@ GET Method
 POST Method
 ------------------------------------
 
-Post 메소드는 캐싱되지 않지만 단위 테스트 및 개발 용도로 지원된다. 명시적으로 설정을 변경해주어야 
+Post 메소드는 캐싱되지 않지만 단위 테스트 및 개발 용도로 지원된다. 아래와 같이 설정을 활성화해준다. ::
+
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <M2 Status="Active">
+      <Endpoints>         
+         <Endpoint Post="ON">
+            ...
+         </Endpoint>
+      </Endpoints>
+   </M2>
+
 
 Body와 QueryString을 혼합해 사용 가능하다. ::
 
