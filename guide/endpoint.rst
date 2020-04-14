@@ -1,64 +1,84 @@
 .. _mvc:
 
-4장. 엔드포인트
+4장. Endpoint
 ******************
 
-이 장에서는 MVC 설정에 기반한 M2의 동작원리에 대해 설명한다. 
-M2엔진은 STON 가상호스트의 원본서버로 동작한다. 따라서 다음과 같이 가상호스트가 설정되어 있어야 한다. ::
+이 장에서는 M2의 동작 단위인 엔드포인트(Endpoint)의 동작방식에 대해 설명한다.
+엔드포인트는 멀티로 구성이 가능하며 아래와 같이 내부적으로 MVC 구조로 동작한다.
+
+.. figure:: img/m2_13.png
+    :align: center
+
+
+.. _mvc-ston-conf:
+
+가상호스트 설정
+====================================
+
+M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 의 원본서버로 동작한다. 
+다음과 같이 가상호스트를 생성한다. ::
 
    # vhosts.xml
 
    <Vhosts>
       <Vhost Name="www.example.com">
+
+         <!-- M2는 Loopback의 8585포트를 사용한다. -->
          <Origin>
-            <!-- M2서비스 포트는 Loopback의 8585포트를 사용한다. -->
             <Address>127.0.0.1:8585</Address>
          </Origin>
-         <M2 Status="Active">
-            ... (생략) ...
-         </M2>
          <Options>
             <BypassPostRequest Sticky="OFF">ON</BypassPostRequest>
             <BypassGetRequest Sticky="OFF">ON</BypassGetRequest>
             <BypassPutRequest Sticky="OFF">ON</BypassPutRequest>
          </Options>
+
+         <!-- M2가 배제되면 안된다. -->
          <OriginOptions>
             <Exclusion>0</Exclusion>
             <ReuseTimeout>0</ReuseTimeout>
          </OriginOptions>
+
+         <!-- M2를 설정한다. -->
+         <M2 Status="Active">
+            ... (생략) ...
+         </M2>
+         
       </Vhost>
    </Vhosts>
 
-M2는 MVC 구조로 동작한다.
 
-.. figure:: img/m2_13.png
-    :align: center
+.. note::
+   
+   ``<Bypass***Request>`` 설정이 모두 ``ON`` 인 이유는 캐싱을 하지 않겠다는 의미이다. 
+   캐싱설정을 구성하면 MISS계열의 요청만 M2로 보내진다.
 
-Model-View-Control를 묶어 엔드포인트(Endpoint)라고 지칭한다. 엔드포인트는 멀티 구성이 가능하다.
 
 
-.. _mvc-conf:
 
-가상호스트 설정
+엔드포인트 설정
 ====================================
 
-`STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environment.html#vhosts-xml>`_ 에서 설정한다. ::
+엔드포인트는 ``<M2>`` 하위에 설정한다. ::
 
    # vhosts.xml - <Vhosts><Vhost>
 
    <M2 Status="Active">
       <Endpoints>
+         
          <Endpoint Alias="inven" Post="ON" Get="ON">
             <Control ViewParam="view" ModelParam="model">/store/inventory</Control>
             <Model>https://foo.com/#model</Model>
             <Mapper>https://foo.com/mapper.json</Mapper>
             <View>https://bar.com/#view</View>
          </Endpoint>
+
          <Endpoint Alias="platinum_user" Post="ON" Get="ON">
             <Control ViewParam="myv" ModelParam="mym">/users/platinum</Control>
             <Model>https://alice.com/bob/#model.json</Model>
             <View>https://bar.com/#view</View>
          </Endpoint>
+
       </Endpoints>
    </M2>
 
@@ -91,152 +111,14 @@ Model-View-Control를 묶어 엔드포인트(Endpoint)라고 지칭한다. 엔�
 
 
 
-View
-====================================
-
-
-
-HTML, XML
-------------------------------------
-
-HTML, XML 템플릿을 만든다. ::
-
-   <html>
-   <body>
-      <H1>{{ model.firstname }} {{ model.lastName }}</H1>
-      <p>{{ model.address.city }}</p>
-   </body>
-   </html>
-
-
-JPG, PNG, WEBP, BMP, PDF
-------------------------------------
-
-이미지 출력은 HTML 템플릿을 기반으로 렌더링한다. 
-<meta> 태그를 통해 출력 포맷을 지정한다. 
-다음은 PNG 이미지를 가로 400, 세로 300으로 출력하는 예제이다. ::
-
-   <!DOCTYPE html>
-   <html>
-      <head>
-         <meta name="m2-render-png" content="width=400;height=300;" />
-         <style>
-            p { display: block; margin-top: 1em; margin-bottom: 1em; }
-         </style>
-      </head>
-      <body>
-         <H1>{{ model.firstname }} {{ model.lastName }}</H1>
-         <p>{{ model.address.city }}</p>
-      </body>
-   </html>
-
-이하 이미지 포맷에 따라 ``name`` 값과 지원 옵션이 다르다. 입력되지 않은 기본 값은 다음과 같다.
-
-============== ================= ========================
-속성            설명               기본값
-============== ================= ========================
-``width``       가로 픽셀         400
-``height``      세로 픽셀         300
-``quality``     JPEG 품질(%)      100
-============== ================= ========================
-
-
-이미지 포맷별 ``<meta>`` 태그 예제는 다음과 같다.
-
--  JPG ::
-      
-      <meta name="m2-render-jpg" content="width=400;height=300;quality=85" />
-
--  PNG ::
-      
-      <meta name="m2-render-png" content="width=400;height=300;" />
-
--  WEBP ::
-      
-      <meta name="m2-render-webp" content="width=400;height=300;quality=85" />
-
--  BMP ::
-      
-      <meta name="m2-render-bmp" content="width=400;height=300;" />
-
--  PDF ::
-      
-      <meta name="m2-render-pdf" content="width=400;height=300;scale=1;margin-top: 10px;margin-bottom:10px;margin-right:10px;margin-left:10px;" />
-
-
-MP4, GIF
-------------------------------------
-
-비디오, Animated GIF 등 시간흐름이 필요한 포맷은 연속된 장면( ``<Scene>``)을 연결하여 만든다.
-
-.. figure:: img/m2_userguide_09.png
-    :align: center
-
-
-다음과 같이 ``<Scene>`` 태그를 통해 각 화면을 구성한다. ::
-
-   <!DOCTYPE html>
-   <html>
-      <head>
-         <meta name="m2-render-gif" content="width=400;height=300;delay=1000;" />
-         <style>
-            p { display: block; margin-top: 1em; margin-bottom: 1em; }
-         </style>
-      </head>
-      <body>
-         <Scene>
-            <Div style="background-color: blue;">
-               <H1>{{ model.firstname }} {{ model.lastName }}</H1>
-               <p>{{address.city}}</p>
-            </Div>
-         </Scene>
-         <Scene>
-            <Div style="background-color: blue;">
-               <H1>{{ model.lastName }} {{ model.firstname }} </H1>
-               <p>{{ model.address.city }}</p>
-            </Div>
-         </Scene>
-         <Scene>
-            <Div style="background-color: green;">
-               <H1>{{ model.lastName }} {{ model.firstname }} ({{ model.age }})</H1>
-               <p>{{ model.address.city }}</p>
-            </Div>
-         </Scene>
-      </body>
-   </html>
-
-``<Scene>`` 태그는 의미가 없다. 따라서 ``<Div>`` 를 넣어 영역을 구분하면 개발 단계에서 쉽게 확인이 가능하다.
-
--  MP4 ::
-      
-      <meta name="m2-render-mp4" content="width=400;height=300;interval=1000;" />
-
-
--  GIF ::
-      
-      <meta name="m2-render-gif" content="width=400;height=300;delay=1000;" />
-
-   -  장면 시간( ``delay (단위: ms)`` ) = 1000
-
-
-JSON
-------------------------------------
-
-JSON 템플릿을 만든다. ::
-
-   {
-      "myName" : "{{firstname}} {{lastName}}",
-      "myCity" : "{{address.city}}"
-   }
-
-
-
-.. _mvc-control:
-
-Control (Web API)
+Web API
 ====================================
 
 클라이언트는 M2가 게시한 엔드포인트(API)를 HTTP로 호출한다.
+
+.. note::
+
+   Web API는 MVC의 C(Control)에 해당한다.
 
 
 GET Method
