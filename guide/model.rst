@@ -11,7 +11,7 @@
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints>
 
    <Endpoint Alias="inven" Post="OFF" Get="ON">
-      <Control ViewParam="view" ModelParam="model">/search</Control>
+      <Control ViewParam="view" ModelParam="model">/fruits</Control>
       <Model>https://foo.com/#model</Model>
       <View>https://bar.com/#view</View>
    </Endpoint>
@@ -20,9 +20,9 @@
 M2-JSON 구조
 ====================================
 
-엔드포인트를 ``/search`` 로 설정했으므로 클라이언트는 다음과 같이 호출한다. ::
+엔드포인트를 ``/fruits`` 로 설정했으므로 클라이언트는 다음과 같이 호출한다. ::
 
-   http://www.example.com/search?model=apple&view=list
+   http://www.example.com/fruits?model=apple&view=list
 
 
 M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
@@ -101,16 +101,16 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
          "hostname": "www.example.com",
          "httpVersion": "1.1",
          "method": "GET",
-         "originalUrl": "/search?model=apple&view=list",
-         "path": "/search",
+         "originalUrl": "/fruits?model=apple&view=list",
+         "path": "/fruits",
          "protocol": "http",
          "query": {
             "model": "apple",
             "view": "list"
          },
-         "url": "/search?model=apple&view=list",
+         "url": "/fruits?model=apple&view=list",
          "xhr": false,
-         "fullUrl": "http://www.example.com/search?model=apple&view=list"
+         "fullUrl": "http://www.example.com/fruits?model=apple&view=list"
       }
    }
 
@@ -122,7 +122,7 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 -  ``hostname`` - fillme
 -  ``httpVersion`` - HTTP 버전
 -  ``method`` - HTTP 메소드
--  ``originalUrl": "/search?model=apple&view=list",
+-  ``originalUrl": "/fruits?model=apple&view=list",
 -  ``path`` - URL 경로
 -  ``protocol`` - 프로토콜
 -  ``query`` - 쿼리스트링 키/값 리스트
@@ -137,7 +137,7 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
 여러 모델이 필요한 경우 배열을 사용한다. ::
 
-   /search?model=[apple,banana,cherry]&view=list
+   /fruits?model=[apple,banana,cherry]&view=list
 
 
 위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. 
