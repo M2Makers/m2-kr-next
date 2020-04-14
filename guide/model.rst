@@ -10,7 +10,7 @@
 
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints>
 
-   <Endpoint Alias="inven" Post="OFF" Get="ON">
+   <Endpoint>
       <Control ViewParam="view" ModelParam="model">/fruits</Control>
       <Model>https://foo.com/#model</Model>
       <View>https://bar.com/#view</View>
@@ -28,6 +28,8 @@ M2-JSON 구조
 M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
    https://foo.com/apple
+
+foo.com은 아래와 같이 응답한다.
 
 ::
 
@@ -51,7 +53,8 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
 M2-JSON은 다음과 같이 참조한다. ::
 
-   
+   {{ model.name }}   
+
 
 .. note::
 
@@ -96,7 +99,7 @@ M2-JSON은 다음과 같이 참조한다. ::
       }
    }
 
-``"req"`` 각 필드의 의미는 다음과 같다.
+``"req"`` 하위 키는 다음과 같다.
 
 -  ``baseUrl`` - fillme
 -  ``headers`` - 클라이언트 요청헤더 리스트
@@ -104,7 +107,7 @@ M2-JSON은 다음과 같이 참조한다. ::
 -  ``hostname`` - fillme
 -  ``httpVersion`` - HTTP 버전
 -  ``method`` - HTTP 메소드
--  ``originalUrl": "/fruits?model=apple&view=list",
+-  ``originalUrl`` - fillme
 -  ``path`` - URL 경로
 -  ``protocol`` - 프로토콜
 -  ``query`` - 쿼리스트링 키/값 리스트
@@ -117,13 +120,15 @@ M2-JSON은 다음과 같이 참조한다. ::
 모델 배열
 ------------------------------------
 
-여러 모델이 필요한 경우 배열을 사용한다. ::
+멀티 모델이 필요한 경우 배열을 사용한다. ::
 
    /fruits?model=[apple,banana,pineapple]&view=list
 
 
 위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. 
-``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. 이렇게 생성된 배열의 키는 쿼리스트링 키로 맵핑된다. ::
+
+
+``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. ::
 
    {
       "model" : [
@@ -144,15 +149,20 @@ M2-JSON은 다음과 같이 참조한다. ::
       "req" : { ... }
    }
 
+"Banana"의 "image" 필드는 다음과 같이 참조한다. ::
 
-위와 같은 모델 배열을 생성하기 위해 아래의 API 호출이 발생한다. ::
+   {{ model[1].image }}
+
+
+모델 배열을 생성하기 위해 엔드포인트는 다음 API들을 호출한다. ::
 
    https://foo.com/apple
    https://foo.com/banana
    https://foo.com/pineapple
 
 
-모든 API 호출이 성공하면 다행이겠지만 일부만 성공할 가능성이 있다. 이런 일부 모델의 실패 상황을 ``Sparse`` 속성으로 대처할 수 있다. ::
+모든 API 호출이 성공하면 좋겠지만 일부만 성공할 가능성이 있다. 
+이런 일부 모델의 실패 상황을 ``Sparse`` 속성으로 대처할 수 있다. ::
 
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
@@ -239,27 +249,6 @@ M2-JSON은 다음과 같이 참조한다. ::
 
 
 
-내장변수
-====================================
-
-내장변수는 __XXX 형식으로 표기되며 주로 M2-JSON의 메타 속성을 다루는 역할을 한다. ::
-
-   {
-      "firstName": "...",
-      "address": {
-         "streetAddress": "...",
-         "city": "..."
-      },
-      "phoneNumber": ["..."],
-      "__model_url" : "http://www.foo.com/goods?no=12345",
-      "__model_raw" : "<html> ...(생략)... </html>"
-   }
-
--  ``__model_url`` 모델이 참조된 URL
--  ``__model_raw`` 모델의 원시(RAW) 데이터 문자열
-
-
-
 Mapper
 ====================================
 
@@ -284,6 +273,21 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
 
 -  값 참조 구분자는 ``space`` 이다. 예로 웹 페이지의 타이틀은 ``"html head title"`` 으로 표현한다.
 -  맵핑하고 싶은 대상이 복수인 경우 값을 배열 ``["..."]`` 로 한다.
+
+
+맵퍼가 사용되면 **M2-JSON** 에 추가필드가 생성된다. ::
+
+   {
+      "model": {
+         ...,
+         "__url": "http://www.example.com/fruits?model=apple&view=list",
+         "__raw": " <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ..."
+      },
+      "req": { ... }
+   }
+
+-  ``__url`` - 클라이언트가 호출한 URL
+-  ``__raw`` - 참조한 모델의 원시(RAW) 데이터
 
 
 
@@ -351,4 +355,3 @@ HTML/XML
       ]
    }
 
-   
