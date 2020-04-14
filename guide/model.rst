@@ -3,7 +3,7 @@
 5장. Model
 ******************
 
-이 장에서는 엔드포인트가 참조하는 데이터인 모델인 M2-JSON에 대해 설명한다.
+이 장에서는 엔드포인트가 참조하는 데이터인 모델인 **M2-JSON** 에 대해 설명한다.
 일반적으로 RESTful API로 제공되는 JSON이나, HTML처럼 사람이 읽을 수 있는 포맷을 의미한다. 
 
 다음과 같이 엔드포인트가 설정되어 있다고 가정한다. ::
@@ -32,19 +32,9 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 ::
 
    {
-      "firstName": "John",
-      "lastName": "Smith",
-      "age": 25,
-      "address": {
-         "streetAddress": "21 2nd Street",
-         "city": "New York",
-         "state": "NY",
-      "postalCode": "10021"
-         },
-      "phoneNumber": [
-         { "type": "home", "number": "212 555-1234" },
-         { "type": "fax", "number": "646 555-4567" }
-      ]
+      "name" : "Apple",
+      "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg",
+      "price" : 35
    }
 
 
@@ -52,28 +42,20 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
    {
       "model": {
-         {
-            "firstName": "John",
-            "lastName": "Smith",
-            "age": 25,
-            "address": {
-               "streetAddress": "21 2nd Street",
-               "city": "New York",
-               "state": "NY",
-               "postalCode": "10021"
-            },
-            "phoneNumber": [
-               { "type": "home", "number": "212 555-1234" },
-               { "type": "fax", "number": "646 555-4567" }
-            ]
-         }
+         "name" : "Apple",
+         "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg",
+         "price" : 35
       },
       "req": { ... }
    }
 
+M2-JSON은 다음과 같이 참조한다. ::
+
+   
+
 .. note::
 
-   M2-JSON의 ``"model"`` 은 고정이 아니다. 만약 ``<Control ModelParam="myData">`` 라고 설정했다면 다음과 같이 구성된다. ::
+   **M2-JSON** 의 ``"model"`` 은 고정이 아니다. 만약 ``<Control ModelParam="myData">`` 라고 설정했다면 다음과 같이 구성된다. ::
 
       {
          "myData": { ... },         
@@ -137,7 +119,7 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
 여러 모델이 필요한 경우 배열을 사용한다. ::
 
-   /fruits?model=[apple,banana,cherry]&view=list
+   /fruits?model=[apple,banana,pineapple]&view=list
 
 
 위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. 
@@ -145,9 +127,19 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
    {
       "model" : [
-         { "name": "apple", ... },
-         { "name": "banana", ... },
-         { "name": "cherry", ... }
+         {
+            "name" : "Apple",
+            "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg",
+            "price" : 35
+         }, {
+            "name" : "Banana",
+            "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg",
+            "price" : 12
+         }, {
+            "name" : "Pineapple",
+            "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg",
+            "price" : 200
+         }
       ],
       "req" : { ... }
    }
@@ -157,45 +149,32 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
    https://foo.com/apple
    https://foo.com/banana
-   https://foo.com/cherry
+   https://foo.com/pineapple
 
 
 모든 API 호출이 성공하면 다행이겠지만 일부만 성공할 가능성이 있다. 이런 일부 모델의 실패 상황을 ``Sparse`` 속성으로 대처할 수 있다. ::
 
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
-   <Model Sparse="Off">https://alice.com/bob/#model.json</Model>
+   <Model Sparse="Off">https://foo.com/#model</Model>
 
 -  ``Sparse (기본: OFF)`` 모델 참조가 하나라도 실패하면 실패처리한다. ``ON`` 설정이라면 모든 모델 참조가 실패할 경우에만 실패처리 된다.
 
 
-예를 들어 ``Sparse="On"`` 인 상황에서 apple과 cherry의 모델 참조가 실패하면 모델 배열은 다음과 같이 구성된다. ::
+예를 들어 ``Sparse="On"`` 인 상황에서 apple과 pineapple의 모델 참조가 실패하면 모델 배열은 다음과 같이 구성된다. ::
 
    {
       "model" : [
          { },
-         { "name": "banana", ... },
+         {
+            "name" : "Banana",
+            "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg",
+            "price" : 12
+         },
          { }
       ]
    }
 
-
-쿼리스트링 모델변수
-====================================
-
-``<Model>`` 설정 외에 클라이언트로부터 직접 모델을 입력받을 수 있다. ::
-
-   /users/platinum?mym=[apple,banana,cherry]&view=catalog&mynumber=123456&myage=24
-
-
-위 주소의 쿼리 스트링 중 ``ModelParam`` 과 ``ViewParam`` 를 제외하면 약속된 쿼리스트링이 아니다. 이러한 키/값 쌍은 ``__query`` 의 자식 노드로 접근 가능하다. ::
-
-   {
-      "__query" : {
-         "mynumber": "123456",
-         "myage": "24"
-      }
-   }
 
 
 모델 결합
@@ -309,14 +288,14 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
 
 
 JSON
-====================================
+---------------------------------------
 
 -  JSON은 별도의 맵핑 없이 M2-JSON으로 사용 가능하다.
 
 
 
 HTML/XML
-====================================
+---------------------------------------
 
 -  HTML과 XML 맵핑 규칙은 동일하며 추가적인 표현을 제공한다.
 -  class 는 접두어 # 으로 참조한다.
@@ -371,3 +350,5 @@ HTML/XML
          "cloud computing, digital streaming, and artificial intelligence."
       ]
    }
+
+   
