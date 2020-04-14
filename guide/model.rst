@@ -51,7 +51,7 @@ foo.com은 아래와 같이 응답한다.
       "req": { ... }
    }
 
-M2-JSON은 다음과 같이 참조한다. ::
+**M2-JSON** 은 다음과 같이 참조한다. ::
 
    {{ model.name }}   
 
@@ -190,13 +190,13 @@ M2-JSON은 다음과 같이 참조한다. ::
 Mapper
 ====================================
 
-맵퍼(Mapper)를 작성해 다양한 소스를 M2-JSON으로 맵핑(Mapping)한다.
+맵퍼(Mapper)를 작성해 다양한 소스를 **M2-JSON** 으로 맵핑(Mapping)한다.
 
 .. figure:: img/m2_userguide_04.png
     :align: center
 
 
-M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 의미를 가지지 않는다. ::
+**M2-JSON** 은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 의미를 가지지 않는다. ::
 
    {
       "firstName": "...",
@@ -233,7 +233,7 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
 JSON
 ---------------------------------------
 
--  JSON은 별도의 맵핑 없이 M2-JSON으로 사용 가능하다.
+-  JSON은 별도의 맵핑 없이 **M2-JSON** 으로 사용 가능하다.
 
 
 
@@ -279,7 +279,7 @@ HTML/XML
       "descriptions" : [ ".foo"],
    }
 
-위 맵핑은 아래와 같은 M2-JSON으로 변환된다. ::
+위 맵핑은 아래와 같은 **M2-JSON** 으로 변환된다. ::
 
    {
       "myTitle" : "Amazon.com: Online Shopping",
@@ -334,7 +334,7 @@ HTML/XML
    </M2>
 
 -  ``<Model>`` 태그가 없다면 모델 결합을 위한 ``<Endpoint>`` 로 인식한다.
--  ``@Alias`` 를 통해 다른 M2-JSON을 참조한다. (예. ``@inven`` , ``@golduser`` )
+-  ``@Alias`` 를 통해 다른 **M2-JSON** 을 참조한다. (예. ``@inven`` , ``@golduser`` )
 
 결합 맵퍼는 다음과 같이 작성한다. ::
 
@@ -349,7 +349,7 @@ HTML/XML
 .. figure:: img/m2_userguide_06.png
     :align: center
 
-``@Alias`` 뒤에 뷰를 명시하면 M2-JSON을 가공한 뷰를 참조할 수 있다. 단, 해당 뷰의 형식은 반드시 JSON이어야 한다.
+``@Alias`` 뒤에 뷰를 명시하면 **M2-JSON** 을 가공한 뷰를 참조할 수 있다. 단, 해당 뷰의 형식은 반드시 JSON이어야 한다.
 
 .. figure:: img/m2_userguide_07.png
     :align: center
