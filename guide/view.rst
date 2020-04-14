@@ -3,18 +3,18 @@
 6장. View
 ******************
 
-뷰(View)는 M2-JSON을 가공하여 사용자가 원하는 출력을 생성하는 템플릿을 의미한다. 
-`Nunjucks <https://mozilla.github.io/nunjucks/>`_ 언어를 통해 M2-JSON을 다룬다.
+뷰(View)는 ``M2-JSON`` 을 가공하여 사용자가 원하는 출력을 생성하는 템플릿을 의미한다. 
+`Nunjucks <https://mozilla.github.io/nunjucks/>`_ 언어를 통해 ``M2-JSON`` 을 다룬다.
 
 .. figure:: img/m2_userguide_08.png
     :align: center
 
 .. note::
    
-   View가 주어지지 않을 경우 렌더링 없이 Model을 응답한다.
+   View가 입력되지 않으면 ``M2-JSON`` 을 응답한다.
 
 
-`Nunjucks <https://mozilla.github.io/nunjucks/>`_ 는 Jinja2에 영감을 받은 JavaScript 템플릿 언어이다. 
+`Nunjucks <https://mozilla.github.io/nunjucks/>`_ 는 `Jinja2 <https://jinja.palletsprojects.com/>`_ 에 영감을 받은 언어이다. 
 따라서 기본적인 `Jinja2 <https://jinja.palletsprojects.com/>`_ 의 문법이나 필터를 그대로 사용 가능하다. ::
 
    {
@@ -64,8 +64,11 @@
 
 
 
-HTML, XML
+출력 포맷
 ====================================
+
+HTML, XML
+------------------------------------
 
 HTML, XML 템플릿을 만든다. ::
 
@@ -78,7 +81,7 @@ HTML, XML 템플릿을 만든다. ::
 
 
 JPG, PNG, WEBP, BMP, PDF
-====================================
+------------------------------------
 
 이미지 출력은 HTML 템플릿을 기반으로 렌더링한다. 
 <meta> 태그를 통해 출력 포맷을 지정한다. 
@@ -133,7 +136,7 @@ JPG, PNG, WEBP, BMP, PDF
 
 
 MP4, GIF
-====================================
+------------------------------------
 
 비디오, Animated GIF 등 시간흐름이 필요한 포맷은 연속된 장면( ``<Scene>``)을 연결하여 만든다.
 
@@ -188,7 +191,7 @@ MP4, GIF
 
 
 JSON
-====================================
+------------------------------------
 
 JSON 템플릿을 만든다. ::
 
@@ -196,6 +199,4 @@ JSON 템플릿을 만든다. ::
       "myName" : "{{firstname}} {{lastName}}",
       "myCity" : "{{address.city}}"
    }
-
-
 
