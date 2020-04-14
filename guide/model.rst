@@ -280,14 +280,14 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
    {
       "model": {
          ...,
-         "__url": "http://www.example.com/fruits?model=apple&view=list",
+         "__url": "https://foo.com/apple",
          "__raw": " <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ..."
       },
       "req": { ... }
    }
 
--  ``__url`` - 클라이언트가 호출한 URL
--  ``__raw`` - 참조한 모델의 원시(RAW) 데이터
+-  ``__url`` - 엔드포인트가 호출한 URL
+-  ``__raw`` - 원시(RAW) 데이터
 
 
 
