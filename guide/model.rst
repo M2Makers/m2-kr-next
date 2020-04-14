@@ -3,7 +3,7 @@
 5장. Model
 ******************
 
-이 장에서는 엔드포인트가 참조하는 데이터인 모델에 대해 설명한다.
+이 장에서는 엔드포인트가 참조하는 데이터인 모델인 M2-JSON에 대해 설명한다.
 일반적으로 RESTful API로 제공되는 JSON이나, HTML처럼 사람이 읽을 수 있는 포맷을 의미한다. 
 
 다음과 같이 엔드포인트가 설정되어 있다고 가정한다. ::
@@ -22,12 +22,12 @@ M2-JSON 구조
 
 엔드포인트를 ``/search`` 로 설정했으므로 클라이언트는 다음과 같이 호출한다. ::
 
-   http://www.example.com/search?model=100&view=list
+   http://www.example.com/search?model=apple&view=list
 
 
 M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
-   https://foo.com/100
+   https://foo.com/apple
 
 ::
 
@@ -48,7 +48,7 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
    }
 
 
-응답을 포함한 모은 컨텍스트 정보의 집합을 M2-JSON이라고 부른다. M2-JSON은 크게 ``model`` 과 ``req`` 나뉘며 이 경우 다음과 같이 구성된다. ::
+응답을 포함한 모은 컨텍스트 정보의 집합을 **M2-JSON** 이라고 부른다. **M2-JSON** 은 ``model`` 과 ``req`` 나뉘며 이 경우 다음과 같이 구성된다. ::
 
    {
       "model": {
@@ -82,34 +82,83 @@ M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
 
 
 
-GET Method
+``req`` 필드
 ------------------------------------
 
-
-
-Model 배열
-====================================
-
-단일모델 사용시 접두어는 ``model.`` 이며 모델배열의 경우 ``model[0].`` 처럼 배열 인덱스를 사용한다.
-하나의 뷰에 동일한 형태의 여러 모델이 필요한 경우 배열을 사용한다. ::
-
-   /users/platinum?mym=[apple,banana,cherry]&view=catalog
-
-위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. M2는 ``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. 이렇게 생성된 배열의 키는 쿼리스트링 키로 맵핑된다. ::
+클라이언트가 호출한 요청 정보는 ``req`` 필드에 저장된다. ::
 
    {
-      "mym" : [
+      "model": { ... },
+      "req": {
+         "baseUrl": "",
+         "headers": {
+            "host": "www.example.com:8585",
+            "if-modified-since": "Mon, 13 Apr 2020 06:41:28 GMT",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36",
+            "accept-encoding": "gzip"
+         },
+         "host": "www.example.com",
+         "hostname": "www.example.com",
+         "httpVersion": "1.1",
+         "method": "GET",
+         "originalUrl": "/search?model=apple&view=list",
+         "path": "/search",
+         "protocol": "http",
+         "query": {
+            "model": "apple",
+            "view": "list"
+         },
+         "url": "/search?model=apple&view=list",
+         "xhr": false,
+         "fullUrl": "http://www.example.com/search?model=apple&view=list"
+      }
+   }
+
+``"req"`` 각 필드의 의미는 다음과 같다.
+
+-  ``baseUrl`` - fillme
+-  ``headers`` - 클라이언트 요청헤더 리스트
+-  ``host`` - fillme
+-  ``hostname`` - fillme
+-  ``httpVersion`` - HTTP 버전
+-  ``method`` - HTTP 메소드
+-  ``originalUrl": "/search?model=apple&view=list",
+-  ``path`` - URL 경로
+-  ``protocol`` - 프로토콜
+-  ``query`` - 쿼리스트링 키/값 리스트
+-  ``url`` - fillme
+-  ``xhr`` - fillme
+-  ``fullUrl`` - fillme
+
+
+
+모델 배열
+------------------------------------
+
+여러 모델이 필요한 경우 배열을 사용한다. ::
+
+   /search?model=[apple,banana,cherry]&view=list
+
+
+위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. 
+``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. 이렇게 생성된 배열의 키는 쿼리스트링 키로 맵핑된다. ::
+
+   {
+      "model" : [
          { "name": "apple", ... },
          { "name": "banana", ... },
          { "name": "cherry", ... }
-      ]
+      ],
+      "req" : { ... }
    }
+
 
 위와 같은 모델 배열을 생성하기 위해 아래의 API 호출이 발생한다. ::
 
-   https://alice.com/bob/apple.json
-   https://alice.com/bob/banana.json
-   https://alice.com/bob/cherry.json
+   https://foo.com/apple
+   https://foo.com/banana
+   https://foo.com/cherry
+
 
 모든 API 호출이 성공하면 다행이겠지만 일부만 성공할 가능성이 있다. 이런 일부 모델의 실패 상황을 ``Sparse`` 속성으로 대처할 수 있다. ::
 
@@ -119,10 +168,11 @@ Model 배열
 
 -  ``Sparse (기본: OFF)`` 모델 참조가 하나라도 실패하면 실패처리한다. ``ON`` 설정이라면 모든 모델 참조가 실패할 경우에만 실패처리 된다.
 
+
 예를 들어 ``Sparse="On"`` 인 상황에서 apple과 cherry의 모델 참조가 실패하면 모델 배열은 다음과 같이 구성된다. ::
 
    {
-      "mym" : [
+      "model" : [
          { },
          { "name": "banana", ... },
          { }

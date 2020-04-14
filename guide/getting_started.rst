@@ -61,7 +61,7 @@ vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
                 <Endpoints>
                     <Endpoint>
                         <Control>/banner</Control>
-                        <Model>http://demo.winesoft.co.kr/m2/models/#mode.json</Model>
+                        <Model>http://demo.winesoft.co.kr/m2/models/#model.json</Model>
                         <View>http://demo.winesoft.co.kr/m2/views/#view.html</View>
                     </Endpoint>
                 </Endpoints>
