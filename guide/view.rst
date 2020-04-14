@@ -15,7 +15,7 @@
 
 
 `Nunjucks <https://mozilla.github.io/nunjucks/>`_ 는 `Jinja2 <https://jinja.palletsprojects.com/>`_ 에 영감을 받은 언어이다. 
-따라서 기본적인 `Jinja2 <https://jinja.palletsprojects.com/>`_ 의 문법이나 필터를 그대로 사용 가능하다. ::
+따라서 기본적인 `Jinja2 <https://jinja.palletsprojects.com/>`_ 의 문법이나 필터를 그대로 사용한다. ::
 
    {
       "firstName": "John",
@@ -80,11 +80,14 @@ HTML, XML 템플릿을 만든다. ::
    </html>
 
 
+별도의 ``<meta>`` 태그가 필요없다.
+
+
 JPG, PNG, WEBP, BMP, PDF
 ------------------------------------
 
 이미지 출력은 HTML 템플릿을 기반으로 렌더링한다. 
-<meta> 태그를 통해 출력 포맷을 지정한다. 
+``<meta>`` 태그를 통해 출력 포맷을 지정한다. 
 다음은 PNG 이미지를 가로 400, 세로 300으로 출력하는 예제이다. ::
 
    <!DOCTYPE html>
