@@ -23,7 +23,7 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
    <Vhosts>
       <Vhost Name="www.example.com">
 
-         <!-- M2는 Loopback의 8585포트를 사용한다. -->
+         <!-- [M2] Loopback:8585포트 사용 -->
          <Origin>
             <Address>127.0.0.1:8585</Address>
          </Origin>
@@ -33,13 +33,12 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
             <BypassPutRequest Sticky="OFF">ON</BypassPutRequest>
          </Options>
 
-         <!-- M2가 배제되면 안된다. -->
+         <!-- [M2] 배제금지 -->
          <OriginOptions>
             <Exclusion>0</Exclusion>
-            <ReuseTimeout>0</ReuseTimeout>
          </OriginOptions>
 
-         <!-- M2를 설정한다. -->
+         <!-- [M2] 설정 -->
          <M2 Status="Active">
             ... (생략) ...
          </M2>
@@ -144,6 +143,11 @@ POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용
          </Endpoint>
       </Endpoints>
    </M2>
+
+
+.. note::
+
+   ``<Endpoint Post="OFF">`` 라면 403 Forbidden으로 응답한다.
 
 
 Body와 QueryString을 혼합해 사용 가능하다. ::
