@@ -25,7 +25,7 @@ Appendix B: Nunjucks
 -  ``length (기본: 255)`` - 자를 문자열 길이
 -  ``killwords (기본: false)`` - ``true`` 라면 단어가 잘리더라도 길이에 맞추어 정확히 자른다. ``false`` 라면 잘리는 단어를 버린다.
 -  ``end (기본: ...)`` - 단어가 잘렸다면 이 값을 문자열에 붙인다.
--  ``leeway`` 
+-  ``leeway (기본: 5)`` - ``length`` 이후 남은 문자수가 이 값을 넘지 않는다면 자르지 않는다.
 
 ::
 
@@ -37,3 +37,7 @@ Appendix B: Nunjucks
       -> "foo bar baz qux"
   {{ "foo bar baz qux"|truncate(11, False, '...', 0) }}
       -> "foo bar..."
+
+.. note::
+
+   M2 - ``leeway`` 기본 값은 0이다.
