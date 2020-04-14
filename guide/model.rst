@@ -75,18 +75,15 @@ foo.com은 아래와 같이 응답한다.
    {
       "model": { ... },
       "req": {
-         "baseUrl": "",
          "headers": {
             "host": "www.example.com:8585",
             "if-modified-since": "Mon, 13 Apr 2020 06:41:28 GMT",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36",
             "accept-encoding": "gzip"
          },
-         "host": "www.example.com",
          "hostname": "www.example.com",
          "httpVersion": "1.1",
          "method": "GET",
-         "originalUrl": "/fruits?model=apple&view=list",
          "path": "/fruits",
          "protocol": "http",
          "query": {
@@ -101,19 +98,16 @@ foo.com은 아래와 같이 응답한다.
 
 ``"req"`` 하위 키는 다음과 같다.
 
--  ``baseUrl`` - fillme
--  ``headers`` - 클라이언트 요청헤더 리스트
--  ``host`` - fillme
--  ``hostname`` - fillme
+-  ``headers`` - 클라이언트 요청헤더 목록
+-  ``hostname`` - 요청 호스트 이름
 -  ``httpVersion`` - HTTP 버전
 -  ``method`` - HTTP 메소드
--  ``originalUrl`` - fillme
--  ``path`` - URL 경로
+-  ``path`` - 요청 URL 중 경로 정보
 -  ``protocol`` - 프로토콜
 -  ``query`` - 쿼리스트링 키/값 리스트
--  ``url`` - fillme
--  ``xhr`` - fillme
--  ``fullUrl`` - fillme
+-  ``url`` - 요청 URL 정보
+-  ``xhr`` - Ajax에 의한 요청 여부 ( ``true`` 인 경우 Ajax호출)
+-  ``fullUrl`` - 호스트 정보를 포함한 요청 UR
 
 
 

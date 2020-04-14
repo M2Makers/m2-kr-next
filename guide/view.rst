@@ -224,7 +224,7 @@ View에
    <html>
       <head>
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <meta name="m2-filter-image" content="host=https://img.example.com/m2/images;splitheight=500;function=optimize,sref,fitimage;addclass=m2div;">
+         <meta name="m2-filter-image" content="imagetool-url=https://img.example.com/m2/images;splitheight=500;function=optimize,sref,fitimage;addclass=m2div;">
          <style>
             .m2div {
                display: inline-block;
@@ -241,10 +241,10 @@ View에
 ===================== ===================================================================================
 키                     값
 ===================== ===================================================================================
-host                   프로토콜`이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 을 설정한 URL
-splitheight            이미지가 설정된 값(px)을 초과할 경우 여러 이미지로 분할한다.
-function               이미지 가공함수
+imagetool-url          프로토콜`이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 을 설정한 URL
+split-height           이미지가 설정된 값(px)을 초과할 경우 여러 이미지로 분할한다.
+imagetool-functions    이미지 가공함수
 sref                   원본이미지 주소를 넘길 파라미터 키
-fitimage
-addclass               ???
+fitimage               AAAAAAAAA
+addclass               BBBBBBBBBBB
 ===================== =====================================
