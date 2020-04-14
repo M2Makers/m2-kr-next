@@ -3,7 +3,7 @@
 5장. Model
 ******************
 
-이 장에서는 엔드포인트가 참조하는 데이터인 모델인 **M2-JSON** 에 대해 설명한다.
+이 장에서는 엔드포인트가 참조하는 오브젝트 모델인 **M2-JSON** 에 대해 설명한다.
 일반적으로 RESTful API로 제공되는 JSON이나, HTML처럼 사람이 읽을 수 있는 포맷을 의미한다. 
 
 다음과 같이 엔드포인트가 설정되어 있다고 가정한다. ::
@@ -187,68 +187,6 @@ M2-JSON은 다음과 같이 참조한다. ::
 
 
 
-모델 결합
-====================================
-
-``<Endpoint>`` 는 독립적으로 서로 영향을 받지 않는다. ::
-
-   # vhosts.xml - <Vhosts><Vhost>
-
-   <M2 Status="Active">
-      <Endpoints>
-         <Endpoint Alias="inven"> ... </Endpoint>
-         <Endpoint Alias="golduser"> ... </Endpoint>
-      </Endpoints>
-   </M2>
-
-
-.. figure:: img/m2_userguide_05.png
-    :align: center
-
-
-두 모델의 값을 비교,연산해야하는 경우가 있을 수 있다. 이런 경우 모델들을 결합하는 별도의 ``<Endpoint>`` 를 만들면 가능하다. ::
-
-   # vhosts.xml - <Vhosts><Vhost>
-   
-   <M2 Status="Active">
-      <Endpoints>
-         <Endpoint Alias="inven"> ... </Endpoint>
-         <Endpoint Alias="golduser"> ... </Endpoint>
-         <Endpoint Alias="golditem">
-            <Control ViewParam="view" ModelParam="model">/items/gold</Control>
-            <Mapper>https://foo.com/mapper.json</Mapper>
-            <View>https://bar.com/#view</View>
-         </Endpoint>
-      </Endpoints>
-   </M2>
-
--  ``<Model>`` 태그가 없다면 모델 결합을 위한 ``<Endpoint>`` 로 인식한다.
--  ``@Alias`` 를 통해 다른 M2-JSON을 참조한다. (예. ``@inven`` , ``@golduser`` )
-
-결합 맵퍼는 다음과 같이 작성한다. ::
-
-   {
-      "item" : {
-         "inventory" : "@inven",
-         "user" : "@golduser"
-      },
-      "description" : "this is a compound model"
-   }
-
-.. figure:: img/m2_userguide_06.png
-    :align: center
-
-``@Alias`` 뒤에 뷰를 명시하면 M2-JSON을 가공한 뷰를 참조할 수 있다. 단, 해당 뷰의 형식은 반드시 JSON이어야 한다.
-
-.. figure:: img/m2_userguide_07.png
-    :align: center
-
-예제의 ``golditem`` 는 ``@inven`` 과 ``@golduser`` 의 엔드포인트를 참조한다. 따라서 각각의 모델 값을 ``키:값`` 을 콤마로 구분한다. ::
-
-   /items/gold?mode=inven:1000,golduser:javalive&view=img
-
-
-
 Mapper
 ====================================
 
@@ -267,7 +205,8 @@ M2-JSON은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 
          "city": "..."
       },
       "phoneNumber": ["..."]
-}
+   }
+
 
 규칙은 간단하다.
 
@@ -355,3 +294,66 @@ HTML/XML
       ]
    }
 
+
+
+
+
+모델 결합
+====================================
+
+``<Endpoint>`` 는 독립적으로 서로 영향을 받지 않는다. ::
+
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <M2 Status="Active">
+      <Endpoints>
+         <Endpoint Alias="inven"> ... </Endpoint>
+         <Endpoint Alias="golduser"> ... </Endpoint>
+      </Endpoints>
+   </M2>
+
+
+.. figure:: img/m2_userguide_05.png
+    :align: center
+
+
+두 모델의 값을 비교,연산해야하는 경우가 있을 수 있다. 이런 경우 모델들을 결합하는 별도의 ``<Endpoint>`` 를 만들면 가능하다. ::
+
+   # vhosts.xml - <Vhosts><Vhost>
+   
+   <M2 Status="Active">
+      <Endpoints>
+         <Endpoint Alias="inven"> ... </Endpoint>
+         <Endpoint Alias="golduser"> ... </Endpoint>
+         <Endpoint Alias="golditem">
+            <Control ViewParam="view" ModelParam="model">/items/gold</Control>
+            <Mapper>https://foo.com/mapper.json</Mapper>
+            <View>https://bar.com/#view</View>
+         </Endpoint>
+      </Endpoints>
+   </M2>
+
+-  ``<Model>`` 태그가 없다면 모델 결합을 위한 ``<Endpoint>`` 로 인식한다.
+-  ``@Alias`` 를 통해 다른 M2-JSON을 참조한다. (예. ``@inven`` , ``@golduser`` )
+
+결합 맵퍼는 다음과 같이 작성한다. ::
+
+   {
+      "item" : {
+         "inventory" : "@inven",
+         "user" : "@golduser"
+      },
+      "description" : "this is a compound model"
+   }
+
+.. figure:: img/m2_userguide_06.png
+    :align: center
+
+``@Alias`` 뒤에 뷰를 명시하면 M2-JSON을 가공한 뷰를 참조할 수 있다. 단, 해당 뷰의 형식은 반드시 JSON이어야 한다.
+
+.. figure:: img/m2_userguide_07.png
+    :align: center
+
+예제의 ``golditem`` 는 ``@inven`` 과 ``@golduser`` 의 엔드포인트를 참조한다. 따라서 각각의 모델 값을 ``키:값`` 을 콤마로 구분한다. ::
+
+   /items/gold?mode=inven:1000,golduser:javalive&view=img
