@@ -19,6 +19,7 @@ M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으
       service ston start
       service ston stop
       service ston restart
+      service ston status
 
 
 M2에 추가된 기능에 대해서만 다룬다.
@@ -53,7 +54,7 @@ Cent OS 7.4이상만 지원한다.
 
 최신버전의 M2를 설치한다. ::
 
-   [root@localhost ~]# curl -o- http://cdn.com/install.sh | sudo bash
+   [root@localhost ~]# curl -o- http://winesoft.co.kr/m2/install.sh | sudo bash
    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                     Dload  Upload   Total   Spent    Left  Speed
    100  1922  100  1922    0     0  85907      0 --:--:-- --:--:-- --:--:-- 87363
@@ -70,6 +71,11 @@ Cent OS 7.4이상만 지원한다.
 
 
 설치과정은 install.log에 기록된다. 로그를 통해 설치 중 발생하는 문제를 알 수 있다.
+
+.. note:
+
+   설치 스크립트에서 볼 수 있듯 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 먼저 설치한다.
+
 
 
 .. _getting-started-license:
