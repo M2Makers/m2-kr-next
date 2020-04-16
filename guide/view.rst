@@ -224,7 +224,7 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
       <head>
          <meta http-equiv="Content-Type" text/html; charset=UTF-8">
          <meta name="m2-function-image" 
-               host="https://www.example.com/m2/images" 
+               host="https://www.example.com/m2/image" 
                split-height="500" 
                class="mym2div" 
                full="yes" 

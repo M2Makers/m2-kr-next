@@ -97,18 +97,83 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
 
 
 
-.. _op-imagetool-vhost:
-
-이미지툴 가상호스트
-====================================
-
-이미지툴 가상호스트 운영
-
-
-
 .. _op-vhost-volatile:
 
 휘발성 엔드포인트
 ====================================
 
-Volatile 구성
+엔드포인트는 이미지/동영상에 비해 짧은 TTL(Time To Live)를 가진다. 
+짧은 TTL 콘텐츠는 디스크에 캐싱해도 재사용성이 떨어져 비효율적이다. 
+
+따라서 엔드포인트를 다루는 가상호스트는 ``Volatile (기본: OFF)`` 속성을 활성화시킨다. ::
+   
+   # vhosts.xml
+
+   <Vhosts>
+      <Vhost Name="endpoints.m2.com" Volatile="ON">
+        ... (생략) ...
+      </Vhost>
+
+      <Vhost Name="image.m2.com">
+        ... (생략) ...
+      </Vhost>
+   </Vhosts>
+
+
+`캐시 Storage <https://ston.readthedocs.io/ko/latest/admin/environment.html#storage>`_ 가 구성되어 있더라도 ``Volatile`` 가상호스트는 메모리만 사용한다.
+
+
+
+.. _op-vhost-multi:
+
+가상호스트 분리
+====================================
+
+엔드포인트가 이미지/동영상을 처리해야 한다면 각각 독립된 가상호스트로 구성하는 것을 권장한다. 
+캐싱정책, 통계, 로그등을 분리시켜 다룰 수 있어 높은 유연성을 가지기 때문이다. ::
+
+   # vhosts.xml
+
+   <Vhosts>
+      <Vhost Name="www.example.com" Volatile="ON">
+         ... (생략) ...
+         <M2>
+            <Endpoints>
+               ... (생략) ...
+            </Endpoints>
+        </M2>
+      </Vhost>
+
+      <Vhost Name="image.example.com">
+        ... (생략) ...
+        <Options>
+           <Dims Status="Active" Keyword="dims">
+              ... (생략) ...
+           </Dims>
+        <Options>
+      </Vhost>
+
+      <Vhost Name="video.example.com">
+        ... (생략) ...
+        <Media>
+           ... (생략) ...
+        </Media>
+      </Vhost>
+   </Vhosts>
+
+
+만약 멀티인증서를 사용할 수 없고, 1개의 도메인으로만 통합하여 서비스해야 한다면, `URL <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 전처리를 추가한다. ::
+
+   # vhosts.xml
+
+   <Vhosts>
+      ... (생략) ...
+
+      <URLRewrite AccessLog="Replace">
+         <Pattern><![CDATA[^www.example.com/m2/([^/]+)/(.*)]]></Pattern>
+         <Replace><![CDATA[#1.example.com/#2]]></Replace>
+      </URLRewrite>
+   </Vhosts>
+
+
+``/m2/.../{{ url }}`` 패턴을 이용해 손쉽게 구성이 가능하다.
