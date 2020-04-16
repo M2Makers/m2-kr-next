@@ -93,7 +93,7 @@ JPG, PNG, WEBP, BMP, PDF
    <!DOCTYPE html>
    <html>
       <head>
-         <meta name="m2-render-png" content="width=400;height=300;" />
+         <meta name="m2-render-png" width="400" height="300">
          <style>
             p { display: block; margin-top: 1em; margin-bottom: 1em; }
          </style>
@@ -119,23 +119,23 @@ JPG, PNG, WEBP, BMP, PDF
 
 -  JPG ::
       
-      <meta name="m2-render-jpg" content="width=400;height=300;quality=85" />
+      <meta name="m2-render-jpg" width="400" height="300" quality="85">
 
 -  PNG ::
       
-      <meta name="m2-render-png" content="width=400;height=300;" />
+      <meta name="m2-render-png" width="400" height="300">
 
 -  WEBP ::
       
-      <meta name="m2-render-webp" content="width=400;height=300;quality=85" />
+      <meta name="m2-render-webp" width="400" height="300" quality="85">
 
 -  BMP ::
       
-      <meta name="m2-render-bmp" content="width=400;height=300;" />
+      <meta name="m2-render-bmp" width="400" height="300">
 
 -  PDF ::
       
-      <meta name="m2-render-pdf" content="width=400;height=300;scale=1;margin-top: 10px;margin-bottom:10px;margin-right:10px;margin-left:10px;" />
+      <meta name="m2-render-pdf" width="400" height="300" scale="1" margin-top="10px" margin-bottom="10px" margin-right="10px" margin-left="10px">
 
 
 MP4, GIF
@@ -152,7 +152,7 @@ MP4, GIF
    <!DOCTYPE html>
    <html>
       <head>
-         <meta name="m2-render-gif" content="width=400;height=300;delay=1000;" />
+         <meta name="m2-render-gif" width="400" height="300" delay="1000"">
          <style>
             p { display: block; margin-top: 1em; margin-bottom: 1em; }
          </style>
@@ -183,12 +183,12 @@ MP4, GIF
 
 -  MP4 ::
       
-      <meta name="m2-render-mp4" content="width=400;height=300;interval=1000;" />
+      <meta name="m2-render-mp4" width="400" height="300" interval="1000">
 
 
 -  GIF ::
       
-      <meta name="m2-render-gif" content="width=400;height=300;delay=1000;" />
+      <meta name="m2-render-gif" width="400" height="300" delay="1000">
 
    -  장면 시간( ``delay (단위: ms)`` ) = 1000
 
@@ -205,28 +205,32 @@ JSON 템플릿을 만든다. ::
 
 
 
-필터
+함수
 ====================================
 
-M2는 View에서 활용할 수 있는 필터를 제공한다. 
-필터는 ``<meta>`` 태그로 명시하며 다음 형식을 가진다. ::
+M2는 View에서 활용할 수 있는 다양한 함수를 제공한다. 
+함수는 ``<meta>`` 태그로 명시하며 다음 형식을 가진다. ::
 
-<meta name="m2-filter-XXX" content="키1=값1;키2=값2;...">
+<meta name="m2-function-*" attr1="value1" attr2="value2" ...>
 
 
-m2-filter-image
+m2-function-image
 ------------------------------------
 
 페이지에서 참조하는 이미지를 일괄처리한다. 
-View에 
 상품기술서처럼 크기와 용량이 큰 이미지를 효율적으로 전송하기에 적합니다. ::
 
    <html>
       <head>
-         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <meta name="m2-filter-image" content="imagetool-url=https://img.example.com/m2/images;splitheight=500;function=optimize,sref,fitimage;addclass=m2div;">
+         <meta http-equiv="Content-Type" text/html; charset=UTF-8">
+         <meta name="m2-function-image" 
+               host="https://www.example.com/m2/images" 
+               split-height="" 
+               class="mym2div" 
+               full="yes" 
+               tool="/grayscale/true/optimize">
          <style>
-            .m2div {
+            .mym2div {
                display: inline-block;
                width: 100%
             }
@@ -238,13 +242,14 @@ View에
    </center>
 
 
-===================== ===================================================================================
-키                     값
-===================== ===================================================================================
-imagetool-url          프로토콜`이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 을 설정한 URL
-split-height           이미지가 설정된 값(px)을 초과할 경우 여러 이미지로 분할한다.
-imagetool-functions    이미지 가공함수
-sref                   원본이미지 주소를 넘길 파라미터 키
-fitimage               AAAAAAAAA
-addclass               BBBBBBBBBBB
-===================== =====================================
+============================= ========================================================================================
+속성                           값
+============================= ========================================================================================
+``host``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 이 설정된 가상호스트
+``split-height``               이미지가 설정된 값(px)을 초과할 경우 분할한다.
+``class``                      이미지에 적용할 CSS 클래스
+``full``                       이미지를 가로
+``tool``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 명령어
+``querystring-origin-url``    `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 로 전달할 원본주소 쿼리스트링 키 (기본: ``sref``)
+============================= ========================================================================================
+
