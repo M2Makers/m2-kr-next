@@ -214,18 +214,18 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
 <meta name="m2-function-*" attr1="value1" attr2="value2" ...>
 
 
-m2-function-image
+``m2-function-image``
 ------------------------------------
 
 페이지에서 참조하는 이미지를 일괄처리한다. 
-상품기술서처럼 크기와 용량이 큰 이미지를 효율적으로 전송하기에 적합니다. ::
+상품기술서처럼 큰 이미지가 포함된 페이지를 효과적으로 전송하는 용도이다. ::
 
    <html>
       <head>
          <meta http-equiv="Content-Type" text/html; charset=UTF-8">
          <meta name="m2-function-image" 
                host="https://www.example.com/m2/images" 
-               split-height="" 
+               split-height="500" 
                class="mym2div" 
                full="yes" 
                tool="/grayscale/true/optimize">
@@ -243,13 +243,12 @@ m2-function-image
 
 
 ============================= ========================================================================================
-속성                           값
+속성                           설명
 ============================= ========================================================================================
-``host``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 이 설정된 가상호스트
-``split-height``               이미지가 설정된 값(px)을 초과할 경우 분할한다.
+``host (필수)``                `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 이 설정된 가상호스트
+``split-height``               이미지 높이가 설정된 값(px)을 초과할 경우 분할한다.
 ``class``                      이미지에 적용할 CSS 클래스
-``full``                       이미지를 가로
+``full``                       이미지의 가로 폭을 상위 Element의 100%로 맞춘다.
 ``tool``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 명령어
-``querystring-origin-url``    `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 로 전달할 원본주소 쿼리스트링 키 (기본: ``sref``)
+``querystring-origin-url``     `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 로 전달할 원본주소 쿼리스트링 키 (기본: ``sref``)
 ============================= ========================================================================================
-
