@@ -46,6 +46,54 @@ Cent OS 7.4이상만 지원한다.
 
 
 
+.. _getting-started-install:
+
+설치
+====================================
+
+최신버전의 M2를 설치한다. ::
+
+   [root@localhost ~]# curl -o- http://cdn.com/install.sh | sudo bash
+   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                    Dload  Upload   Total   Spent    Left  Speed
+   100  1922  100  1922    0     0  85907      0 --:--:-- --:--:-- --:--:-- 87363
+   Installing STON Edge Server  20.04.0
+   
+   ... (생략) ...
+
+   Installing M2  20.04.0
+   
+   ... (생략) ...      
+
+   Installation M2 Successfully
+   Usage) service ston start|stop|restart|status
+
+
+설치과정은 install.log에 기록된다. 로그를 통해 설치 중 발생하는 문제를 알 수 있다.
+
+
+.. _getting-started-license:
+
+라이선스 발급
+====================================
+
+신규 고객의 경우 다음 절차를 통해 라이선스를 발급한다.
+
+* `신청양식 <http://www.winesoft.co.kr/lic_req.doc>`_ 작성
+* license@winesoft.co.kr 로 전송
+* 확인절차 후 발급
+
+라이선스 파일(license.xml)이 반드시 설치경로에 존재해야 M2 정상적으로 구동된다.
+
+
+.. _getting-started-update:
+
+업데이트
+====================================
+최신버전이 배포되면 다시 설치한다.
+
+
+
 .. _getting-started-samplevhost:
 
 Hello World
