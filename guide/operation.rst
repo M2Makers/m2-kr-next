@@ -110,11 +110,11 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
    # vhosts.xml
 
    <Vhosts>
-      <Vhost Name="endpoints.m2.com" Volatile="ON">
+      <Vhost Name="www.example.com" Volatile="ON">
         ... (생략) ...
       </Vhost>
 
-      <Vhost Name="image.m2.com">
+      <Vhost Name="image.example.com">
         ... (생략) ...
       </Vhost>
    </Vhosts>
