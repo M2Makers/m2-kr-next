@@ -14,7 +14,7 @@ M2는 캐싱엔진으로 `STON <https://ston.readthedocs.io/ko/latest/>`_ 을 �
 
 .. note::
 
-   STON 플러그인으로 인해 리눅스 콘솔명령도 사용 가능하다. ::
+   STON 모듈로 인해 리눅스 콘솔명령도 사용 가능하다. ::
 
       service ston start
       service ston stop
