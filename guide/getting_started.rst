@@ -4,25 +4,24 @@
 ******************
 
 이 장에서는 M2의 설정구조에 대해 설명한다. 
-M2는 `STON Edge Server <https://ston.readthedocs.io/ko/latest/>`_ 를 엔진으로 사용한다. 
-따라서 STON이 제공하는 다양한 기능과 관리기법들을 그대로 사용한다.
 
-.. figure:: img/m2_08.png
+M2의 내부는 Apache Web Server와 같은 플러그인 구조를 가진다.
+캐싱 엔진으로는 `STON <https://ston.readthedocs.io/ko/latest/>`_ 을 사용한다. 
+
+.. figure:: img/m2_14.png
    :align: center
 
-위 그림에서 알 수 있듯이 STON은 M2에 통합되어 있지만 다루는 계층이 명확히 구분되어 기능상 충돌은 없다. 
+M2는 STON 엔진의 설정구조를 사용하기 때문에 기능에 대해서만 다룬다.
 
 .. note::
 
-   일관된 인터페이스를 위해 리눅스 콘솔명령도 ston을 그대로 사용한다. ::
+   STON 플러그인으로 인해 리눅스 콘솔명령도 사용 가능하다. ::
 
       service ston start
       service ston stop
       service ston restart
       service ston status
 
-
-M2에 추가된 기능에 대해서만 다룬다.
 
 
 .. toctree::
