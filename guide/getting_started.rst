@@ -56,7 +56,6 @@ Cent OS 7.4이상만 지원한다.
    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                     Dload  Upload   Total   Spent    Left  Speed
    100  1922  100  1922    0     0  85907      0 --:--:-- --:--:-- --:--:-- 87363
-   Installing STON Edge Server  20.04.0
    
    ... (생략) ...
 
