@@ -3,16 +3,30 @@
 6장. View
 ******************
 
-뷰(View)는 ``M2-JSON`` 을 가공하여 사용자가 원하는 출력을 생성하는 템플릿을 의미한다. 
+뷰(View)는 ``M2-JSON`` 을 가공하여 사용자가 원하는 출력을 생성하는 템플릿을 의미한다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
+
+   <View>
+      <Source Must="off">https://bar.com/#view</Source>      
+   </View>
+
+
+-  ``Must`` 클라이언트가 ``#view`` 파라미터를 입력하지 않은 경우 동작방식
+
+   -  ``Off (기본)`` ``M2-JSON`` 을 ``200 ok`` 로 응답한다. 디버깅에 유용하다.
+
+   -  ``ON`` ``400 bad request`` 로 응답한다.
+ 
+
+
+Nunjucks
+====================================
+
 `Nunjucks <https://mozilla.github.io/nunjucks/>`_ 언어를 통해 ``M2-JSON`` 을 다룬다.
 
 .. figure:: img/m2_userguide_08.png
     :align: center
-
-.. note::
-   
-   View가 입력되지 않으면 ``M2-JSON`` 을 응답한다.
-
 
 `Nunjucks <https://mozilla.github.io/nunjucks/>`_ 는 `Jinja2 <https://jinja.palletsprojects.com/>`_ 에 영감을 받은 언어이다. 
 따라서 기본적인 `Jinja2 <https://jinja.palletsprojects.com/>`_ 의 문법이나 필터를 그대로 사용한다. ::
@@ -61,6 +75,11 @@
       <li>This would display if the 'item' collection were empty</li>
    {% endfor %}
    </ul>
+
+
+.. note:
+
+   더 많은 내용은 :ref:`nunjucks`_ 에서 다룬다.
 
 
 
@@ -239,7 +258,7 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
       <body>
          {{ model.__raw }}
       </body>
-   </center>
+   </html>
 
 
 ============================= ========================================================================================
@@ -252,3 +271,42 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
 ``tool``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 명령어
 ``querystring-origin-url``     `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 로 전달할 원본주소 쿼리스트링 키 (기본: ``sref``)
 ============================= ========================================================================================
+
+
+
+기본 ``<meta>``
+====================================
+
+여러 뷰 파일이 공통된 ``<meta>`` 속성을 가진다면 기본 값을 설정해 일괄처리할 수 있다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
+
+   <View>
+      <Source Must="off">https://bar.com/#view</Source>
+      <Options>
+         <Item><![CDATA[ <meta name="m2-render-gif" width="400" height="300" delay="1000""> ]]></Item>
+         <Item><![CDATA[ <meta name="m2-function-image" host="https://www.example.com/m2/image" split-height="500" tool="/grayscale/true/optimize"> ]]></Item>
+         <Item><!--  --> </Item>
+      </Options>
+   </View>
+
+
+뷰 파일안에 포함되는 ``<meta>`` 태그를 ``<Item>`` 의 CDATA로 구성하면 기본 값으로 사용한다. 
+기본 ``<meta>`` 를 사용하면 다음과 같이 변경할 속성만 추가하면 된다. ::
+
+   <html>
+      <head>
+         <meta http-equiv="Content-Type" text/html; charset=UTF-8">
+         <meta name="m2-function-image" class="mym2div">
+         <style>
+            .mym2div {
+               display: inline-block;
+               width: 100%
+            }
+         </style>
+      </head>
+      <body>
+         {{ model.__raw }}
+      </body>
+   </html>
+
