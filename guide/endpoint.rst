@@ -60,65 +60,57 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 
 엔드포인트는 ``<M2>`` 하위에 설정한다. ::
 
-   # vhosts.xml - <Vhosts><Vhost>
+   # vhosts.xml - <Vhosts>
 
-   <M2 Status="Active">
-      <Endpoints>
-         
-         <Endpoint Alias="inven" Post="OFF" Get="ON">
-            <Control ViewParam="view" ModelParam="model">/store/inventory</Control>
-            <Model>https://foo.com/#model</Model>
-            <Mapper>https://foo.com/mapper.json</Mapper>
-            <View>https://bar.com/#view</View>
-         </Endpoint>
+   <Vhost Name="www.example.com">
+      ... (생략) ...
+      <M2 Status="Active">
+         <Endpoints>
+            
+            <Endpoint Alias="inven">
+               <Model> ... </Model>
+               <View> ... </View>
+               <Control> ... </Control>            
+            </Endpoint>
 
-         <Endpoint Alias="platinum_user" Post="OFF" Get="ON">
-            <Control ViewParam="myv" ModelParam="mym">/users/platinum</Control>
-            <Model>https://alice.com/bob/#model.json</Model>
-            <View>https://bar.com/#view</View>
-         </Endpoint>
+            <Endpoint Alias="platinum_user">
+               <Model> ... </Model>
+               <Control> ... </Control>            
+               <View> ... </View>
+            </Endpoint>
 
-      </Endpoints>
-   </M2>
-
-
-``<M2>`` 태그의 ``Status`` 속성이 ``Active`` 일 때 활성화된다. 모델에 따라 독립된 ``<Endpoint>`` 를 멀티로 구성한다.
-
--  ``<Endpoint>`` 단위 엔드포인트를 설정한다.
-
-   -  속성
-
-      -  ``Alias (옵션)`` 엔드포인트의 별칭. 복합모델 생성에 사용.
-      -  ``Post (기본: OFF)`` Post 메소드 허용 여부
-      -  ``Get (기본: ON)`` Get 메소드 허용 여부
-
-   -  하위 태그
-
-      -  ``<Control>`` 서비스할 URL을 설정한다. ``ViewParam`` , ``ModelParam`` 속성을 통해 HTTP QueryString 키 값을 설정한다.
-      -  ``<Model>`` 모델 API 주소를 설정한다. ``ModelParam`` 의 값이 ``#model`` 키워드로 치환된다.
-      -  ``<Mapper>`` JSON 모델일 경우 바로 뷰에서 참조 가능하지만 ``Mapper`` 를 추가해 JSON을 변경하거나 다른 포맷을 공통 포맷(M2-JSON)으로 맵핑한다.
-      -  ``<View>`` 뷰가 게시된 URL을 설정한다. ``ViewParam`` 의 값이 ``#view`` 키워드로 치환된다.
+         </Endpoints>
+      </M2>
+   </Vhost>
 
 
-.. note::
+``<M2>`` 태그의 ``Status`` 속성이 ``Active`` 일 때 활성화된다. 
+각 ``<Endpoint>`` 하위에 MVC 설정를 구성한다.
 
-   ``<Mapper>`` 가 하나인 이유는 M2의 철학에 기인한다.
-
-   -  ``<Model>`` 은 상품정보처럼 다양하지만 그 형식은 단일하다. 그러므로 ``<Model>`` 을 해석/맵핑하는 방식은 단일하다.
-   -  ``<Model>`` 과 ``<Mapper>`` 는 1:1의 관계이며 이를 하나의 ``<Endpoint>`` 로 게시한다.
-   -  만약 단일한 모델 URL의 해석/맵핑 방식이 다양하다면 각각 구분된 ``<Endpoint>`` 로 구성해야 한다. 멀티 ``<Endpoint>`` 로의 라우팅은 STON이 처리한다.
+-  ``<Model>`` - 엔드포인트가 참조하는 데이터 구성
+-  ``<View>`` - 엔드포인트의 출력물 구성
+-  ``<Control>`` - 엔드포인트 호출 인터페이스 설정
 
 
 
-
-Web API
+Control
 ====================================
 
-클라이언트는 ``<Control>`` 주소를 HTTP로 호출한다.
+클라이언트는 ``<Control>`` 주소을 통해 HTTP 인터페이스를 구성한다. ::
 
-.. note::
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
-   Web API는 MVC의 C(Control)에 해당한다.
+   <Control>
+       <Path ModelParam="model" ViewParam="view" Post="off" Get="on">/banner</Path>
+   </Control>
+   
+
+-  ``<Path>`` 엔드포인트를 게시(Publish)할 상대 URL을 설정한다. 
+
+   -  ``ModelParam (기본: "model")`` 모델 참조시 사용된 ``#model`` 값
+   -  ``ViewParam (기본: "view")`` 뷰 참조시 사용된 ``#view`` 값
+   -  ``Post (기본: OFF)`` `POST Method`_ 허용 여부
+   -  ``Get (기본: ON)`` `GET Method`_ 허용 여부
 
 
 GET Method
@@ -126,28 +118,14 @@ GET Method
 
 결합할 모델(=정보)과 뷰(=표현)를 QueryString으로 입력한다. ::
 
-   GET /myendpoint?model=wine&view=catalog
+   GET /myendpoint?model=wine&view=soft
 
 
 POST Method
 ------------------------------------
 
-POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용도로 지원된다. 아래와 같이 설정을 활성화해준다. ::
-
-   # vhosts.xml - <Vhosts><Vhost>
-
-   <M2 Status="Active">
-      <Endpoints>         
-         <Endpoint Post="ON">
-            ...
-         </Endpoint>
-      </Endpoints>
-   </M2>
-
-
-.. note::
-
-   ``<Endpoint Post="OFF">`` 라면 403 Forbidden으로 응답한다.
+POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용도로 지원된다. 
+``<Control Post="off" ...>`` 인 경우 ``403 Forbidden`` 으로 응답한다.
 
 
 Body와 QueryString을 혼합해 사용 가능하다. ::
