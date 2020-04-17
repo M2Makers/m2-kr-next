@@ -293,11 +293,11 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
 
    <View>
       <Source Must="off">https://bar.com/#view</Source>
-      <Options>
+      <MetaDefault>
          <Item><![CDATA[ <meta name="m2-render-gif" width="400" height="300" delay="1000""> ]]></Item>
          <Item><![CDATA[ <meta name="m2-function-image" host="https://www.example.com/m2/image" split-height="500" tool="/grayscale/true/optimize"> ]]></Item>
          <Item><!--  --> </Item>
-      </Options>
+      </MetaDefault>
    </View>
 
 
