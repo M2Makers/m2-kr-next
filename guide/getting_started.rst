@@ -3,16 +3,13 @@
 3장. 시작하기
 ******************
 
-이 장에서는 M2의 설정구조에 대해 설명한다. 
-
-M2의 내부는 Apache Web Server와 같은 플러그인 구조를 가진다.
-캐싱 엔진으로는 `STON <https://ston.readthedocs.io/ko/latest/>`_ 을 사용한다. 
+이 장에서는 M2의 설정구조에 대해 설명한다. M2의 내부는 Apache Web Server와 같은 플러그인 구조를 가진다.
 
 .. figure:: img/m2_14.png
    :align: center
 
-M2의 관리 인터페이스로 STON 엔진을 사용한다. 
-따라서 이미 검증된 STON 기능들(설정, 로그, 통계, 모니터링 등)을 그대로 사용할 수 있다.
+M2는 캐싱엔진으로 `STON <https://ston.readthedocs.io/ko/latest/>`_ 을 사용한다. 
+따라서 이미 검증된 `STON <https://ston.readthedocs.io/ko/latest/>`_  기능들(설정, 로그, 통계, 모니터링 등)을 그대로 사용할 수 있다.
 
 
 .. note::
