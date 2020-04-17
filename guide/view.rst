@@ -8,15 +8,23 @@
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
    <View>
-      <Source Must="off">https://bar.com/#view</Source>      
+      <Source Mandatory="off">https://bar.com/#view</Source>
+      <WellFormed>ON</WellFormed>
    </View>
 
 
--  ``Must`` 클라이언트가 ``#view`` 파라미터를 입력하지 않은 경우 동작방식
+-  ``Mandatory`` 클라이언트가 ``#view`` 파라미터를 입력하지 않은 경우 동작방식
 
    -  ``Off (기본)`` ``M2-JSON`` 을 ``200 ok`` 로 응답한다. 디버깅에 유용하다.
 
    -  ``ON`` ``400 bad request`` 로 응답한다.
+
+
+-  ``WellFormed`` 생성된 뷰 파일이 문법에 맞도록(well-formed) 보정한다.
+
+   -  ``Off`` 보정하지 않는다.
+
+   -  ``ON (기본)`` 문법에 맞도록 보정한다.
  
 
 
@@ -247,7 +255,8 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
                split-height="500" 
                class="mym2div" 
                full="yes" 
-               tool="/grayscale/true/optimize">
+               tool="/grayscale/true/optimize"
+               max-size="10">
          <style>
             .mym2div {
                display: inline-block;
@@ -267,9 +276,10 @@ M2는 View에서 활용할 수 있는 다양한 함수를 제공한다.
 ``host (필수)``                `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 이 설정된 가상호스트
 ``split-height``               이미지 높이가 설정된 값(px)을 초과할 경우 분할한다.
 ``class``                      이미지에 적용할 CSS 클래스
-``full``                       이미지의 가로 폭을 상위 Element의 100%로 맞춘다.
+``full (기본: no)``            이미지의 가로 폭을 상위 Element의 100%로 맞춘다.
 ``tool``                       `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 명령어
 ``querystring-origin-url``     `이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 로 전달할 원본주소 쿼리스트링 키 (기본: ``sref``)
+``max-size (기본: 10MB)``       가공할 최대 이미지 크기
 ============================= ========================================================================================
 
 

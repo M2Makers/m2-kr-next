@@ -359,7 +359,9 @@ HTML/XML
             <Model>
                <Mapper>https://foo.com/mapper.json</Mapper>
             </Model>
-            <View>https://bar.com/#view</View>
+            <View>
+               <Source>https://bar.com/#view</Source>
+            </View>
          </Endpoint>
       </Endpoints>
    </M2>

@@ -114,9 +114,15 @@ vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
             <M2 Status="Active">
                 <Endpoints>
                     <Endpoint>
-                        <Control>/banner</Control>
-                        <Model>http://demo.winesoft.co.kr/m2/models/#model.json</Model>
-                        <View>http://demo.winesoft.co.kr/m2/views/#view.html</View>
+                        <Control>
+                           <Path>/banner</Path>
+                        </Control>
+                        <Model>
+                           <Source>http://demo.winesoft.co.kr/m2/models/#model.json</Source>
+                        </Model>
+                        <View>
+                           <Source>http://demo.winesoft.co.kr/m2/views/#view.html</Source>
+                        </View>
                     </Endpoint>
                 </Endpoints>
             </M2>

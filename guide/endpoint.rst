@@ -125,7 +125,7 @@ POST Method
 ------------------------------------
 
 POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용도로 지원된다. 
-``<Control Post="off" ...>`` 인 경우 ``403 Forbidden`` 으로 응답한다.
+``<Path Post="off" ...>`` 인 경우 ``403 Forbidden`` 으로 응답한다.
 
 
 Body와 QueryString을 혼합해 사용 가능하다. ::

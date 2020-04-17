@@ -40,3 +40,4 @@ M2 완벽 가이드
 
    guide/releasenote.rst
    guide/nunjucks.rst
+   guide/example.rst
