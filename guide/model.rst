@@ -11,9 +11,13 @@
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints>
 
    <Endpoint>
-      <Control ViewParam="view" ModelParam="model">/fruits</Control>
-      <Model>https://foo.com/#model</Model>
-      <View>https://bar.com/#view</View>
+      <Model>
+         <Source>https://foo.com/#model</Source>
+      </Model>      
+      <View> ... </View>
+      <Control>
+         <Path>/fruits</Path>
+      </Control>
    </Endpoint>
 
 
@@ -22,12 +26,13 @@ M2-JSON 구조
 
 엔드포인트를 ``/fruits`` 로 설정했으므로 클라이언트는 다음과 같이 호출한다. ::
 
-   http://www.example.com/fruits?model=apple&view=list
+   /fruits?model=apple&view=list
 
 
-M2는 ``<Model>`` 설정에 따라 다음 주소를 호출한다. ::
+M2는 ``<Source>`` 설정에 따라 다음 주소를 호출한다. ::
 
    https://foo.com/apple
+
 
 foo.com은 아래와 같이 응답한다.
 
@@ -58,7 +63,13 @@ foo.com은 아래와 같이 응답한다.
 
 .. note::
 
-   ``M2-JSON`` 의 ``"model"`` 은 고정이 아니다. 만약 ``<Control ModelParam="myData">`` 라고 설정했다면 다음과 같이 구성된다. ::
+   ``M2-JSON`` 의 ``"model"`` 은 고정이 아니다. ::
+
+      <Control>
+         <Path ModelParam="myData">/fruits</Path>
+      </Control>
+   
+   만약 위와 같이 설정했다면 ``model`` 이 아닌 ``myData`` 가 키가 된다. ::
 
       {
          "myData": { ... },         
@@ -122,7 +133,7 @@ foo.com은 아래와 같이 응답한다.
 위와 같이 ``#model`` 에 대응하는 값을 ``[ ... ]`` 형식으로 입력한다. 
 
 
-``<Model>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. ::
+``<Source>`` 에 설정된 주소에 각각의 값을 바인딩하여 결과를 배열로 취합한다. ::
 
    {
       "model" : [
@@ -156,16 +167,20 @@ foo.com은 아래와 같이 응답한다.
 
 
 모든 API 호출이 성공하면 좋겠지만 일부만 성공할 가능성이 있다. 
-이런 일부 모델의 실패 상황을 ``Sparse`` 속성으로 대처할 수 있다. ::
+이런 일부 모델의 실패 상황을 ``<Sparse>`` 설정으로 대처할 수 있다. ::
 
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
-   <Model Sparse="Off">https://foo.com/#model</Model>
+   <Model>
+      <Source>https://foo.com/#model</Source>
+      <Sparse>ON</Sparse>
+   </Model>
 
--  ``Sparse (기본: OFF)`` 모델 참조가 하나라도 실패하면 실패처리한다. ``ON`` 설정이라면 모든 모델 참조가 실패할 경우에만 실패처리 된다.
+
+-  ``<Sparse> (기본: OFF)`` 모델 참조가 하나라도 실패하면 실패처리한다. ``ON`` 설정이라면 모든 모델 참조가 실패할 경우에만 실패처리 된다.
 
 
-예를 들어 ``Sparse="On"`` 인 상황에서 apple과 pineapple의 모델 참조가 실패하면 모델 배열은 다음과 같이 구성된다. ::
+예를 들어 ``ON`` 인 상황에서 apple과 pineapple의 모델 참조가 실패하면 모델 배열은 다음과 같이 구성된다. ::
 
    {
       "model" : [
@@ -184,10 +199,29 @@ foo.com은 아래와 같이 응답한다.
 Mapper
 ====================================
 
-맵퍼(Mapper)를 작성해 다양한 소스를 ``M2-JSON`` 으로 맵핑(Mapping)한다.
+맵퍼(Mapper)를 작성해 다양한 소스를 ``M2-JSON`` 으로 맵핑(Mapping)한다. 
 
 .. figure:: img/m2_userguide_04.png
     :align: center
+
+
+모델 정보를 맵핑할 json을 다음과 같이 설정한다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
+
+   <Model>
+      <Source>https://foo.com/#model</Source>
+      <Mapper>https://foo.com/mapper.json</Mapper>
+   </Model>      
+
+
+.. note::
+
+   ``<Mapper>`` 가 하나인 이유는 M2의 철학에 기인한다.
+
+   -  ``<Source>`` 는 상품정보처럼 다양하지만 그 형식은 단일하다. 그러므로 ``<Source>`` 을 해석/맵핑하는 방식은 단일하다.
+   -  ``<Source>`` 와 ``<Mapper>`` 는 1:1의 관계이다.
+   -  만약 단일한 모델 URL의 해석/맵핑 방식이 다양하다면 각각 구분된 ``<Endpoint>`` 로 구성해야 한다.
 
 
 ``M2-JSON`` 은 정보를 다루기 위한 JSON형식일 뿐 그 자체가 특별한 의미를 가지지 않는다. ::
@@ -320,14 +354,18 @@ HTML/XML
          <Endpoint Alias="inven"> ... </Endpoint>
          <Endpoint Alias="golduser"> ... </Endpoint>
          <Endpoint Alias="golditem">
-            <Control ViewParam="view" ModelParam="model">/items/gold</Control>
-            <Mapper>https://foo.com/mapper.json</Mapper>
+            <Control>
+               <Path>/items/gold</Path>
+            </Control>
+            <Model>
+               <Mapper>https://foo.com/mapper.json</Mapper>
+            </Model>
             <View>https://bar.com/#view</View>
          </Endpoint>
       </Endpoints>
    </M2>
 
--  ``<Model>`` 태그가 없다면 모델 결합을 위한 ``<Endpoint>`` 로 인식한다.
+-  ``<Model>`` 하위에 ``<Source>`` 가 없다면 모델 결합을 위한 ``<Endpoint>`` 로 인식한다.
 -  ``@Alias`` 를 통해 다른 ``M2-JSON`` 을 참조한다. (예. ``@inven`` , ``@golduser`` )
 
 결합 맵퍼는 다음과 같이 작성한다. ::
