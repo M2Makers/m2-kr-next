@@ -75,7 +75,7 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
 통계
 ====================================
 
-가상호스트에 M2가 설정되어 있다면 실시간/5분 평균 통계를 제공한다. ::
+`STON 가상호스트 통계 <https://ston.readthedocs.io/ko/latest/admin/monitoring_stats.html#id4>`_ 의 하위에 위치한다. ::
 
    "M2":                                     <M2
    {                                           Requests="30"
@@ -105,7 +105,6 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
 
 엔드포인트는 이미지/동영상에 비해 짧은 TTL(Time To Live)를 가진다. 
 짧은 TTL 콘텐츠는 디스크에 캐싱해도 재사용성이 떨어져 비효율적이다. 
-
 따라서 엔드포인트를 다루는 가상호스트는 ``Volatile (기본: OFF)`` 속성을 활성화시킨다. ::
    
    # vhosts.xml
@@ -163,7 +162,7 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
    </Vhosts>
 
 
-만약 멀티인증서를 사용할 수 없고, 1개의 도메인으로만 통합하여 서비스해야 한다면, `URL <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 전처리를 추가한다. ::
+만약 멀티인증서를 사용할 수 없고, 1개의 도메인으로만 통합하여 서비스해야 한다면, `URL전처리 <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 를 추가한다. ::
 
    # vhosts.xml
 
@@ -177,4 +176,4 @@ STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
    </Vhosts>
 
 
-``/m2/.../{{ url }}`` 패턴을 이용해 손쉽게 구성이 가능하다.
+``/m2/.../{{ 원본-url }}`` 패턴을 이용해 손쉽게 구성이 가능하다.
