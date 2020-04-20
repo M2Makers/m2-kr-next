@@ -141,20 +141,11 @@ vhosts.xml 파일을 설정한다. ::
         </Vhost>
     </Vhosts>
 
+설정을 반영한다.
 
-.. _getting-started-runm2:
+::
 
-M2 실행
------------------------------------------------
-1. 발급받은 license.xml을 설치 경로에 복사한다.
-
-2. M2를 실행한다.  ::
-
-      [root@localhost ~]# service m2 start
-
-   M2를 중지하고 싶다면 stop 명령을 사용한다.  ::
-
-      [root@localhost ~]# service m2 stop
+   [root@localhost ~]# ./usr/local/ston/stonapi conf/reload
 
 
 

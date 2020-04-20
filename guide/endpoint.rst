@@ -4,7 +4,8 @@
 ******************
 
 이 장에서는 M2의 동작 단위인 엔드포인트(Endpoint)에 대해 설명한다.
-엔드포인트는 멀티로 구성이 가능하며 내부적으로 MVC(Model-View-Control) 구조로 동작한다.
+엔드포인트는 멀티구성이 가능하다. 
+다음과 같이 MVC(Model-View-Control) 구조로 동작한다.
 
 .. figure:: img/m2_13.png
     :align: center
@@ -105,7 +106,7 @@ Control
    </Control>
    
 
--  ``<Path>`` 엔드포인트를 게시(Publish)할 상대 URL을 설정한다. 
+-  ``<Path>`` 엔드포인트를 게시(Publish)할 Path를 설정한다. 
 
    -  ``ModelParam (기본: "model")`` 모델 참조시 사용된 ``#model`` 값
    -  ``ViewParam (기본: "view")`` 뷰 참조시 사용된 ``#view`` 값
@@ -124,7 +125,7 @@ GET Method
 POST Method
 ------------------------------------
 
-POST 메소드 캐싱은 권장하지 않지만, 단위 테스트 및 개발 용도로 지원된다. 
+POST 메소드는 개발 및 테스트 용도로 지원된다. 
 ``<Path Post="off" ...>`` 인 경우 ``403 Forbidden`` 으로 응답한다.
 
 

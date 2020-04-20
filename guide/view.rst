@@ -3,7 +3,8 @@
 6장. View
 ******************
 
-뷰(View)는 ``M2-JSON`` 을 가공하여 사용자가 원하는 출력을 생성하는 템플릿을 의미한다. ::
+이 장에서는 뷰(View)에 대해 설명한다.
+뷰(View) 파일이란 출력물을 생성하는 템플릿을 의미한다. ::
 
    # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
@@ -13,14 +14,16 @@
    </View>
 
 
--  ``Mandatory`` 클라이언트가 ``#view`` 파라미터를 입력하지 않은 경우 동작방식
+-  ``<Source>`` 뷰 파일을 게시한 URL
 
-   -  ``Off (기본)`` ``M2-JSON`` 을 ``200 ok`` 로 응답한다. 디버깅에 유용하다.
+   -  ``Mandatory`` 클라이언트가 ``#view`` 파라미터를 입력하지 않은 경우 동작방식
 
-   -  ``ON`` ``400 bad request`` 로 응답한다.
+      -  ``Off (기본)`` ``M2-JSON`` 을 ``200 ok`` 로 응답한다. 디버깅에 유용하다.
+
+      -  ``ON`` ``400 bad request`` 로 응답한다.
 
 
--  ``WellFormed`` 생성된 뷰 파일이 문법에 맞도록(well-formed) 보정한다.
+-  ``<WellFormed>`` 생성된 뷰 파일이 문법에 맞도록(well-formed) 보정한다.
 
    -  ``Off`` 보정하지 않는다.
 
