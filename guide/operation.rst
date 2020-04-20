@@ -3,7 +3,7 @@
 7장. 운영
 ******************
 
-이 장에서는 M2운영에 필요한 다양한 도구들에 대해 설명한다.
+이 장에서는 운영에 필요한 다양한 도구들에 대해 설명한다.
 
 
 .. _op-purge:
@@ -20,7 +20,8 @@ M2도 STON 캐싱엔진을 사용한다. 따라서 STON과 동일하게 캐싱 �
    http://{m2-ip}:10040/command/purge?url=example.com/myapi?model=*&view=catalog
 
 
-모델이나 뷰가 변경되면 TTL(Time To Live) 이후 자동반영된다. 즉시 변경을 원할 경우 아래와 같이 Purge API 호출로 즉시 반영이 가능하다.
+모델이나 뷰가 변경되어도 TTL(Time To Live) 이후 반영된다. 
+즉시 변경을 원할 경우 `Purge <https://ston.readthedocs.io/ko/latest/admin/caching_purge.html#purge>`_ 를 호출한다.
 
 
 
