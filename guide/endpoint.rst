@@ -172,4 +172,26 @@ Body와 QueryString을 혼합해 사용 가능하다. ::
 
 
 
+확장모듈
+------------------------------------
 
+확장모듈은 기존 시스템과 연동을 위한 목적으로 사용된다.
+
+-  이미 사용하는 Web API 규격이 있는 경우
+-  인증등 외부 시스템과 연계하는 경우
+-  생성된 콘텐츠 S3 업로드
+
+.. figure:: img/m2_15.png
+    :align: center
+
+
+::
+
+   # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
+
+   <Control>
+       <Module Name="aws_s3-backup">bucket:mybucket; object:/my/desired/key.txt;</Module>
+   </Control>
+   
+
+-  ``<Module>`` 약속된 연동모듈을 ``Name`` 속성으로 로딩한다. 모듈의 파라미터는 값으로 전달한다.
