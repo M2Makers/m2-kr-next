@@ -42,7 +42,7 @@ M2는 리눅스 서비스로 동작한다.
       service ston status
 
 
-.. _getting-started-serverconf:
+.. _getting-started-sysconf:
 
 시스템 구성
 ====================================
