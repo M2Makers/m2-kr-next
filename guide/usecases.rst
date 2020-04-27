@@ -35,7 +35,7 @@ M2는 Mid-Tier의 간단한 데이터 맵핑만으로 데이터가 바인딩된 
 이미지 서버
 ====================================
 
-가격, 재고, 판매량등의 실시간 정보가 반영되는 이미지를 제작한다.
+가격, 재고, 판매량등의 실시간 정보가 반영되는 이미지를 생산한다.
 
 .. figure:: img/m2_06.png
    :align: center
@@ -55,10 +55,17 @@ M2는 Mid-Tier의 간단한 데이터 맵핑만으로 데이터가 바인딩된 
 2차 이미지 가공               STON 이미지툴               추가 프로세스 필요
 =========================== ========================== ============================
 
-결과물은 `STON 이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 과의 결합을 통해 사용성이 한층 높아진다. ::
+상품이미지는 다양한 이미지 템플릿을 통해 즉시 대량생산하여 서비스할 수 있다.
+
+.. figure:: img/m2_16.png
+   :align: center
+
+
+`STON 이미지 툴 <https://ston.readthedocs.io/ko/latest/admin/image.html>`_ 과의 결합을 통해 사용성이 한층 높아진다. ::
 
    http://example.com/m2-endpoint?model=html&view=jpg/imagetool/resize/100x100
    http://example.com/m2-endpoint?model=html&view=jpg/imagetool/format/webp
+
 
 
 How it works
