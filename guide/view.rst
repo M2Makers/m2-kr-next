@@ -98,7 +98,7 @@ Nunjucks
 
 .. note::
 
-   더 많은 내용은 :ref:`nunjucks`_ 에서 다룬다.
+   더 많은 내용은 :ref:`nunjucks` 에서 다룬다.
 
 
 .. _view-format:
