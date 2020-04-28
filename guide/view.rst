@@ -89,7 +89,14 @@ Nunjucks
    </ul>
 
 
-.. note:
+반복문을 이용하면 배열 모델을 손쉽게 가공할 수 있다.
+
+
+.. figure:: img/m2_22.png
+    :align: center
+
+
+.. note::
 
    더 많은 내용은 :ref:`nunjucks`_ 에서 다룬다.
 
