@@ -118,11 +118,12 @@ M2는 상품기술서나 백엔드 수정없이 즉시 원하는 스타일과 �
 ====================================
 
 오래전부터 누적되온 상품기술서는 HTTP 프로토콜로 작성된 경우가 대부분이다. 
-HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 http 리소스 참조는 혼합 콘텐츠(Mixed Content) 문제를 야기한다.
 
 .. figure:: img/m2_28.png
    :align: center
 
+
+HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 http 리소스 참조는 혼합 콘텐츠(Mixed Content) 문제를 야기한다.
 
 -  `혼합 콘텐츠란? - 구글 <https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content?hl=ko>`_
 -  `What is mixed content? - Clourflare <https://www.cloudflare.com/learning/ssl/what-is-mixed-content/>`_
@@ -138,7 +139,7 @@ HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 http 리�
    :align: center
 
 
-M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 처리한다.
+M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 안전하게 로딩되도록 처리한다.
 
 .. figure:: img/m2_27.png
    :align: center
@@ -150,7 +151,7 @@ M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 처리한다.
 
 불특정 서버에 존재하는 이미지를 자사 백엔드를 통해 투명하게 서비스한다.
 
-.. figure:: img/m2_20.png
+.. figure:: img/m2_29.png
    :align: center
 
 
@@ -159,6 +160,11 @@ M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 처리한다.
 -  이미지 최적화
 -  스토리지 백업 (S3 등)
 -  API 리포팅
+
+
+
+증빙
+====================================
 
 
 
