@@ -103,7 +103,7 @@ How it works
    .. figure:: img/m2_18.png
       :align: center
 
--  반응형 레이아웃 및 스타일 최적화
+-  반응형 레이아웃 및 스타일 최적화 (고정 사이즈 해체)
 
    .. figure:: img/m2_19.png
       :align: center
@@ -117,16 +117,13 @@ M2는 상품기술서나 백엔드 수정없이 즉시 원하는 스타일과 �
 혼합 콘텐츠 문제해결
 ====================================
 
-오래전부터 누적되온 상품기술서는 HTTP 프로토콜로 작성된 경우가 대부분이다. 
+오래전부터 누적되온 상품기술서는 HTTP 프로토콜을 사용하는 경우가 많다.
 
 .. figure:: img/m2_28.png
    :align: center
 
 
-HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 http 리소스 참조는 혼합 콘텐츠(Mixed Content) 문제를 야기한다.
-
--  `혼합 콘텐츠란? - 구글 <https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content?hl=ko>`_
--  `What is mixed content? - Clourflare <https://www.cloudflare.com/learning/ssl/what-is-mixed-content/>`_
+HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 HTTP 리소스 참조는 `혼합 콘텐츠 (Mixed Content) <https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content?hl=ko>`_ 문제를 야기한다.
 
 
 .. figure:: img/m2_26.png
@@ -139,7 +136,7 @@ HTTPS를 전면도입할 경우 상품기술서안에 하드코딩된 http 리�
    :align: center
 
 
-M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 안전하게 로딩되도록 처리한다.
+M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 안전하게 로딩시킨다.
 
 .. figure:: img/m2_27.png
    :align: center
@@ -155,7 +152,7 @@ M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 안전하게 
    :align: center
 
 
-외부 이미지를 가져옴과 동시에 부가 작업을 동시에 수행할 수 있다.
+외부 이미지를 가져옴과 동시에 부가 작업을 수행할 수 있다.
 
 -  이미지 최적화
 -  스토리지 백업 (S3 등)
@@ -172,7 +169,12 @@ M2는 혼합 콘텐츠 문제를 전송 전에 미리 감지하여 안전하게 
    :align: center
 
 
-날짜, 서비스품질, 장애상황을 기록으로 남긴다.
+단순히 이미지화하는 것 외에 메타 정보 기입할 수 있다.
+
+-  날짜
+-  HTTP 요청
+-  로딩 속도
+-  장애 콘텐츠 감지
 
 
 
