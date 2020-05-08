@@ -209,6 +209,7 @@ Default 엔드포인트
    <Endpoints>
       <Endpoint> ... </Endpoint>
       <Endpoint> ... </Endpoint>
+      <Endpoint> ... </Endpoint>
       <Default>/myendpoint</Default>
    </Endpoints>
 
