@@ -20,7 +20,7 @@ Microservice로의 아키텍처 변화는 많은 장점을 가지지만, 데이�
 .. figure:: img/m2_32.png
    :align: center
 
-   ( `메일침프 - Limitations of HTML Email <https://mailchimp.com/help/limitations-of-html-email/>`_ 발췌)
+   `메일침프 - Limitations of HTML Email <https://mailchimp.com/help/limitations-of-html-email/>`_ 발췌
 
 
 
