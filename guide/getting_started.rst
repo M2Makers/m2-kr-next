@@ -105,6 +105,21 @@ Cent OS 7.4이상만 지원한다.
       Usage) service ston start|stop|restart|status
 
 
+5. M2 서비스 데몬의 정상기동을 확인한다.  ::
+
+      [root@localhost ~]# # service ston status
+
+      stond Running
+      ┌─────┬───────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+      │ id  │ name  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+      ├─────┼───────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+      │ 0   │ m2    │ default     │ 20.06.0 │ cluster │ 3336     │ 19h    │ 0    │ online    │ 0.4%     │ 98.6mb   │ root     │ disabled │
+      │ 1   │ m2    │ default     │ 20.06.0 │ cluster │ 3343     │ 19h    │ 0    │ online    │ 0.4%     │ 107.1mb  │ root     │ disabled │
+      │ 2   │ m2    │ default     │ 20.06.0 │ cluster │ 3404     │ 19h    │ 0    │ online    │ 0.2%     │ 109.0mb  │ root     │ disabled │
+      │ 3   │ m2    │ default     │ 20.06.0 │ cluster │ 3410     │ 19h    │ 0    │ online    │ 0.2%     │ 96.4mb   │ root     │ disabled │
+      └─────┴───────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+
 
 .. _getting-started-license:
 
