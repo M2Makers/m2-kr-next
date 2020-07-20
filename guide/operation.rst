@@ -30,64 +30,20 @@ M2도 STON 캐싱엔진을 사용한다. 따라서 STON과 동일하게 캐싱 �
 로그
 ====================================
 
-STON의 로그에 더해 각 엔드포인트의 호출 기록은 m2.log에 기록된다. 
-STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
-
-   # server.xml - <Server><VHostDefault><Log>
-   # vhosts.xml - <Vhosts><Vhost><Log>
-
-   <M2 Type="time" Unit="1440" Retention="10">OFF</M2>
-
-기본 값은 ``OFF`` 이다. ::
-
-   #Fields: date time ...
-
-모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
-
--  ``date`` M2 트랜잭션 완료된 날짜
--  ``time`` M2 트랜잭션이 완료된 시간
--  ``cs-sid`` M2 트랜잭션을 요청한 클라이언트 세션 ID
--  ``cs-uri`` 클라이언트가 요청한 URI
--  ``x-result`` M2 트랜잭션 결과 코드. ``200`` = 성공
--  ``x-result-size`` M2 출력물 크기
--  ``x-error`` M2 에러 상세내용
--  ``x-resource-count`` 참조한 리소스 개수
--  ``x-resource-size (단위: Bytes)`` 참조한 리소스 크기의 합
--  ``x-render`` 렌더링 설정변수
--  ``x-transaction-status`` M2 트랜잭션 정상처리 여부. (c=완료, x=중지)
--  ``time-firstbyte (단위: ms)`` 요청 후 첫 응답이 올때까지의 소요시간
--  ``time-taken (단위: ms)`` M2 트랜잭션이 완료될 때까지의 전체 소요시간
--  ``time-taken-rendering (단위: ms)`` View 렌더링 소요시간
-
-
-상세 에러코드는 다음과 같다.
-
--  ``200`` - 성공
--  ``400`` - 파라미터가 불충분
--  ``404`` - Endpoint 없음
--  ``500`` - 초기화 실패 (문법, 결합모델의 파라미터 오류 등)
--  ``501`` - 모델, 뷰 참조 실패
--  ``503`` - 렌더링 실패
-
-
-
-.. _op-log-analyze-relation:
-
-로그 관계
-------------------------------------
-
 M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다음과 같다.
 
 .. figure:: img/m2_33.png
    :align: center
 
 -  **access.log** `링크 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>`_
+
    모든 클라이언트의 HTTP 트랜잭션을 기록한다.
    
    -  ``session-id`` 클라이언트 TCP 세션이 접속할 때 부여된다.
 
 
 -  **origin.log** `링크 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_
+
    캐싱엔진에서 HIT되지 않고 M2모듈로 처리가 위임된 요청을 기록한다.
 
    -  ``session-id`` 원본서버(M2) 요청을 발생시킨 클라이언트 세션 ID. access.log의 ``session-id`` 와 같다.
@@ -95,9 +51,9 @@ M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다
 
 
 -  **m2.log**
+
    M2의 각 엔드포인트에서 진행한 HTTP 트랜잭션을 개별로 진행한다.
-   3개의 이미지를 다운로드 받아 합성했다면 3개의 트랜잭션 로그가 남는다.
-   M2의 형식은 **origin.log** 와 동일하다.
+   3개의 이미지를 다운로드 받아 합성했다면 3개의 트랜잭션 로그가 남는다.   
 
    -  ``cs-sid`` M2가 진행한 트랜잭션 ID. origin.log의 ``session-id`` 와 같다.
    -  ``cs-tcount`` M2 트랜잭션 내에서 진행한 개별 HTTP 트랜잭션 ID. 이 값은 각 M2 트랜잭션마다 1부터 시작한다.
@@ -107,6 +63,37 @@ M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다
 
    **origin.log** 라는 이름은 캐싱엔진에서 유래한다. 
    캐싱엔진에서는 M2도 다른 웹서버와 동등한 캐싱대상이기에 원본(=origin)으로 바라볼 수 있다.
+
+
+
+.. _op-log-conf:
+
+M2 로그 설정
+------------------------------------
+
+STON의 로그에 더해 모든 엔드포인트의 외부 참조(=HTTP 트랜잭션)은 m2.log에 기록된다. 
+STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
+
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <M2 Type="time" Unit="1440" Retention="10">OFF</M2>
+
+M2 로그는 STON의 `origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 와 동일하다.
+
+
+.. _op-log-error-code:
+
+M2 에러코드
+------------------------------------
+
+성공인 ``200 OK`` 를 제외한 상세 에러코드는 다음과 같다.
+
+-  ``400`` - 파라미터가 불충분
+-  ``404`` - Endpoint 없음
+-  ``500`` - 초기화 실패 (문법, 결합모델의 파라미터 오류 등)
+-  ``501`` - 모델, 뷰 참조 실패
+-  ``503`` - 렌더링 실패
 
 
 
