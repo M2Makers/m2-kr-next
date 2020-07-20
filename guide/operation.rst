@@ -35,18 +35,24 @@ M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다
 .. figure:: img/m2_33.png
    :align: center
 
--  `access.log <https://ston.readthedocs.io/ko/latest/admin/log.html#access>`_ - 모든 클라이언트의 HTTP 트랜잭션을 기록한다.
+-  `access.log <https://ston.readthedocs.io/ko/latest/admin/log.html#access>`_ 
+
+   모든 클라이언트의 HTTP 트랜잭션을 기록한다.
    
    -  ``session-id`` 클라이언트 TCP 세션이 접속할 때 부여된다.
 
 
--  `origin.log <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ - 캐싱엔진에서 HIT되지 않고 M2모듈로 처리가 위임된 요청을 기록한다.
+-  `origin.log <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 
+
+   캐싱엔진에서 HIT되지 않고 M2모듈로 처리가 위임된 요청을 기록한다.
 
    -  ``session-id`` 원본서버(M2) 요청을 발생시킨 클라이언트 세션 ID. access.log의 ``session-id`` 와 같다.
    -  ``sc-extra-field`` M2가 진행한 트랜잭션 ID   
 
 
--  **m2.log** - M2의 각 엔드포인트에서 진행한 HTTP 트랜잭션을 개별로 진행한다. 3개의 이미지를 다운로드 받아 합성했다면 3개의 트랜잭션 로그가 남는다.   
+-  m2.log 
+
+   M2의 각 엔드포인트에서 진행한 HTTP 트랜잭션을 개별로 진행한다. 3개의 이미지를 다운로드 받아 합성했다면 3개의 트랜잭션 로그가 남는다.   
 
    -  ``cs-sid`` M2가 진행한 트랜잭션 ID. origin.log의 ``session-id`` 와 같다.
    -  ``cs-tcount`` M2 트랜잭션 내에서 진행한 개별 HTTP 트랜잭션 ID. 이 값은 각 M2 트랜잭션마다 1부터 시작한다.
@@ -54,10 +60,10 @@ M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다
 
 .. note::
 
-   **origin.log** 라는 이름은 캐싱엔진으로부터 유래하지만 명확한 동작을 구분하기 위한 용도이다.
+   **origin.log** 라는 이름은 캐싱엔진으로부터 유래한다.
    
    -  캐싱엔진에서는 M2도 다른 웹서버와 동등한 캐싱대상이기에 원본(=origin)으로 바라볼 수 있다.
-   -  클라이언트에게 노출된 주소와 M2엔드포인트 주소가 다를 수 있다. 이 경우 origin.log를 통해 다름을 확인할 수 있다.
+   -  클라이언트에게 노출되어 호출하는 주소와 M2엔드포인트 주소가 다를 수 있다. 이 경우 origin.log를 통해 명확히 확인할 수 있다.
 
 
 
@@ -66,7 +72,7 @@ M2는 3가지의 로그를 제공하며 각 로그를 연결하는 고리는 다
 M2 로그 설정
 ------------------------------------
 
-STON의 로그에 더해 모든 엔드포인트의 외부 참조는 m2.log에 개별 HTTP 트랜잭션으로 기록된다. 
+모든 엔드포인트의 URL 호출은 m2.log에 개별 HTTP 트랜잭션으로 기록된다. 
 STON 로그 설정방식과 동일하며 가상호스트별로 설정한다. ::
 
    # server.xml - <Server><VHostDefault><Log>
@@ -109,10 +115,10 @@ M2 트랜잭션이 비정상 처리되었다면 다음 헤더를 제공한다. :
 
 ``wget`` 등의 커맨드를 통해 장애 범위를 좁힐 수 있다.
 
--  ``x-m2-tid``
+-  ``x-m2-tid``  M2 트랜잭션 ID
 
-   -  origin.log의 ``sc-extra-field`` 필드
-   -  m2.log의 ``cs-sid`` 필드
+   -  origin.log의 ``sc-extra-field`` 필드 값
+   -  m2.log의 ``cs-sid`` 필드 값
 
 
 -  ``x-m2-error-url``
