@@ -55,12 +55,17 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 
 -  ``<Exclusion>`` M2 엔진을 배제시키지 않는다.
 
-그 밖에 :ref:`op-log-analyze-debug-header` 추가를 위해 다음 설정을 추가한다. ::
+그 밖에 :ref:`op-log-analyze-debug-header` 와 로그 확장을 위해 다음 설정을 추가한다. ::
 
-   # vhosts.xml - <Vhosts><Vhost><Options>
+   # vhosts.xml - <Vhosts><Vhost>
 
-   <OriginalHeader>ON</OriginalHeader>
-   <ModifyHeader FirstOnly="OFF">ON</ModifyHeader>
+   <Options>
+      <OriginalHeader>ON</OriginalHeader>
+      <ModifyHeader FirstOnly="OFF">ON</ModifyHeader>
+   </Options>
+   <Log>
+      <Origin ExtraField="x-m2-tid" Local="ON"/>
+   </Log>
 
 
 ::
@@ -73,6 +78,8 @@ M2는 `STON 가상호스트 <https://ston.readthedocs.io/ko/latest/admin/environ
 -  ``<OriginalHeader>`` M2가 응답하는 비표준 헤더( ``x-m2-tid`` , ``x-m2-error-url`` )를 캐싱엔진이 누락시키지 않는다.
 
 -  ``<ModifyHeader>`` 세션 ID를 클라이언트에게 리턴한다.
+
+-  ``<Log><Origin>`` 디버깅 로그 강화
 
 
 
