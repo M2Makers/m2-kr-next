@@ -109,8 +109,8 @@ M2 트랜잭션이 비정상 처리되었다면 다음 헤더를 제공한다. :
    ... (생략) ...
    x-ston-sessionid: 126
    x-m2-tid: 26576nYLiaXRK
-   x-m2-error-url: http://foo.com/not/found;404
-   x-m2-error-url: http://bar.com/where/is/it;404
+   x-m2-error-url: 400|http://foo.com/not/found
+   x-m2-error-url: 404|http://bar.com/where/is/it
 
 
 ``wget`` 등의 커맨드를 통해 장애 범위를 좁힐 수 있다.
