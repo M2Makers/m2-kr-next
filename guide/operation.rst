@@ -128,8 +128,8 @@ M2 트랜잭션이 비정상 처리되었다면 다음 헤더를 제공한다. :
 
 .. _op-log-fields:
 
-m2.log
-====================================
+m2.log 파일
+------------------------------------
 
 M2가 진행하는 모든 HTTP 트랜잭션을 기록한다.
 기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. ::
@@ -137,7 +137,7 @@ M2가 진행하는 모든 HTTP 트랜잭션을 기록한다.
    # server.xml - <Server><VHostDefault><Log>
    # vhosts.xml - <Vhosts><Vhost><Log>
 
-   <M2 Type="time" Unit="1440" Retention="10" Local="Off">ON</M2>
+   <M2 Type="time" Unit="1440" Retention="10">ON</M2>
 
 
 모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
