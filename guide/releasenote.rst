@@ -9,7 +9,7 @@ v20.x
 20.08.0 (2020.8.26)
 ----------------------------
 
-- 커스텀 에러 기능 추가
+- :ref:`endpoint-control-error` 기능 추가
 - :ref:`getting-started-command-saferestart` 명령어 추가
 
 
