@@ -248,7 +248,8 @@ Body와 QueryString을 혼합해 사용 가능하다. ::
 
 위와 같이 설정하면 엔드포인트가 정상적으로 콘텐츠를 생성하지 못할 때 ``http://foo.com/default/error.gif`` 콘텐츠가 ``200 OK`` 응답코드로 전송된다.
 
--  ``ResCode`` 의 기본 값은 ``<Error>`` URL의 응답코드이다.
+-  ``ResCode (기본: 0)`` 응답코드를 설정한다. 
+   ``0`` 으로 설정한 경우 URL의 응답코드로 설정된다.
 -  ``ContentType`` 의 우선순위는 아래와 같다.
    
    1.  ``ContentType`` 속성 값
