@@ -277,6 +277,8 @@ On the fly Pipeline
    - 더 이상 디자이너가 일일이 문구를 수정하지 않는다.
 
 
+더 많은 사례는 `Contents Service Patterns <https://csp-kr.readthedocs.io/ko/latest/>`_ 를 통해 제공된다.
+
 .. note::
 
    배치는 그 결과물의 가치가 저장/관리 비용보다 높을 때에만 유의미하다. 
