@@ -10,7 +10,7 @@
    ``M2`` 로 구현된 레퍼런스는 `Contents Service Patterns <https://csp-kr.readthedocs.io/ko/latest/>`_ 으로 제공된다.
 
 
-이 문서를 통해 왜 **M2** 의 On-the-fly가 더 나은 **Workload Processing** 방식인지 설명한다.
+이 문서를 통해 왜 **M2** 의 On-the-fly가 최선의 **Workload Processing** 방식인지 설명한다.
 
 
 .. figure:: img/nobatch01.png
