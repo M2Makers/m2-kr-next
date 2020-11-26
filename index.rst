@@ -38,7 +38,7 @@ M2 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
-   guide/imagetool
+   guide/image
    guide/video
 
 
