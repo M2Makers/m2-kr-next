@@ -1,16 +1,18 @@
-.. _engine-imagetool:
+.. _engine-images:
 
-8장. 이미지 툴
+8장. 이미지 엔진
 ******************
 
-이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 이미지 툴(Tool)에 대해 다룬다.
-이미지 툴은 원본이미지를 URL의 요청 형태로 가공하는 기능이다. 
-이미지 가공에 대한 기록은 :ref:`admin-log-image` 에 기록된다.
+이미지 엔진은 ``on the fly`` 로 이미지를 가공한다.
 
 
 .. note::
 
-   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 4. 실시간 이미지 가공 <https://youtu.be/Pdfe-HbtXVs?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+   역사적인 이유로 이미지 엔진은 ``DIMS (딤스)`` 로 불리기도 한다.
+   ``DIMS`` 라는 단어는 ``mod_dims`` 의 Dynamic Image Management System의 약어에서 유래한다.
+
+
+이미지 가공에 대한 기록은 :ref:`admin-log-image` 에 기록된다.
 
 
 .. figure:: img/dims.png
@@ -18,17 +20,19 @@
 
    다양한 동적 이미지 가공
 
+
 이미지는 동적으로 생성되며 원본 이미지 URL뒤에 약속된 키워드와 가공옵션을 붙여서 호출한다.
 가공된 이미지는 캐싱되어 원본서버 이미지가 바뀌지 않는 이상 다시 가공되지 않는다.
 
 예를 들어 원본 파일이 /img.jpg라면 다음과 같은 형식으로 이미지를 가공할 수 있다.
-("12AB"는 약속된 Keyword이다.) ::
+("m2pp"는 약속된 Keyword이다.) ::
 
    http://image.example.com/img.jpg    // 원본 이미지
-   http://image.example.com/img.jpg/12AB/optimize
-   http://image.example.com/img.jpg/12AB/resize/500x500/
-   http://image.example.com/img.jpg/12AB/crop/400x400/
-   http://image.example.com/img.jpg/12AB/composite/watermark1/
+   http://image.example.com/img.jpg/m2pp/optimize
+   http://image.example.com/img.jpg/m2pp/resize/500x500/
+   http://image.example.com/img.jpg/m2pp/crop/400x400/
+   http://image.example.com/img.jpg/m2pp/composite/watermark1/
+
 
 ``<Dims>`` 는 별도로 설정하지 않으면 모두 비활성화되어 있다. ::
 
@@ -56,7 +60,7 @@
 
 
 
-.. _engine-imagetool-optimize:
+.. _engine-image-optimize:
 
 최적화
 ====================================
@@ -109,7 +113,7 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 
 
 
-.. _engine-imagetool-annotation:
+.. _engine-image-annotation:
 
 Annotation
 ====================================
@@ -206,7 +210,7 @@ Dissolve          50                         텍스트 투명도
 - ``Gravity`` , ``Geometry`` , ``Dissolve`` 는 <합성>과 동일하다.
 
 
-.. _engine-imagetool-annotation-font:
+.. _engine-image-annotation-font:
 
 Font
 ---------------------
@@ -306,10 +310,6 @@ Format 변경
 이미지 포맷을 변경한다.
 ``png`` , ``jpg`` , ``gif`` 를 지원한다.
 
-.. note::
-
-   ``Enterprise`` v18.06.0 부터 WebP를 지원한다.
-
 
 다음은 JPG를 PNG로 변환하는 예제다. ::
 
@@ -318,7 +318,7 @@ Format 변경
 
 .. note::
 
-   ``Enterprise`` 변경된 Format의 기본 Quality를 설정할 수 있다. ::
+   변경된 Format의 기본 Quality를 설정할 수 있다. ::
 
       # server.xml - <Server><VHostDefault><Options>
       # vhosts.xml - <Vhosts><Vhost><Options>
@@ -345,7 +345,7 @@ Format 변경
 
 .. note::
 
-   ``Enterprise`` 최대 Quality를 설정할 수 있다. ::
+   최대 Quality를 설정할 수 있다. ::
 
       # server.xml - <Server><VHostDefault><Options>
       # vhosts.xml - <Vhosts><Vhost><Options>
@@ -427,7 +427,7 @@ Format 변경
     http://image.example.com/img.jpg/dims/composite/water1/
 
 
-.. _engine-imagetool-autorotate:
+.. _engine-image-autorotate:
 
 자동회전
 ====================================
@@ -452,7 +452,7 @@ Format 변경
 
 
 
-.. _engine-imagetool-byoriginal:
+.. _engine-image-byoriginal:
 
 원본이미지 조건판단
 ====================================
@@ -511,7 +511,7 @@ Format 변경
    http://image.example.com/img.jpg/dims/byoriginal/size_water/
 
 
-.. _engine-imagetool-anigif:
+.. _engine-image-anigif:
 
 Animated GIF
 ====================================
@@ -527,7 +527,7 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 이런 경우 유용한 몇 가지 기능을 제공한다.
 
 
-.. _engine-imagetool-anigif-firstframeonly:
+.. _engine-image-anigif-firstframeonly:
 
 FirstFrameOnly
 ---------------------
@@ -556,7 +556,7 @@ GIF 중 첫 번째 이미지에 대해서만 변환하도록 설정하면 처리
       http://image.example.com/img.jpg/dims/limit/3/resize/200x200
 
 
-.. _engine-imagetool-anigif-exceptiongif:
+.. _engine-image-anigif-exceptiongif:
 
 변환 후 용량 비교
 ---------------------
