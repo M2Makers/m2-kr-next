@@ -12,7 +12,7 @@
    ``DIMS`` 라는 단어는 ``mod_dims`` 의 Dynamic Image Management System의 약어에서 유래한다.
 
 
-이미지 가공에 대한 기록은 :ref:`admin-log-image` 에 기록된다.
+이미지 가공에 대한 기록은 `Image 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#image>`_ 에 기록된다.
 
 
 .. figure:: img/dims.png
@@ -225,13 +225,13 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    # server.xml - <Server><VHostDefault><Options><Dims>
    # vhosts.xml - <Vhosts><Vhost><Options><Dims>
 
-   <Annotation Name="statictext">STON Edge Server</Annotation>
+   <Annotation Name="statictext">On the fly</Annotation>
    <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
    <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
 
 다음과 같이 텍스트를 전달한다. ::
 
-   // "STON Edge Server" 를 statictext로 삽입
+   // "On the fly" 를 statictext로 삽입
    http:// .../dims/annotation/statictext
 
    // msg(="HelloWorld") 를 maintext로 삽입
