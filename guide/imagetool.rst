@@ -111,7 +111,7 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 
 .. _engine-imagetool-annotation:
 
-Annotation ``[Enterprise]``
+Annotation
 ====================================
 
 Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
@@ -429,7 +429,7 @@ Format 변경
 
 .. _engine-imagetool-autorotate:
 
-자동회전 ``[Enterprise]``
+자동회전
 ====================================
 
 이미지가 회전된 상태라면 원래의 방향으로 바로 잡는다.
