@@ -11,6 +11,7 @@
    :maxdepth: 2
 
 
+.. _engine-caching-transparency:
 
 위치 투명성
 ====================================
@@ -165,4 +166,53 @@ Redirect 추적
 
 
 ``<RedirectionTrace>`` 하위에 ``<URL>`` 들을 열거하면 ``Location`` 헤더 값의 특정 패턴에 대해서만 추적한다.
+
+
+
+.. _engine-caching-vhost-sub-path:
+
+Sub-Path 지정
+-------------------------------------------
+
+한 가상호스트에서 경로에 따라 다른 가상호스트가 처리하도록 설정할 수 있다.
+
+.. figure:: img/adv_vhost_subpath.png
+   :align: center
+
+   통계/로그는 요청을 최종처리한 각각의 가상호스트에 기록된다.
+
+
+::
+
+   # vhosts.xml - <Vhosts>
+
+   <Vhost Name="sports.com">
+     <Sub Status="Active">
+       <Path Vhost="baseball.com">/baseball/<Path>
+       <Path Vhost="football.com">/football/<Path>
+       <Path Vhost="photo.com">/*.jpg<Path>
+     </Sub>
+   </Vhost>
+
+   <Vhost Name="baseball.com" />
+   <Vhost Name="football.com" />
+   <Vhost Name="photo.com" />
+
+-  ``<Sub>`` 경로나 패턴이 일치하면 해당 요청을 다른 가상호스트로 보낸다.
+   일치하지 않는 경우만 현재 가상호스트가 처리한다.
+
+   - ``Status (기본: Active)`` Inactive인 경우 무시한다.
+
+   -  ``<Path>`` 클라이언트가 요청한 URI와 경로가 일치하면 ``Vhost`` 로 해당 요청을 보낸다.
+      값은 경로 또는 패턴만 가능하다. ::
+
+         <Path Vhost="baseball.com">baseball<Path>
+         <Path Vhost="photo.com">*.jpg<Path>
+
+      위와 같이 입력해도 각각 /baseball/과 /*.jpg로 인식된다.
+
+예를 들어 클라이언트가 다음과 같이 요청했다면 해당 요청은 가상호스트 football.com이 처리한다. ::
+
+   GET /football/rank.html HTTP/1.1
+   Host: sports.com
 
