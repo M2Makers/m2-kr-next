@@ -21,7 +21,7 @@
 
 .. note::
 
-   - 이 기능을 활용하면 `인프라 구성 패턴 <https://www.youtube.com/watch?v=HFFVcBw0F7c&list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE&index=7>`_ 의 위치 투명성을 손쉽게 구현할 수 있다.
+   - 이 기능을 활용하면 `인프라 구성 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_infra.html>`_ 의 위치 투명성을 손쉽게 구현할 수 있다.
 
 
 특히 On-Premise에서 클라우드로 스토리지를 마이그레이션하거나, 스토리지의 용량, 비용 등의 이유로 콘텐츠가 분산되어 있는 환경에서 유용하다.
