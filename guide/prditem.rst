@@ -51,6 +51,38 @@ Mixed Contents 트래픽 상세
 /m2x/resource
 ---------------------
 
+리소스 트래픽의 대부분은 이미지이다. 
+이미지 서비스는 CDN 서비스를 이용하는 경우가 많아 다음과 같이 별도의 도메인 지정이 가능하다. ::
+
+   # m2.mixed
+
+   "traffics" : {
+      "resource" : {
+         "domain" : null
+      }
+   }
+
+
+메인, 리바운드 트래픽은 가상호스트 이름을 따른다. 하지만 리소스의 경우 설정에 따라 변경된다. ::
+
+   // 메인, 리바운드 트래픽
+   https://example.com/products/100/m2x/mixed/main
+   https://example.com/products/100/m2x/mixed/rebound/...
+
+   // { "domain" : null } 이라면 가상호스트 이름과 같다.
+   https://example.com/products/100/m2x/mixed/resource/...
+
+   // { "domain" : "cdn.example.com" } 이라면 해당 도메인명을 사용한다.
+   https://cdn.example.com/products/100/m2x/mixed/resource/...
+   
+
+
+예외 트래픽
+---------------------
+
+간혹 서비스간의 연계나 너무 잦은 요청으로 인해 호출되는 도메인에서 서비스를 거부할 수 있다. 
+이 경우 플랜A M2는 실패할 수 있지만, 클라이언트가 실패했다고 확신할수 없다. 
+
 
 
 .. _engine-prditem-mixed-contents:
@@ -71,6 +103,37 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
 *  ``White List`` 등록된 도메인은 ``https://`` 프로토콜만 명시한다.
 *  ``SVL (SSL/TLS Validation List)`` m2live 서비스 데이터베이스를 참고하여 결정한다.
 *  ``Syntax`` HTML 문법만으로 판단한다. ``http://`` 프로토콜 Scheme이 명시된 경우에만 SSL Onloading 한다.
+
+
+상품기술서 처리에 앞서 대상을 지정한다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "anchor" : false,
+      "schemeless" : false,
+   }
+
+
+-  ``options`` 엔진 수행옵션을 설정한다.
+
+   -  ``anchor (기본: false)`` 이 값을 ``true`` 로 설정하면 ``<a href="http://...">`` 의 프로토콜을 Mixed Contents 정책에 따라 수정한다. ::
+      
+         // AS-IS
+         <a href="http://foo.com/index.html">
+
+         // TO-BE
+         <a href="https://foo.com/index.html">
+
+      링크는 proxying 될 경우 정상동작을 보장할 수 없기 프로토콜만을 수정한다.
+
+   -  ``schemeless (기본: false)`` 이 값을 ``true`` 로 설정하면 scheme이 생략된 URL에 https를 추가한다. ::
+
+         // AS-IS
+         <script src="//foo.com/common.js">
+
+         // TO-BE
+         <script src="http://foo.com/common.js">
 
 
 
@@ -272,9 +335,6 @@ SVL-DB를 연동하는 방식에 대해 설정한다. ::
    <img src="https://foo.com/2.jpg">   // do nothing
    <img src="https://example.com/.../m2x/mixed/resource/https://bar.com/3.jpg">  // proxy + (http -> https)
    <img src="https://example.com/.../m2x/mixed/resource/https://bar.com/4.jpg">  // proxy
-
-
-
 
          
 
