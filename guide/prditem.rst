@@ -19,6 +19,12 @@
    }
 
 
+.. note::
+
+   가상호스트 또는 엔드포인트마다 설정을 달리하고 싶다면 call chain의 첫 단계로 설정을 재정의한다.
+
+
+
 .. toctree::
    :maxdepth: 2
 
@@ -27,6 +33,100 @@
 
 상품기술서 트래픽 라우팅
 ====================================
+
+상품기술서를 웹 페이지에 포함시키는 패턴은 3가지가 존재한다. 
+
+-  웹페이지 Embed
+-  독립 도메인 ``추천``
+-  통합 도메인
+
+고객 환경에 알맞은 구조를 통해 속도와 안정성을 확보한다. 
+아래 그림 중 빨간 점선이 M2가 처리해야 하는 상품기술서 트래픽이다.
+
+
+웹페이지 Embed
+---------------------
+
+웹 페이지를 응답하기 전 서버 사이드에서 상품기술서를 포함(Embed)시킨 후 완성된 웹 페이지를 응답한다. 
+브라우저는 상품기술서 서버의 존재를 알 수 없다.
+
+.. figure:: img/prditem04.png
+   :align: center
+
+이 구조에서는 M2가 <상품기술서 서버> 를 대신하여 트래픽을 처리한다. 
+<Web Server>가 보내는 요청이 <M2>로 유입되도록 “domain, ip, hosts 파일” 등을 변경한다.
+
+.. figure:: img/prditem05.png
+   :align: center
+
+<Web Server>는 기존과 동일한 방식으로 웹 페이지에 상품기술서를 삽입한다.
+
+
+
+독립 도메인
+---------------------
+
+상품기술서를 ``<iframe>`` 또는 AJAX 를 이용해 브라우저에서 로딩한다. 
+상품기술서 서버가 완전히 독립된 도메인으로 운영된다.
+
+.. figure:: img/prditem06.png
+   :align: center
+
+이 구조에서는 <상품기술서 서버>의 도메인을 M2로 위임하는 것만으로 구성이 가능하다. 
+위 그림의 빨간 점선 트래픽이 다음과 같이 변경된다.
+
+.. figure:: img/prditem07.png
+   :align: center
+
+상품기술서가 포함하는 ``<iframe>`` 이 내부적으로 다른 ``<iframe>`` 을 포함하여도 트래픽이 M2로 자연스럽게 유입된다.
+
+
+
+통합 도메인
+---------------------
+
+`독립 도메인`_ 과 같은 방식이나 Top-level 페이지(메인 도메인)와 같은 도메인을 사용한다.
+
+.. figure:: img/prditem08.png
+   :align: center
+
+이 구조에는 흔히 <프론트 캐시> 알려진 구조로 도입된다. 
+M2의 URL 전처리 기능을 이용해 상품기술서 트래픽을 정확히 분리시켜야 한다. 
+
+도입 전 반드시 다음과 같이 처리할 상품기술서 URL 패턴이 확정되어야 한다.
+
+.. figure:: img/prditem09.png
+   :align: center
+
+또는 <Web Server>가 상품기술서 트래픽만을 분리하여 M2로 위임하는 방식도 가능하지만 매우 위험하다. 
+왜냐하면 M2는 상품기술서를 찾기 위해 다시 <Web Server>로 요청하게 되어 트래픽 Loop가 발생할 수 있기 때문이다.
+
+
+
+독립 도메인 추천 이유
+---------------------
+
+`독립 도메인`_ 방식을 속도와 안정성 면에서 추천한다.
+
+-  `웹페이지 Embed`_ 방식과 비교
+
+   - 상품기술서를 웹 페이지에 삽입하는 시간만큼 ``TTFB(Time To First Byte)`` 가 줄어든다.
+   - <브라우저>는 전달받은 Top-level 페이지를 먼저 화면에 표기한다. 체감 속도가 빨라진다.
+   - 만약의 상품기술서 장애상황에도 핵심정보인 가격, 결제 등이 영향받지 않는다.
+
+-  `통합 도메인`_ 방식과 비교
+   - 모든 트래픽이 M2를 거친다. 1-hop의 증가로 인한 속도저하는 미비하나 프론트 캐시용도로 사용하지 않는다면 효용성이 높다고 보기 어렵다.
+   - 웹 페이지 장애시 점검 범위가 M2까지로 확대된다.
+   - 상품기술서 패턴이 늘어날 때마다 M2에 추가해 주어야 한다.
+
+
+운영 편의성 측면에서도 <2. 독립 도메인> 방식이 강점을 가진다.
+
+-  상품기술서와 부가 트래픽( ``<iframe>`` , http 이미지 등)을 분리해 정확히 모니터링/관리할 수 있다. 분리되어 있지 않다면 로그를 분석해야 한다.
+-  상품기술서 트래픽을 손쉽게 CDN으로 위임할 수 있다.
+-  상품기술서 정책이 수정되더라도 다른 백엔드 자원에 영향을 주지 않는다.
+-  상품기술서 도메인을 <Web Server>로 위임하여 기존 구조로 쉽게 롤백할 수 있다.
+
 
 
 .. _engine-prditem-mixed-traffic:
@@ -42,14 +142,76 @@ Mixed Contents 트래픽 상세
    https:// 그대로
 
 
-/m2x/main
+메인 트래픽 ``/m2x/main``
 ---------------------
 
-/m2x/rebound
+상품기술서 최상단에 있는 트래픽이다. 
+상품기술서에 대한 접근이 발생하는 위치에 따라 흐름이 달라진다.
+호출 방식에 따라 앞서 언급한 3가지로 구분된다.
+
+
+-  `웹페이지 Embed`_
+-  `독립 도메인`_
+-  `통합 도메인`_
+
+
+
+리바운드 트래픽 ``/m2x/rebound``
+---------------------
+웹 페이지는 구조적으로 다른 문서를 포함(Embed)할 수 있다. 
+
+.. figure:: img/prditem10.png
+   :align: center
+
+따라서 메인 트래픽으로 기존 상품기술서를 처리하였어도, 다음처럼 ``<iframe>`` 으로 참조되는 페이지까지는 처리할 수 없다. ::
+
+   <iframe src="http://foo.com/..."></iframe>
+
+예제의 ``http://foo.com`` 에 Mixed-Contents 문제여부는 태그만으로 알 수 없다. 
+따라서 클라이언트에게 직접 노출시키는 것은 위험하다. 
+
+M2는 메인 트래픽이 ``https://example.com/product/100`` 에 의해 접근되었다면 다음과 같이 소스를 수정한다. ::
+
+   <iframe src="https://example.com/product/100/m2x/mixed/rebound/http://foo.com/..."></iframe>
+
+Browser에서 상품기술서가 로딩 된 이후에 발생하는 리바운드 트래픽은 다음처럼 진행된다.
+
+.. figure:: img/prditem11.png
+   :align: center
+
+
+.. note::
+
+   리바운드 트래픽을 위한 URL변조 규칙이 Suffix인 이유는 반드시 메인 트래픽과 같은 흐름을 이용해야 하기 때문이다.
+
+      1. Browser에서 ``https://example.com/product/100`` 를 요청한다.
+      2. ``/product/100`` 에 대한 요청이 M2로 도달하고 상품기술서가 제공된다. (메인 트래픽)
+      3. Browser는 상품기술서 안의 <iframe>의 src를 호출한다.
+
+   
+   여기서 발생하는 요청이 M2 로 도달하기 까지 네트워크 중간에 여러 장비들이 존재할 수 있다.
+
+      *  L7
+      *  API Gateway
+      *  Web Server
+
+   M2가 ``<iframe>`` 주소를 수정하는 시점에 알 수 있는 정보는 ``/product/100`` 요청이 자신에게 온전히 도달했다는 것 뿐이다. 
+   만약 이 시점에 ``/_m2_/_iframe_/?http://foo.com/...`` 처럼 임의의 Path를 사용할 경우 리바운드 트래픽에 대한 URL 라우팅이 M2로 유입되리라 보장할 수 없다. 
+   따라서 검증된 메인 트래픽 URL인 ``/product/100`` 에 참조 소스를 덧 붙이는 규칙을 사용한다.
+
+
+리소스 트래픽 ``/m2x/resource``
 ---------------------
 
-/m2x/resource
----------------------
+M2 도입 전 후 트래픽 흐름은 다음과 같이 바뀐다.
+
+.. figure:: img/prditem12.png
+   :align: center
+
+*  초록 실선 - 상품기술서 트래픽
+*  빨간 점선 - SSL-onLoading 되어야 하는 트래픽 (백엔드로 인바운드 되는 트래픽)
+*  빨간 실선 - SSL-onLoading 된 트래픽 (백엔드에서 아웃바운드 되는 트래픽)
+
 
 리소스 트래픽의 대부분은 이미지이다. 
 이미지 서비스는 CDN 서비스를 이용하는 경우가 많아 다음과 같이 별도의 도메인 지정이 가능하다. ::
@@ -77,19 +239,19 @@ Mixed Contents 트래픽 상세
    
 
 
-리소스 트래픽 Fallback
+트래픽 Fallback
 ---------------------
 
 정상적인 경우 M2는 클라이언트와 외부 서비스를 사이의 중계를 담당한다.
 
-.. figure:: img/prditem03.png
+.. figure:: img/prditem13.png
    :align: center
-
 
 여러 이유로 연계는 실패할 수 있다.
 
--  네트워크 장애
--  IP 차단
+-  일부 네트워크 장애
+-  의도적인 IP 차단
+-  공격으로 오인
 -  403 forbidden
 
 이런 ``Unavailable`` 한 상황을 단순히 실패로 처리하는 것은 문제가 있다. 
@@ -100,17 +262,15 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
    # m2.mixed
 
    "traffics" : {
-      "resource" : {
-         "fallback": {
-            "enable" : true,
-            "method" : "redirect",
-            "conditions" : ["abort", "4xx", "5xx"]
-         }
+      "fallback": {
+         "enable" : true,
+         "method" : "redirect",
+         "conditions" : ["abort", "4xx", "5xx"]
       }
    }
 
 
--  ``fallback`` 리소스 원본과 정상적인 통신이 불가능할 경우 동작 정책을 설정한다.
+-  ``fallback`` 원본과 정상적인 통신이 불가능할 경우 동작정책을 설정한다.
 
    -  ``enable``
 
@@ -125,8 +285,11 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
       -  ``HTTP 응답코드`` - 구체적인 HTTP 응답코드
       -  ``3xx`` , ``4xx`` , ``5xx``- 해당 계열의 응답코드
 
+.. figure:: img/prditem14.png
+   :align: center
 
-현재 유일한 fallback은 302 Redirect이다. ::
+
+가장 효율적인 fallback은 ``302 Redirect`` 이다. ::
 
    https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg
 
@@ -134,7 +297,7 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
 위 예제에서 foo.com과 정상통신이 불가능하다면 M2는 다음과 같이 응답하여 클라이언트가 직접 통신하도록 한다. ::
 
    HTTP/1.1 302 Found
-   Location: http://http://foo.com/1.jpg
+   Location: http://foo.com/1.jpg
 
 
 
@@ -144,7 +307,7 @@ Mixed Contents 처리
 ====================================
 
 Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading 을 적용하는 것이다.
-아래와 같이 5단계의 정책 우선순위로 SSL Onloading 이 결정된다.
+아래와 같이 6단계의 정책 우선순위로 SSL Onloading 이 결정된다.
 
 .. figure:: img/prditem01.png
    :align: center
@@ -168,25 +331,33 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
    }
 
 
--  ``options`` 엔진 수행옵션을 설정한다.
+-  ``options`` 태그내에서 특별하게 다루어야 하는 요소들에 대한 동작방식을 설정한다.
 
-   -  ``anchor (기본: false)`` 이 값을 ``true`` 로 설정하면 ``<a href="http://...">`` 의 프로토콜을 Mixed Contents 정책에 따라 수정한다. ::
+   -  ``anchor`` 앵커태그 ``<a href="http://...">`` 에 대한 처리정책을 설정한다.
+
+      -  ``false (기본)`` 수정하지 않는다.
+
+      -  ``true`` Mixed Contents 정책에 따라 https로 업그레이드만 진행하며 proxying 하지 않는다. ::
       
-         // AS-IS
-         <a href="http://foo.com/index.html">
+            // AS-IS
+            <a href="http://foo.com/index.html">
 
-         // TO-BE
-         <a href="https://foo.com/index.html">
+            // TO-BE
+            <a href="https://foo.com/index.html">
 
-      링크는 proxying 될 경우 정상동작을 보장할 수 없기 프로토콜만을 수정한다.
 
-   -  ``schemeless (기본: false)`` 이 값을 ``true`` 로 설정하면 scheme이 생략된 URL에 https를 추가한다. ::
 
-         // AS-IS
-         <script src="//foo.com/common.js">
+   -  ``schemeless`` scheme이 생략된 URL에  대한 동작방식을 설정한다.
 
-         // TO-BE
-         <script src="http://foo.com/common.js">
+      -  ``false (기본)`` 수정하지 않는다.
+
+      -  ``true`` 상품기술서내의 다른 리소스와 동일하게 처리한다. scheme을 명확히 지정한다. ::
+
+            // AS-IS
+            <script src="//foo.com/common.js">
+
+            // TO-BE
+            <script src="http://foo.com/common.js">
 
 
 
@@ -384,10 +555,10 @@ SVL-DB를 연동하는 방식에 대해 설정한다. ::
 
 위 태그는 순서대로 다음과 같이 수정된다. ::
 
-   <img src="https://foo.com/1.jpg">   // http -> https
+   <img src="https://foo.com/1.jpg">   // upgrade
    <img src="https://foo.com/2.jpg">   // do nothing
-   <img src="https://example.com/.../m2x/mixed/resource/https://bar.com/3.jpg">  // proxy + (http -> https)
-   <img src="https://example.com/.../m2x/mixed/resource/https://bar.com/4.jpg">  // proxy
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/3.jpg">  // proxy + downgrade
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/4.jpg">  // proxy
 
          
 
