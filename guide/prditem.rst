@@ -77,11 +77,63 @@ Mixed Contents 트래픽 상세
    
 
 
-예외 트래픽
+리소스 트래픽 Fallback
 ---------------------
 
-간혹 서비스간의 연계나 너무 잦은 요청으로 인해 호출되는 도메인에서 서비스를 거부할 수 있다. 
-이 경우 플랜A M2는 실패할 수 있지만, 클라이언트가 실패했다고 확신할수 없다. 
+정상적인 경우 M2는 클라이언트와 외부 서비스를 사이의 중계를 담당한다.
+
+.. figure:: img/prditem03.png
+   :align: center
+
+
+여러 이유로 연계는 실패할 수 있다.
+
+-  네트워크 장애
+-  IP 차단
+-  403 forbidden
+
+이런 ``Unavailable`` 한 상황을 단순히 실패로 처리하는 것은 문제가 있다. 
+왜냐하면 B2B에서 실패를 한 것이지 B2C에서 실패한 것이 아니기 때문이다.
+
+M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출할 대안(fallback)을 제공하여 서비스 가용성을 높인다. ::
+
+   # m2.mixed
+
+   "traffics" : {
+      "resource" : {
+         "fallback": {
+            "enable" : true,
+            "method" : "redirect",
+            "conditions" : ["abort", "4xx", "5xx"]
+         }
+      }
+   }
+
+
+-  ``fallback`` 리소스 원본과 정상적인 통신이 불가능할 경우 동작 정책을 설정한다.
+
+   -  ``enable``
+
+      -  ``true (기본)`` fallback 정책을 수행한다.
+      -  ``fallback`` 500 internal error로 응답한다.
+
+
+   -  ``method (기본: redirect)`` fallback 동작방식을 설정한다.
+   -  ``conditions`` fallback이 동작할 조건목록을 설정한다.
+
+      -  ``abort`` - HTTP 트랜잭션이 중단된 경우
+      -  ``HTTP 응답코드`` - 구체적인 HTTP 응답코드
+      -  ``3xx`` , ``4xx`` , ``5xx``- 해당 계열의 응답코드
+
+
+현재 유일한 fallback은 302 Redirect이다. ::
+
+   https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg
+
+
+위 예제에서 foo.com과 정상통신이 불가능하다면 M2는 다음과 같이 응답하여 클라이언트가 직접 통신하도록 한다. ::
+
+   
 
 
 
