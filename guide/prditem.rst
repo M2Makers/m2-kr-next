@@ -3,8 +3,8 @@
 13장. 상품기술서 엔진
 ******************
 
-상품기술서 엔진은 도큐먼트 엔진에서 파생되어 E-Commerce에 특화된 엔진이다. 
-상품기술서 엔진을 통해 Mixed Contents 이슈 등 셀 수 없이 많은 상품기술서를 즉시 개선할 수 있다.
+상품기술서 엔진은 도큐먼트 엔진에서 파생된, E-Commerce 상품기술서에 특화된 엔진이다. 
+이 엔진을 통해 Mixed Contents 이슈 등 셀 수 없이 많은 상품기술서를 즉시 개선할 수 있다.
 
 설정 구조는 다음과 같다. ::
 
@@ -21,6 +21,12 @@
 
 .. toctree::
    :maxdepth: 2
+
+
+.. _engine-prditem-mixed-contents-traffic:
+
+상품기술서 트래픽 라우팅
+====================================
 
 
 .. _engine-prditem-mixed-traffic:
@@ -87,22 +93,63 @@ SSL Onloading 여부를 설정할 수 있다. ::
 
    # m2.mixed
 
-   "httpsUrls" : {
+   "upgradeHttps" : {
       "ip" : {
-         "upgrade" : true
+         "proxy" : true
       }
    }
 
--  ``upgrade``
+-  ``proxy``
 
    -  ``true (기본)`` IP를 SSL Onloading한다.
-
    -  ``false`` IP를 처리하지 않는다.
 
 
+.. _engine-prditem-mixed-contents-remainlist:
 
 Remain List
 ---------------------
+
+Remain List(유지목록)에 등록된 도메인에 대해서는 어떠한 처리도 수행하지 않는다. ::
+
+   # m2.mixed
+
+   "upgradeHttps" : {
+      "retain" : {
+         "enable" : true,
+         "list" : []
+      }
+   }
+
+
+-  ``retain`` 유지목록을 설정한다.
+
+   -  ``enable``
+      -  ``true (기본)`` 유지목록을 활성화한다.
+      -  ``false`` 유지목록을 비활성화한다.
+
+   -  ``list`` 수정하지 않을 도메인 리스트
+
+
+HTTPS를 지원하지 않는 bar.com을 예로 들어보자. ::
+
+   <img src="http://bar.com/logo.jpg">
+
+
+정상적인 경우 위 URL은 다음과 같이 SSL Onloading된다. ::
+
+   <img src="https://foo.com/.../m2x/mixed/resource/http://bar.com/logo.jpg">
+
+
+하지만 유지목록이 다음과 같이 활성화되어 있다면 원본 태그인 ``<img src="http://bar.com/logo.jpg">`` 를 그대로 유지한다. ::
+
+   "upgradeHttps" : {
+      "retain" : {
+         "enable" : true,
+         "list" : ["bar.com"]
+      }
+   }
+
 
 
 Black/White List
