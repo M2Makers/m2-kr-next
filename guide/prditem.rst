@@ -629,38 +629,6 @@ URL 형식만 보고 문법적으로 판단한다. ::
 
 
 
-.. _engine-prditem-image:
-
-이미지 로딩개선
-====================================
-
-상품기술서를 구성하는 이미지는 매우 긴 경우가 많다. 
-
-.. figure:: img/prditem15.png
-   :align: center
-
-   2만 pixel이 넘는 이미지
-
-
-특히 모바일 환경이라면 보이지 않는 영역까지 로딩하거나, 너무 큰 이미지를 로딩하는 것은 고객 경험을 헤친다.
-
-
-M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 분석하여 분할, 최적화가 가능하다. ::
-
-   // 원본
-   https://example.com/product/100
-
-   // Mixed Contents 처리
-   https://example.com/product/100/m2x/mixed/main
-
-   // Mixed Contents 처리 + 이미지 분할로딩
-   https://example.com/product/100/m2x/mixed/main/image/split/400
-
-   // Mixed Contents 처리 + 이미지 분할로딩 + 이미지 최적화
-   https://example.com/product/100/m2x/mixed/main/image/split/400/optimize
-
-
-
 .. _engine-prditem-svl-service:
 
 Mixed Contents - SVL 서비스
@@ -752,6 +720,36 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
       }
 
 
+
+.. _engine-prditem-image:
+
+이미지 로딩개선
+====================================
+
+상품기술서를 구성하는 이미지는 매우 긴 경우가 많다. 
+
+.. figure:: img/prditem15.png
+   :align: center
+
+   2만 pixel이 넘는 이미지
+
+
+특히 모바일 환경이라면 보이지 않는 영역까지 로딩하거나, 너무 큰 이미지를 로딩하는 것은 고객 경험을 헤친다.
+
+
+M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 분석하여 분할, 최적화가 가능하다. ::
+
+   // 원본
+   https://example.com/product/100
+
+   // Mixed Contents 처리
+   https://example.com/product/100/m2x/mixed/main
+
+   // Mixed Contents 처리 + 이미지 분할로딩
+   https://example.com/product/100/m2x/mixed/main/image/split/400
+
+   // Mixed Contents 처리 + 이미지 분할로딩 + 이미지 최적화
+   https://example.com/product/100/m2x/mixed/main/image/split/400/optimize
 
 
 
