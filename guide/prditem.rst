@@ -682,7 +682,7 @@ SVL 서비스는 M2로 전송되는 모든 상품기술서 안의 도메인에 �
    SVL 개념
 
 
-`SVL 상태페이지 <https://svl.m2live.co.kr/>`_ 를 통해 모니터링하는 도메인을 투명하게 공개한다.
+`SVL 상태페이지 <https://svl.m2live.co.kr/>`_ 를 통해 모니터링하는 도메인 목록을 투명하게 공개한다.
 
 .. figure:: img/prditem16.png
    :align: center
@@ -721,10 +721,88 @@ info.log를 통해 SVL-DB 동기화 상태를 확인할 수 있다. ::
 
    [M2를 신규로 도입하는 경우] 
    
-   SVL 서비스에 신뢰 도메인을 미리 등록해두면 서비스 초기 백에드 유입 트래픽을 최소화할 수 있다.
-   M2 기술지원 담당자를 통해 다음 정보를 제공한다.
+   SVL 서비스에 신뢰 도메인을 미리 등록해두면 서비스 초기 SSL Onloading 트래픽을 최소화할 수 있다.
+   M2 기술지원 담당자에게 다음 정보를 제공한다.
 
    -  상품기술서 access.log
    -  신뢰 도메인 목록
 
    `SVL 상태페이지 <https://svl.m2live.co.kr/>`_ 를 통해 제공한 도메인 상태를 열람한다.
+
+
+
+도메인목록 리포팅
+---------------------
+
+M2는 인덱싱한 도메인 목록을 ``m2.mixed.upgradeHttps.svldb.report.schedule`` 마다 SVL 서비스에 보고한다.
+M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다. 
+
+    2020.12.16 11:00:00 [SVL-DB] full synced (total: 124,501)
+      
+
+.. note::
+
+   ``https://svl.m2live.co.kr`` 와 정상통신할 수 없다면 다음과 같은 오류 메시지가 표시된다. ::
+
+      failed to report to https://svl.m2live.co.kr
+
+   보안이슈로 통신이 허가되지 않는다면 proxy를 두고, https://svl.m2live.co.kr로 포워딩한다. ::
+
+      "upgradeHttps" : {
+         "svldb" : {
+            "url" : "http://10.11.12.13"
+         }
+      }
+
+
+
+.. _engine-prditem-screenshot:
+
+스크린샷
+====================================
+
+스크린샷은 상품기술서를 이미지로 간소화하여 제공한다. ::
+
+   https://example.com/products/100/m2x/mixed/screenshot
+   
+   https://example.com/products/100/m2x/mixed/screenshot/split/400
+
+   https://example.com/products/100/m2x/mixed/screenshot/split/400/optimize
+
+
+단순히 상품기술서 페이지를 이미지로 렌더링하는 것이 아닌 다음 요소들이 연동된다.
+
+-  YouTube 및 <iframe> 태그 인식
+-  Animated GIF 인식
+-  동적 Width
+-  이미지 분할 및 최적화
+
+
+# /usr/local/m2/config-production.json
+
+   {
+      "m2": {
+         "mixed" : {
+            "screenshot" : {
+               "mode" : "{ optimize | exclude-images | minimum | single }",
+            }
+         }
+      }
+   }
+
+
+-  ``screenshot``
+
+   -  ``optimize (기본)`` 태그를 기준으로영역을 분할하여 이미지로 생성한다.
+
+   -  ``exclude-images`` 이미지는 URL 그대로 유지하며, 텍스트 요소만 이미지로 생성한다.
+   
+   -  ``minimum`` 동적 리소스(<iframe>, Animated GIF)를 제외하고 이미지로 생성한다.
+   
+   -  ``single`` 화면 그대로 캡쳐한다.
+   
+
+.. note::
+
+   ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
+   따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
