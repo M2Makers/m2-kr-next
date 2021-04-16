@@ -663,10 +663,10 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
 .. _engine-prditem-svl-service:
 
-SVL 서비스
+Mixed Contents - SVL 서비스
 ====================================
 
-SVL 서비스의 목적은 다음과 같다.
+SVL 서비스의 목적은 다음과 같은 
 
 -  Zero Configuration
 -  SSL Onloading 최소화
