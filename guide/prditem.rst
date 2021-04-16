@@ -761,7 +761,16 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 스크린샷
 ====================================
 
-스크린샷은 상품기술서를 이미지로 간소화하여 제공한다. ::
+스크린샷은 상품기술서 안의 리소스를 이미지로 렌더링하여 제공한다. 
+
+.. note::
+
+   상품기술서 ``<HTML>`` 을 ``JPG`` 로 변환하는 것이 아니다. 
+   상품기술서 ``<HTML>`` 은 유지하며 내부 리소스를 ``JPG`` 로 바꾸는 것이다.
+
+이미지로 렌더링된 리소스는 리소스 트래픽으로 제공된다.
+
+::
 
    https://example.com/products/100/m2x/mixed/screenshot
    
@@ -777,8 +786,9 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 -  동적 Width
 -  이미지 분할 및 최적화
 
+::
 
-# /usr/local/m2/config-production.json
+   # /usr/local/m2/config-production.json
 
    {
       "m2": {
