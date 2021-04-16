@@ -744,7 +744,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
    ``https://svl.m2live.co.kr`` 와 정상통신할 수 없다면 다음과 같은 오류 메시지가 표시된다. ::
 
-      failed to report to https://svl.m2live.co.kr
+      failed to report svl to https://svl.m2live.co.kr
 
    보안이슈로 통신이 허가되지 않는다면 proxy를 두고, https://svl.m2live.co.kr로 포워딩한다. ::
 
