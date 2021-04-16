@@ -171,7 +171,7 @@ M2의 URL 전처리 기능을 이용해 상품기술서 트래픽을 정확히 �
 
 .. _engine-prditem-mixed-traffic:
 
-Mixed Contents 트래픽 확장
+Mixed Contents - 트래픽 라우팅
 ====================================
 
 `Mixed Contents <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_webpage.html#mixed-contents>`_ 로 차단될 콘텐츠를 가장 안전하게 전송하는 방법은 SSL Onloading 이다.
@@ -340,7 +340,7 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
 
 .. _engine-prditem-mixed-contents:
 
-Mixed Contents 처리정책
+Mixed Contents - SSL Onloading
 ====================================
 
 Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading 을 적용하는 것이다.
