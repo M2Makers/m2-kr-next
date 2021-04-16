@@ -735,10 +735,7 @@ info.log를 통해 SVL-DB 동기화 상태를 확인할 수 있다. ::
 ---------------------
 
 M2는 인덱싱한 도메인 목록을 ``m2.mixed.upgradeHttps.svldb.report.schedule`` 마다 SVL 서비스에 보고한다.
-M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다. 
-
-    2020.12.16 11:00:00 [SVL-DB] full synced (total: 124,501)
-      
+M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다.      
 
 .. note::
 
