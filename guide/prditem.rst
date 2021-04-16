@@ -756,6 +756,29 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
 
 
+
+
+.. _engine-prditem-responsive:
+
+반응형 상품기술서
+====================================
+
+`반응형 상품기술서 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_webpage.html#pattern-webpage-responsive>`_ 패턴을 구현한다.
+
+-  고정형 상품기술서를 반응형 상품기술서로
+-  PC기준 웹페이지를 모바일로
+
+::
+
+   // 페이지 전체
+   https://example.com/products/100/m2x/mixed/responsive
+   
+   // <div id="prdDesc">
+   https://example.com/products/100/m2x/mixed/responsive/prdDesc
+  
+
+
+
 .. _engine-prditem-screenshot:
 
 스크린샷
@@ -817,23 +840,3 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
    따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
 
-
-
-.. _engine-prditem-responsive:
-
-반응형 상품기술서
-====================================
-
-`반응형 상품기술서 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_webpage.html#pattern-webpage-responsive>`_ 패턴을 구현한다.
-
--  고정형 상품기술서를 반응형 상품기술서로
--  PC기준 웹페이지를 모바일로
-
-::
-
-   // 페이지 전체
-   https://example.com/products/100/m2x/mixed/responsive
-   
-   // <div id="prdDesc">
-   https://example.com/products/100/m2x/mixed/responsive/prdDesc
-  
