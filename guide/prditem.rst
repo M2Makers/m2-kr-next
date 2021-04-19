@@ -67,6 +67,73 @@
    :maxdepth: 2 
 
 
+
+.. note::
+
+   상품기술서 ``<HTML>`` 전체를 대상으로 하는 것보다 특정 
+
+https://m2-kr-next.readthedocs.io/ko/latest/guide/prditem.html#engine-prditem-mixed-contents-traffic
+
+
+
+.. _engine-prditem-:
+
+상품기술서 처리영역 지정
+====================================
+
+상품기술서는 완전한 형태의 ``<HTML>`` 로 존재하는 경우가 많다.
+의사가 수술부위를 명확히 지정하는 것처럼 URL로 상품기술서 처리영역을 설정할 수 있다.
+
+.. figure:: img/prditem08.png
+   :align: center
+
+위 그림과 같이 파란영역이 수정범위인 경우를 예로 들어 설명한다.
+
+
+미지정
+---------------------
+
+별도의 영역 지정자를 설정하지 않는다. ::
+
+   https://.../m2x/mixed/main
+
+
+전체 페이지를 대상으로 상품기술서가 수정된다.
+
+.. figure:: img/prditem19.png
+   :align: center
+
+
+영역 선택
+---------------------
+
+``:`` 구분자로 처리할 영역을 `Document.querySelector() <https://developer.mozilla.org/ko/docs/Web/API/Document/querySelector>`_ 로 선택한다. ::
+
+   https://.../m2x/mixed/main:contents
+
+
+``contents`` 영역만을 대상으로 상품기술서가 수정되며, 그 외에는 수정하지 않는다.
+
+.. figure:: img/prditem20.png
+   :align: center
+
+
+
+영역 추출
+---------------------
+
+``!`` 구분자로 추출할 영역을 `Document.querySelector() <https://developer.mozilla.org/ko/docs/Web/API/Document/querySelector>`_ 로 선택한다. ::
+
+   https://.../m2x/mixed/main!contents
+
+
+``contents`` 영역만을 추출하여 상품기술서가 수정되며 응답한다.
+
+.. figure:: img/prditem21.png
+   :align: center
+
+
+
 .. _engine-prditem-mixed-contents-traffic:
 
 상품기술서 트래픽 상세
@@ -80,6 +147,7 @@
 
 서비스 환경과 구조에 맞추어야 내구성 높은 서비스 구축이 가능하다. 
 아래 그림 중 빨간 점선이 M2가 처리해야 하는 상품기술서 트래픽이다.
+
 
 
 웹페이지 Embed
