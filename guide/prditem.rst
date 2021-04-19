@@ -84,7 +84,7 @@ https://m2-kr-next.readthedocs.io/ko/latest/guide/prditem.html#engine-prditem-mi
 상품기술서는 완전한 형태의 ``<HTML>`` 로 존재하는 경우가 많다.
 의사가 수술부위를 명확히 지정하는 것처럼 URL로 상품기술서 처리영역을 설정할 수 있다.
 
-.. figure:: img/prditem08.png
+.. figure:: img/prditem18.png
    :align: center
 
 위 그림과 같이 파란영역이 수정범위인 경우를 예로 들어 설명한다.
