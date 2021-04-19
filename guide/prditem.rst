@@ -76,7 +76,7 @@ https://m2-kr-next.readthedocs.io/ko/latest/guide/prditem.html#engine-prditem-mi
 
 
 
-.. _engine-prditem-:
+.. _engine-prditem-area:
 
 상품기술서 처리영역 지정
 ====================================
@@ -854,9 +854,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    상품기술서 ``<HTML>`` 을 ``JPG`` 로 변환하는 것이 아니다. 
    상품기술서 ``<HTML>`` 은 유지하며 내부 리소스를 ``JPG`` 로 바꾸는 것이다.
 
-이미지로 렌더링된 리소스는 리소스 트래픽으로 제공된다.
-
-::
+이미지로 렌더링된 리소스는 리소스 트래픽으로 제공된다. ::
 
    https://example.com/products/100/m2x/mixed/screenshot
    
@@ -902,4 +900,22 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
    ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
    따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
+
+
+
+
+.. _engine-prditem-custom:
+
+커스터마이징
+====================================
+
+상품기술서 엔진의 표준 기능으로 구현이 어려운 기능들에 대해서는 커스터마이징을 지원한다. ::
+
+   // 형식
+   https://example.com/products/100/m2x/custom/{name}/{key-1}/{value-1}/{key-2}/{value-2}/...
+
+   // 예제
+   https://example.com/products/100/m2x/custom/winesoft
+   https://example.com/products/100/m2x/custom/watermark/width/800/token/xyz
+
 
