@@ -846,6 +846,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    
    // <div id="prdDesc">
    https://example.com/products/100/m2x/mixed/responsive:prdDesc
+   https://example.com/products/100/m2x/mixed/responsive!prdDesc
   
 
 
