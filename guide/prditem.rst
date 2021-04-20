@@ -665,8 +665,8 @@ SVL-DB를 연동하는 방식에 대해 설정한다. ::
 
    <img src="https://foo.com/1.jpg">   // upgrade
    <img src="https://foo.com/2.jpg">   // do nothing
-   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/3.jpg">  // proxy + downgrade
-   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/4.jpg">  // proxy
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/3.jpg">  // proxying
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/4.jpg">  // proxying + downgrade
 
          
 
@@ -845,7 +845,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    https://example.com/products/100/m2x/mixed/responsive
    
    // <div id="prdDesc">
-   https://example.com/products/100/m2x/mixed/responsive/prdDesc
+   https://example.com/products/100/m2x/mixed/responsive:prdDesc
   
 
 
