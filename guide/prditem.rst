@@ -922,3 +922,123 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
    따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
 
+
+
+.. _engine-prditem-developing:
+
+개발 중
+====================================
+
+data-src 속성 지원
+---------------------
+
+lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상으로 지정한다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "images" : {
+         "data-src" : false
+      }
+   }
+
+
+다음은 동작 예제이다. ::
+
+   // 원본
+   <img data-src="http://foo.com/1.jpg">
+
+   // "data-src" : false 
+   <img data-src="http://foo.com/1.jpg">
+
+   // "data-src" : true
+   https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg
+
+
+
+base64 이미지 지원
+---------------------
+
+``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 이미지를 지원한다. ::
+
+   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
+
+
+리소스 트래픽을 처리할 때 해당 이미지를 처리할 수 있다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "images" : {
+         "base64" : false
+      }
+   }
+
+
+``"base64" : true`` 설정이라면 다음과 같이 동작한다. ::
+
+다음은 동작 예제이다. ::
+
+   // 원본
+   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
+
+   // "base64" : true
+   // base64 이미지 대신 리소스 트래픽 링크가 포함삽입된다.
+   <img src="https://example.com/.../m2x/mixed/resource/@3378">
+
+
+
+원본주소 암호화
+---------------------
+
+상품기술서 엔진은 구분자 뒤에 원본주소를 포함한다. 
+파생(리바운드, 리소스) 트래픽의 경우 다음과 같다. ::
+
+   https://example.com/products/100/m2x/mixed/rebound/http://foo.com/embed/1000
+   https://example.com/products/100/m2x/mixed/resource/http://foo.com/1.jpg
+
+
+연결되는 원본 주소를 숨기고 싶다면 암호화를 사용한다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "encrpytSrcUrl" : {
+         "enable" : false,
+         "algorithm" : "aes-128-cbc",
+         "key" : "0123456789abcdef",
+         "iv" : null
+      }
+   }
+
+
+위 설정에서 ``"enable" : true`` 라면 다음과 같이 소스 URL 영역이 암호화된다. ::
+
+   https://example.com/products/100/m2x/mixed/rebound/DsTmmNcO3SGY2LmBzTrTwqK2UtK42bjaHDnqcWwOK1s=
+   https://example.com/products/100/m2x/mixed/resource/h0p3XqkSt3RK0oEg86+hMgeZDeBEf3DBpUKLBhJ6Tiw=
+
+
+.. warning::
+
+   실행 중 이 설정을 변경하는 것은 매우 위험하다.
+   ``plain text`` 로 배포된 URL와 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. (그 반대로 마찬가지이다.) 
+
+
+
+네이티브 앱 지원 API
+---------------------
+
+상품기술서를 네이티브 앱이 로딩할 수 있도록 ``JSON`` API를 제공한다. ::
+
+   {
+      ...
+   }
+
+동작 요건은 다음과 같다.
+
+   -  상품기술서 ``<HTML>`` 을 ``JSON`` 형식으로 응답 (이하 ``<기술서-API>`` )
+   -  네이티브 앱은 ``<기술서-API>`` 에 기록된 순서대로 로딩하여 상품기술서 서비스가 가능하다.
+   -  API는 ``css`` , ``js`` 등 비시각적인 요소는 모두 제거한다.
+   -  웹뷰 지원이 필요한 경우 ``<iframe>``, ``animated gif`` 리소스의 태그를 직접 노출한다.
+   -  하이퍼링크 ``<a>`` , ``<map>`` 요소들은 제거한다.
+
