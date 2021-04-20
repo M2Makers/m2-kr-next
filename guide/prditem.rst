@@ -69,21 +69,13 @@
 
 
 
-.. note::
-
-   상품기술서 ``<HTML>`` 전체를 대상으로 하는 것보다 특정 
-
-https://m2-kr-next.readthedocs.io/ko/latest/guide/prditem.html#engine-prditem-mixed-contents-traffic
-
-
-
 .. _engine-prditem-area:
 
 상품기술서 처리영역 지정
 ====================================
 
 상품기술서는 완전한 형태의 ``<HTML>`` 로 존재하는 경우가 많다.
-의사가 수술부위를 명확히 지정하는 것처럼 URL로 상품기술서 처리영역을 설정할 수 있다.
+의사가 수술부위를 명확히 지정하는 것처럼 URL 규칙으로 상품기술서 처리영역을 설정할 수 있다.
 
 .. figure:: img/prditem18.png
    :align: center
@@ -424,7 +416,7 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
 *  ``Black List`` 등록된 도메인은 강제로 SSL Onloading 시킨다.
 *  ``White List`` 등록된 도메인은 ``https://`` 프로토콜만 명시한다.
 *  ``SVL (SSL/TLS Validation List)`` `m2live 서비스 <https://svl.m2live.co.kr>`_ 데이터베이스를 참조한다.
-*  ``Syntax`` HTML 문법만으로 판단한다. ``http://`` 프로토콜 Scheme이 명시된 경우에만 SSL Onloading 한다.
+*  ``Syntax`` HTML 문법만으로 판단한다.
 
 
 상품기술서 처리에 앞서 대상을 지정한다. ::
@@ -610,7 +602,7 @@ SVL-DB
 
 .. note::
 
-   개념과 동작상세에 대해서는 `SVL 연동 시나리오`_ 를 참고한다.
+   개념과 동작상세에 대해서는 `Mixed Contents - SVL 서비스`_ 를 참고한다.
 
 
 SVL-DB를 연동하는 방식에 대해 설정한다. ::
@@ -655,18 +647,18 @@ SVL-DB를 연동하는 방식에 대해 설정한다. ::
 
 엔진은 SVL-DB를 참고하여 다음 태그를 수정한다. ::
 
-   <img src="http://foo.com/1.jpg">
-   <img src="https://foo.com/2.jpg">
-   <img src="http://bar.com/3.jpg">
-   <img src="https://bar.com/4.jpg">
+   <img src="https://foo.com/1.jpg">
+   <img src="http://foo.com/2.jpg">
+   <img src="https://bar.com/3.jpg">
+   <img src="http://bar.com/4.jpg">
 
 
 위 태그는 순서대로 다음과 같이 수정된다. ::
 
-   <img src="https://foo.com/1.jpg">   // upgrade
-   <img src="https://foo.com/2.jpg">   // do nothing
-   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/3.jpg">  // proxying
-   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/4.jpg">  // proxying + downgrade
+   <img src="https://foo.com/1.jpg">   // do nothing
+   <img src="https://foo.com/2.jpg">   // upgrade
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/3.jpg">  // proxying + downgrade
+   <img src="https://example.com/.../m2x/mixed/resource/http://bar.com/4.jpg">  // proxying
 
          
 
@@ -720,7 +712,7 @@ SVL 서비스의 목적은 다음과 같은
 
 SVL 서비스는 M2로 전송되는 모든 상품기술서 안의 도메인에 대해 ``http/s`` 지원을 감시한다.
 
-.. figure:: img/prditem00.png
+.. figure:: img/prditem23.png
    :align: center
 
    SVL 개념
@@ -738,7 +730,7 @@ SVL-DB 동기화
 
 M2는 SVL 서비스를 통해 `SVL-DB`_ 를 동기화한다.
 
-.. figure:: img/prditem17.png
+.. figure:: img/prditem22.png
    :align: center
 
 SVL-DB는 다음 상황에서 Full Sync되며 이후 변경사항에 대해서만 라이브 업데이트 받는다.
@@ -824,6 +816,10 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    // Mixed Contents 처리 + 이미지 분할로딩
    https://example.com/product/100/m2x/mixed/main/image/split/400
 
+   // Mixed Contents 처리 + 이미지 최적화
+   https://example.com/product/100/m2x/mixed/main/image/optimize
+
+
    // Mixed Contents 처리 + 이미지 분할로딩 + 이미지 최적화
    https://example.com/product/100/m2x/mixed/main/image/split/400/optimize
 
@@ -848,6 +844,22 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    https://example.com/products/100/m2x/mixed/responsive:prdDesc
    https://example.com/products/100/m2x/mixed/responsive!prdDesc
   
+
+
+
+.. _engine-prditem-custom:
+
+커스터마이징
+====================================
+
+상품기술서 엔진의 표준 기능으로 구현이 어려운 기능들에 대해서는 커스터마이징을 지원한다. ::
+
+   // 형식
+   https://example.com/products/100/m2x/custom/{name}/{key-1}/{value-1}/{key-2}/{value-2}/...
+
+   // 예제
+   https://example.com/products/100/m2x/custom/winesoft
+   https://example.com/products/100/m2x/custom/watermark/width/800/token/xyz
 
 
 
@@ -909,22 +921,4 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
    ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
    따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
-
-
-
-
-.. _engine-prditem-custom:
-
-커스터마이징
-====================================
-
-상품기술서 엔진의 표준 기능으로 구현이 어려운 기능들에 대해서는 커스터마이징을 지원한다. ::
-
-   // 형식
-   https://example.com/products/100/m2x/custom/{name}/{key-1}/{value-1}/{key-2}/{value-2}/...
-
-   // 예제
-   https://example.com/products/100/m2x/custom/winesoft
-   https://example.com/products/100/m2x/custom/watermark/width/800/token/xyz
-
 
