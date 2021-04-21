@@ -865,7 +865,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
 .. _engine-prditem-screenshot:
 
-스크린샷 ``alpha``
+스크린샷 ``dev``
 ====================================
 
 스크린샷은 상품기술서 안의 리소스를 이미지로 렌더링하여 제공한다. 
@@ -926,7 +926,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
 .. _engine-prditem-developing:
 
-개발 중
+개발 중 ``dev``
 ====================================
 
 data-src 속성 지원
@@ -952,14 +952,14 @@ lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상
    <img data-src="http://foo.com/1.jpg">
 
    // "data-src" : true
-   https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg
+   <img data-src="https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg">
 
 
 
 base64 이미지 지원
 ---------------------
 
-``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 이미지를 지원한다. ::
+``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 `이미지 <https://jsfiddle.net/casiano/Xadvz/>`_ 를 지원한다. ::
 
    <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
 
@@ -977,12 +977,9 @@ base64 이미지 지원
 
 ``"base64" : true`` 설정이라면 다음과 같이 동작한다. ::
 
-다음은 동작 예제이다. ::
-
    // 원본
    <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
 
-   // "base64" : true
    // base64 이미지 대신 리소스 트래픽 링크가 포함삽입된다.
    <img src="https://example.com/.../m2x/mixed/resource/@3378">
 
@@ -1021,7 +1018,8 @@ base64 이미지 지원
 .. warning::
 
    실행 중 이 설정을 변경하는 것은 매우 위험하다.
-   ``plain text`` 로 배포된 URL와 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. (그 반대로 마찬가지이다.) 
+   ``plain text`` 로 배포된 URL과 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. 
+   그 반대로 같다.
 
 
 
@@ -1031,10 +1029,34 @@ base64 이미지 지원
 상품기술서를 네이티브 앱이 로딩할 수 있도록 ``JSON`` API를 제공한다. ::
 
    {
-      ...
+      "resources" : [
+         {
+            "type": "image",
+            "type": "https://example.com/products/100/m2x/mixed/render/@434-1233",
+         },
+         {
+            "type": "image",
+            "type": "http://example.com/image/67/01/67018014_161423634296_0.jpg",
+         },
+         {
+            "type": "html",
+            "type": "<iframe id=\"prdDetailIfr\" name=\"prdDetailIfr\" src=\"\/mi15\/prd\/prdImgDesc.gs?prdid=67420469&amp;prdGbnCd=60&amp;subSupCd=\" scrolling=\"no\" frameborder=\"0\" width=\"720\" height=\"0\" title=\"\uC0C1\uD488 \uC0C1\uC138\uC124\uBA85 (\uAE30\uC220\uC11C) iframe\" style=\"height: 23542px;\"><\/iframe>",
+         },
+         {
+            "type": "image",
+            "type": "http://example.com/image/67/01/67018014_161423634296_1.jpg",
+         }
+      ]
    }
 
-동작 요건은 다음과 같다.
+네이티브 앱은 각 리소스를 순차적으로 로딩(+줄바꿈)하면 브라우저를 통해 상품기술서를 보는 것과 동일한 효과를 얻을 수 있다.
+지원하는 ``type`` 은 다음과 같다.
+
+-  ``image`` JPG, PNG 등의 이미지 URL
+-  ``html`` <iframe> 처럼 웹뷰를 통해서만 렌더링이 가능한 링크
+
+
+개발 요건은 다음과 같다.
 
    -  상품기술서 ``<HTML>`` 을 ``JSON`` 형식으로 응답 (이하 ``<기술서-API>`` )
    -  API는 ``css`` , ``js`` 등 비시각적인 요소는 모두 제거한다.
