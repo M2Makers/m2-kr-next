@@ -100,9 +100,12 @@
 영역 선택
 ---------------------
 
-``:`` 구분자로 처리할 영역을 `Document.querySelector() <https://developer.mozilla.org/ko/docs/Web/API/Document/querySelector>`_ 로 선택한다. ::
+``:`` 구분자로 처리할 영역을 `CSS Selector <https://www.w3schools.com/cssref/css_selectors.asp>`_ 로 선택한다. ::
 
-   https://.../m2x/mixed/main:contents
+   https://.../m2x/mixed/main:selector
+
+   // #id 표현은 :id로 표기된다.
+   https://.../m2x/mixed/main::id
 
 
 ``contents`` 영역만을 대상으로 상품기술서가 수정되며, 그 외에는 수정하지 않는다.
@@ -115,9 +118,12 @@
 영역 추출
 ---------------------
 
-``!`` 구분자로 추출할 영역을 `Document.querySelector() <https://developer.mozilla.org/ko/docs/Web/API/Document/querySelector>`_ 로 선택한다. ::
+``!`` 구분자로 추출할 영역을 `CSS Selector <https://www.w3schools.com/cssref/css_selectors.asp>`_ 로 선택한다. ::
 
-   https://.../m2x/mixed/main!contents
+   https://.../m2x/mixed/main:selector
+
+   // #id 표현은 :id로 표기된다.
+   https://.../m2x/mixed/main::id
 
 
 ``contents`` 영역만을 추출하여 상품기술서가 수정되며 응답한다.
@@ -838,11 +844,11 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 ::
 
    // 페이지 전체
-   https://example.com/products/100/m2x/mixed/responsive
+   https://example.com/products/100/m2x/mixed/main/responsive
    
    // <div id="prdDesc">
-   https://example.com/products/100/m2x/mixed/responsive:prdDesc
-   https://example.com/products/100/m2x/mixed/responsive!prdDesc
+   https://example.com/products/100/m2x/mixed/main:prdDesc/responsive
+   https://example.com/products/100/m2x/mixed/main!prdDesc/responsive
   
 
 
@@ -1068,22 +1074,32 @@ base64 이미지 지원
    
 
 
-로그
----------------------
+.. _engine-prditem-mixed-log:
 
-가상호스트로 분기된 각 엔진이 상세정보를 기록한다. ::
+상품기술서 엔진로그
+====================================
 
-   # server.xml - <Server><VHostDefault><Log>
-   # vhosts.xml - <Vhosts><Vhost><Log>
+상품기술서 엔진로그는 :ref:`op-log-fields` 의 ``m2x-engine`` 필드에 기록된다.
 
-   <M2 Engines="ON">ON</M2>
+-  ``xu`` HTTPS 프로토콜로 업그레이드된 도메인 목록
+-  ``xd`` HTTP 프로토콜로 다운그레이드된 도메인 목록
+-  ``xp`` SSL Onloading된 도메인 목록
 
+다음은 해당 필드의 예제이다.
 
-``engines`` 필드에 기록예제 ::
+::
 
-   -
-   u[foo.com,bar.com]
-   d[foo.com,bar.com]
-   p[182.162.143.217,foo.com,bar.com]
-   u[foo.com,bar.com],d[foo.com,bar.com],p[182.162.143.217,foo.com,bar.com]
+   // 처리된 도메인 없음
+   - 
 
+   // foo.com, bar.com 의 URL이 https로 업그레이드 됨
+   xu=foo.com,bar.com
+
+   // foo.com, bar.com 의 URL이 http로 업그레이드 됨
+   xd=foo.com,bar.com
+   
+   // 1.1.1.1, foo.com, bar.com 의 URL이 SSL Onloading됨
+   xp=1.1.1.1,foo.com,bar.com
+   
+   // 여러 조건이 동시에 발생하면 & 로 구분한다.
+   xu=foo.com,bar.com&xd=baz.com&xp=182.162.143.217,qux.com
