@@ -1066,3 +1066,24 @@ base64 이미지 지원
    -  링크되거나 렌더링되는 모든 이미지에 대한 분할, 최적화가 가능하다.
    -  `data-src 속성 지원`_ , `base64 이미지 지원`_ , `원본주소 암호화`_ 를 모두 지원한다.
    
+
+
+로그
+---------------------
+
+가상호스트로 분기된 각 엔진이 상세정보를 기록한다. ::
+
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <M2 Engines="ON">ON</M2>
+
+
+``engines`` 필드에 기록예제 ::
+
+   -
+   u[foo.com,bar.com]
+   d[foo.com,bar.com]
+   p[182.162.143.217,foo.com,bar.com]
+   u[foo.com,bar.com],d[foo.com,bar.com],p[182.162.143.217,foo.com,bar.com]
+
