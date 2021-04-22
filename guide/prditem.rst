@@ -1076,7 +1076,7 @@ base64 이미지 지원
    # server.xml - <Server><VHostDefault><Log>
    # vhosts.xml - <Vhosts><Vhost><Log>
 
-   <M2 Engines="ON">ON</M2>
+   <M2 Engines="OFF">ON</M2>
 
 
 ``engines`` 필드에 기록예제 ::
