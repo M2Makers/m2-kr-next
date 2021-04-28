@@ -1084,7 +1084,7 @@ base64 이미지 지원
    "edit" : {
       "delete" : {
          "enable" : false,
-         "child" : true,
+         "includeChild" : true,
          "elements" : [
             "applet", 
             "acronym",
