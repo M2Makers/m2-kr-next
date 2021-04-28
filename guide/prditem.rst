@@ -1137,7 +1137,7 @@ base64 이미지 지원
             <p>text</p>
 
 
-   -  ``elements`` 삭제대상 elements 목록
+   -  ``elements`` 삭제할 태그 목록을 지정한다.
 
 
 이 기능은 `deprecated <https://www.tutorialspoint.com/html/html_deprecated_tags.htm>`_ , `obsolete <https://www.w3.org/TR/html52/obsolete.html#non-conforming-features>`_ 요소들을 상품기술서에서 삭제할 목적으로 개발되었다.
