@@ -1074,6 +1074,82 @@ base64 이미지 지원
    
 
 
+태그 수정
+---------------------
+
+상품기술서의 태그를 수정한다. ::
+
+   # m2.mixed
+
+   "edit" : {
+      "delete" : {
+         "enable" : false,
+         "child" : true,
+         "elements" : [
+            "applet", 
+            "acronym",
+            "bgsound",
+            "dir", 
+            "frame", 
+            "frameset", 
+            "noframes",
+            "hgroup",
+            "isindex",
+            "listing",
+            "nextid",
+            "noembed",
+            "plaintext",
+            "strike",
+            "xmp",
+            "basefont",
+            "big",
+            "blink",
+            "center",
+            "font",
+            "marquee",
+            "menu",
+            "menuitem,
+            "multicol",
+            "nobr",
+            "spacer",
+            "tt",
+            "rb",
+            "rtc",
+            
+         ]
+      }
+   }
+
+
+-  ``delete`` 상품기술서내 태그를 삭제한다.
+
+   -  ``enable (기본: false)`` 활성화 설정. ``true`` 인 경우에만 ``elements`` 목록에 있는 태그들을 삭제한다.
+
+   -  ``child (기본: true)`` 삭제될 태그의 자식들까지 삭제한다.
+      이 값이 ``false`` 라면 다음과 같이 해당 태그만 삭제한다. ::
+
+         // 원문
+         <center>
+            <p>text</p>
+         </center>
+
+         // 수정 - <center> 태그 삭제
+            <p>text</p>
+
+
+   -  ``elements`` 삭제대상 elements 목록
+
+
+이 기능은 `deprecated <https://www.tutorialspoint.com/html/html_deprecated_tags.htm>`_ , `obsolete <https://www.w3.org/TR/html52/obsolete.html#non-conforming-features>`_ 요소들을 상품기술서에서 삭제할 목적으로 개발되었다.
+따라서 기본 설정은 `deprecated <https://www.tutorialspoint.com/html/html_deprecated_tags.htm>`_ , `obsolete <https://www.w3.org/TR/html52/obsolete.html#non-conforming-features>`_ 에서 언급된 목록들을 포함하여 배포되지만, 임의의 태그를 추가하여도 동작한다.
+
+
+.. note::
+
+   `W3C - Obsolete features <https://www.w3.org/TR/html52/obsolete.html#obsolete>`_ 는 꾸준히 제안되고 있으며, M2는 ``HTML 5.2`` 제안을 따른다.
+
+
+
 .. _engine-prditem-mixed-log:
 
 상품기술서 엔진로그
