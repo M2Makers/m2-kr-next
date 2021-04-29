@@ -454,7 +454,8 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
 
    "options" : {
       "anchor" : false,
-      "schemeless" : false
+      "schemeless" : false,
+      "escapeJson" : true
    }
 
 
@@ -486,6 +487,11 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
             // TO-BE
             <script src="http://foo.com/common.js">
 
+   - ``escapeJson`` JSON내 상품기술서를 처리할 때 escape 문자를 치환한다.
+
+      -  ``true (기본)`` 치환한다.
+
+      -  ``false`` 치환하지 않는다.
 
 
 .. _engine-prditem-mixed-contents-ip:
