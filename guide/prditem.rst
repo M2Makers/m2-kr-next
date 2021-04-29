@@ -133,6 +133,29 @@
 
 
 
+.. _engine-prditem-area-json:
+
+JSON
+---------------------
+
+상품기술서 ``<HTML>`` 이 ``JSON`` 내부에 저장된 경우, JSON 노드표현이 가능하다. ::
+
+   {
+      "data": {
+         "goodsItem": {
+            "desc": "<img src='http://foo.com'>"
+         }
+      }
+   }
+
+단, 이 경우는 본문이 ``JSON`` 이기 때문에 ``/mainjson`` 키워드를 사용한다. ::
+
+   https://.../m2x/mixed/mainjson:data.goodsItem.desc
+   https://.../m2x/mixed/mainjson!data.goodsItem.desc
+
+
+
+
 .. _engine-prditem-mixed-contents-traffic:
 
 상품기술서 트래픽 상세
