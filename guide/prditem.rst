@@ -517,6 +517,9 @@ Mixed Contents - 처리옵션
 상품기술서 SSL Onloading 이외의 세부 처리정책을 구성한다. 
 
 
+.. _engine-prditem-mixed-options-anchor:
+
+
 앵커태그
 ---------------------
 
@@ -537,6 +540,9 @@ Mixed Contents - 처리옵션
    // TO-BE
    <a href="https://foo.com/index.html">
 
+
+
+.. _engine-prditem-mixed-options-schemeless:
 
 scheme 생략 URL
 ---------------------
@@ -575,6 +581,8 @@ SSL onloading을 해야하는 경우 ``originProtocol (기본: http)`` 설정으
 
 
 
+.. _engine-prditem-mixed-options-sizeLimit:
+
 상품기술서 용량제한
 ---------------------
 
@@ -591,6 +599,8 @@ SSL onloading을 해야하는 경우 ``originProtocol (기본: http)`` 설정으
 ``max (기본: 1048576 bytes)`` 설정을 통해 상품기술서 엔진에서 처리가능한 최대 크기를 제한한다. 
 설정된 크기 이상이라면 처리하지 않고 원본을 응답한다.
 
+
+.. _engine-prditem-mixed-options-data-src:
 
 data-src 속성
 ---------------------
@@ -617,7 +627,9 @@ lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상
 
 
 
-DATA-URI
+.. _engine-prditem-mixed-options-dataUri:
+
+Data URI
 ---------------------
 
 ``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 `이미지 <https://jsfiddle.net/casiano/Xadvz/>`_ 를 지원한다. ::
@@ -643,6 +655,8 @@ DATA-URI
    <img src="https://example.com/.../m2x/mixed/resource/R0lGODlhPQBEAP....">
 
 
+
+.. _engine-prditem-mixed-options-enc:
 
 원본주소 암호화
 ---------------------
@@ -679,6 +693,8 @@ DATA-URI
    그 반대로 같다.
 
 
+
+.. _engine-prditem-mixed-options-etc:
 
 기타
 ---------------------
