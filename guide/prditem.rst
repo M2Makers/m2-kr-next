@@ -514,91 +514,82 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
 Mixed Contents - 처리옵션
 ====================================
 
-상품기술서 SSL Onloading 처리에 앞서 대상을 지정한다. ::
+상품기술서 SSL Onloading 이외의 세부 처리정책을 구성한다. 
 
-   # m2.mixed
 
-   "options" : {
-      "anchor" : {
-         "enable": false
-      },
-      "schemeless" : {
-         "enable": false,
-         "originProtocol" : "http"
-      },
-      "escapeJson" : {
-         "enable": true
-      },
-      "sizeLimit" : {
-         "enable": true,
-         "max" : 1048576
-      }
+앵커태그
+---------------------
+
+앵커태그 ``<a href="http://...">`` 에 대한 처리정책을 설정한다. ::
+
+   # m2.mixed.options
+
+   "anchor" : {
+      "enable": false
    }
 
 
--  ``options`` 태그내에서 특별하게 다루어야 하는 요소들에 대한 동작방식을 설정한다.
+``enable(기본: false)`` 설정이 ``true`` 라면 Mixed Contents 정책에 따라 ``https``로 업그레이드만 진행하며 proxying 하지 않는다. ::
 
-   -  ``anchor`` 앵커태그 ``<a href="http://...">`` 에 대한 처리정책을 설정한다.
+   // AS-IS
+   <a href="http://foo.com/index.html">
 
-      -  ``enable``
-
-         -  ``false (기본)`` 수정하지 않는다.
-
-         -  ``true`` Mixed Contents 정책에 따라 https로 업그레이드만 진행하며 proxying 하지 않는다. ::
-         
-               // AS-IS
-               <a href="http://foo.com/index.html">
-
-               // TO-BE
-               <a href="https://foo.com/index.html">
+   // TO-BE
+   <a href="https://foo.com/index.html">
 
 
+scheme 생략 URL
+---------------------
 
-   -  ``schemeless`` scheme이 생략된 URL에  대한 동작방식을 설정한다.
+scheme이 생략된 URL에  대한 동작방식을 설정한다. ::
 
-      -  ``enable``
+   # m2.mixed.options
 
-         -  ``false (기본)`` 수정하지 않는다.
+   "schemeless" : {
+      "enable": false,
+      "originProtocol" : "http"
+   }
 
-         -  ``true`` 상품기술서내의 다른 리소스와 동일하게 처리한다. scheme을 명확히 지정한다. ::
+``enable(기본: false)`` 설정이 ``true`` 라면 상품기술서내의 다른 리소스와 동일하게 처리한다. scheme을 명확히 지정한다. ::
 
-               // AS-IS
-               <script src="//foo.com/common.js">
+   // AS-IS
+   <script src="//foo.com/common.js">
 
-               // TO-BE
-               <script src="https://foo.com/common.js">
-
-
-      -  ``originProtocol`` SSL onloading을 해야하는 경우 원본 프로토콜을 설정한다. ::
-
-               <script src="//foo.com/common.js">
-
-
-         -  ``http (기본)`` http 프로토콜을 사용한다. ::
-
-               <script src=".../m2x/mixed/resource/http://foo.com/common.js">
+   // TO-BE
+   <script src="https://foo.com/common.js">
 
 
-         -  ``https`` https 프로토콜을 사용한다. ::
+SSL onloading을 해야하는 경우 ``originProtocol (기본: http)`` 설정으로 원본 프로토콜을 선택한다. ::
 
-               <script src=".../m2x/mixed/resource/https://foo.com/common.js">
+   <script src="//foo.com/common.js">
 
 
-   - ``escapeJson`` JSON에 포함된 상품기술서 ``<HTML>`` 의 escape 문자를 치환한다.
+   -  ``http (기본)`` http 프로토콜을 사용한다. ::
 
-      -  ``enable``
-         
-         -  ``true (기본)`` 치환한다.
+         <script src=".../m2x/mixed/resource/http://foo.com/common.js">
 
-         -  ``false`` 치환하지 않는다.
 
-   - ``sizeLimit`` 상품기술서 크기를 제한한다. 
-     지나치게 큰 상품기술서를 ``DOM`` 로딩할 경우 메모리 과다사용으로 인한 성능저하가 발생할 수 있다.
-         
-      -  ``enable (기본: true)`` 활성화
-      
-      -  ``max (기본: 1048576 bytes)`` 상품기술서 엔진에서 처리가능한 최대 크기. 설정된 크기 이상이라면 처리하지 않고 원본을 응답한다.
+   -  ``https`` https 프로토콜을 사용한다. ::
 
+         <script src=".../m2x/mixed/resource/https://foo.com/common.js">
+
+
+
+상품기술서 용량제한
+---------------------
+
+지나치게 큰 상품기술서를 ``DOM`` 로딩할 경우 메모리 과다사용으로 인한 성능저하가 발생할 수 있다. ::
+
+   # m2.mixed.options
+
+   "sizeLimit" : {
+      "enable": true,
+      "max" : 1048576
+   }
+
+
+``max (기본: 1048576 bytes)`` 설정을 통해 상품기술서 엔진에서 처리가능한 최대 크기를 제한한다. 
+설정된 크기 이상이라면 처리하지 않고 원본을 응답한다.
 
 
 data-src 속성
@@ -606,12 +597,10 @@ data-src 속성
 
 lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상으로 지정한다. ::
 
-   # m2.mixed
+   # m2.mixed.options
 
-   "options" : {
-      "images" : {
-         "data-src" : false
-      }
+   "images" : {
+      "data-src" : false
    }
 
 
@@ -638,12 +627,10 @@ DATA-URI
 
 리소스 트래픽을 처리할 때 해당 이미지를 처리할 수 있다. ::
 
-   # m2.mixed
+   # m2.mixed.options
 
-   "options" : {
-      "images" : {
-         "dataUri" : false
-      }
+   "images" : {
+      "dataUri" : false
    }
 
 
@@ -653,7 +640,7 @@ DATA-URI
    <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
 
    // base64 이미지 대신 리소스 트래픽 링크가 포함삽입된다.
-   <img src="https://example.com/.../m2x/mixed/resource/@3378">
+   <img src="https://example.com/.../m2x/mixed/resource/R0lGODlhPQBEAP....">
 
 
 
@@ -669,15 +656,13 @@ DATA-URI
 
 연결되는 원본 주소를 숨기고 싶다면 암호화를 사용한다. ::
 
-   # m2.mixed
+   # m2.mixed.options
 
-   "options" : {
-      "encrpytSrcUrl" : {
-         "enable" : false,
-         "algorithm" : "aes-128-cbc",
-         "key" : "0123456789abcdef",
-         "iv" : null
-      }
+   "encrpytSrcUrl" : {
+      "enable" : false,
+      "algorithm" : "aes-128-cbc",
+      "key" : "0123456789abcdef",
+      "iv" : null
    }
 
 
@@ -692,6 +677,27 @@ DATA-URI
    실행 중 이 설정을 변경하는 것은 매우 위험하다.
    ``plain text`` 로 배포된 URL과 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. 
    그 반대로 같다.
+
+
+
+기타
+---------------------
+
+   # m2.mixed.options
+
+      "escapeJson" : {
+         "enable": true
+      }      
+   }
+
+
+- ``escapeJson`` JSON에 포함된 상품기술서 ``<HTML>`` 의 escape 문자를 치환한다.
+
+   -  ``enable``
+      
+      -  ``true (기본)`` 치환한다.
+
+      -  ``false`` 치환하지 않는다.
 
 
 
