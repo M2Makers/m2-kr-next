@@ -592,7 +592,8 @@ Mixed Contents - 처리옵션
 
          -  ``false`` 치환하지 않는다.
 
-   - ``sizeLimit`` 상품기술서 처리크기를 제한한다.
+   - ``sizeLimit`` 상품기술서 크기를 제한한다. 
+     지나치게 큰 상품기술서를 ``DOM`` 로딩할 경우 메모리 과다사용으로 인한 성능저하가 발생할 수 있다.
          
       -  ``enable (기본: true)`` 활성화
       
@@ -641,12 +642,12 @@ DATA-URI
 
    "options" : {
       "images" : {
-         "base64" : false
+         "dataUri" : false
       }
    }
 
 
-``"base64" : true`` 설정이라면 다음과 같이 동작한다. ::
+``"dataUri" : true`` 설정이라면 다음과 같이 동작한다. ::
 
    // 원본
    <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
