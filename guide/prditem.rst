@@ -528,6 +528,10 @@ Mixed Contents - 처리옵션
       },
       "escapeJson" : {
          "enable": true
+      },
+      "sizeLimit" : {
+         "enable": true,
+         "max" : 1048576
       }
    }
 
@@ -587,6 +591,12 @@ Mixed Contents - 처리옵션
          -  ``true (기본)`` 치환한다.
 
          -  ``false`` 치환하지 않는다.
+
+   - ``sizeLimit`` 상품기술서 처리크기를 제한한다.
+         
+      -  ``enable (기본: true)`` 활성화
+      
+      -  ``max (기본: 1048576 bytes)`` 상품기술서 엔진에서 처리가능한 최대 크기. 설정된 크기 이상이라면 처리하지 않고 원본을 응답한다.
 
 
 
