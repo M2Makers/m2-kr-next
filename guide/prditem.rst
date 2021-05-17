@@ -509,25 +509,10 @@ M2는 이런 상황에서 클라이언트가 직접 외부 서비스를 호출�
 
 
 
-.. _engine-prditem-mixed-contents:
+.. _engine-prditem-mixed-options:
 
-Mixed Contents - SSL Onloading
+Mixed Contents - 처리옵션
 ====================================
-
-Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading 을 적용하는 것이다.
-아래와 같이 6단계의 정책 우선순위로 SSL Onloading 이 결정된다.
-
-.. figure:: img/prditem01.png
-   :align: center
-
-
-*  ``IP`` IP 주소는 인증서를 탑재할 수 없다. SSL Onloading 한다.
-*  ``Retain List`` 등록된 도메인은 처리하지 않는다.
-*  ``Black List`` 등록된 도메인은 강제로 SSL Onloading 시킨다.
-*  ``White List`` 등록된 도메인은 ``https://`` 프로토콜만 명시한다.
-*  ``SVL (SSL/TLS Validation List)`` `m2live 서비스 <https://svl.m2live.co.kr>`_ 데이터베이스를 참조한다.
-*  ``Syntax`` HTML 문법만으로 판단한다.
-
 
 상품기술서 SSL Onloading 처리에 앞서 대상을 지정한다. ::
 
@@ -602,6 +587,122 @@ Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading
          -  ``true (기본)`` 치환한다.
 
          -  ``false`` 치환하지 않는다.
+
+
+
+data-src 속성
+---------------------
+
+lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상으로 지정한다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "images" : {
+         "data-src" : false
+      }
+   }
+
+
+다음은 동작 예제이다. ::
+
+   // 원본
+   <img data-src="http://foo.com/1.jpg">
+
+   // "data-src" : false 
+   <img data-src="http://foo.com/1.jpg">
+
+   // "data-src" : true
+   <img data-src="https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg">
+
+
+
+DATA-URI
+---------------------
+
+``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 `이미지 <https://jsfiddle.net/casiano/Xadvz/>`_ 를 지원한다. ::
+
+   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
+
+
+리소스 트래픽을 처리할 때 해당 이미지를 처리할 수 있다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "images" : {
+         "base64" : false
+      }
+   }
+
+
+``"base64" : true`` 설정이라면 다음과 같이 동작한다. ::
+
+   // 원본
+   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
+
+   // base64 이미지 대신 리소스 트래픽 링크가 포함삽입된다.
+   <img src="https://example.com/.../m2x/mixed/resource/@3378">
+
+
+
+원본주소 암호화
+---------------------
+
+상품기술서 엔진은 구분자 뒤에 원본주소를 포함한다. 
+파생(리바운드, 리소스) 트래픽의 경우 다음과 같다. ::
+
+   https://example.com/products/100/m2x/mixed/rebound/http://foo.com/embed/1000
+   https://example.com/products/100/m2x/mixed/resource/http://foo.com/1.jpg
+
+
+연결되는 원본 주소를 숨기고 싶다면 암호화를 사용한다. ::
+
+   # m2.mixed
+
+   "options" : {
+      "encrpytSrcUrl" : {
+         "enable" : false,
+         "algorithm" : "aes-128-cbc",
+         "key" : "0123456789abcdef",
+         "iv" : null
+      }
+   }
+
+
+위 설정에서 ``"enable" : true`` 라면 다음과 같이 소스 URL 영역이 암호화된다. ::
+
+   https://example.com/products/100/m2x/mixed/rebound/DsTmmNcO3SGY2LmBzTrTwqK2UtK42bjaHDnqcWwOK1s=
+   https://example.com/products/100/m2x/mixed/resource/h0p3XqkSt3RK0oEg86+hMgeZDeBEf3DBpUKLBhJ6Tiw=
+
+
+.. warning::
+
+   실행 중 이 설정을 변경하는 것은 매우 위험하다.
+   ``plain text`` 로 배포된 URL과 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. 
+   그 반대로 같다.
+
+
+
+
+.. _engine-prditem-mixed-contents:
+
+Mixed Contents - SSL Onloading
+====================================
+
+Mixed Contents 엔진의 목적은 최소한의 ``URL`` 에 대해 SSL Onloading 을 적용하는 것이다.
+아래와 같이 6단계의 정책 우선순위로 SSL Onloading 이 결정된다.
+
+.. figure:: img/prditem01.png
+   :align: center
+
+
+*  ``IP`` IP 주소는 인증서를 탑재할 수 없다. SSL Onloading 한다.
+*  ``Retain List`` 등록된 도메인은 처리하지 않는다.
+*  ``Black List`` 등록된 도메인은 강제로 SSL Onloading 시킨다.
+*  ``White List`` 등록된 도메인은 ``https://`` 프로토콜만 명시한다.
+*  ``SVL (SSL/TLS Validation List)`` `m2live 서비스 <https://svl.m2live.co.kr>`_ 데이터베이스를 참조한다.
+*  ``Syntax`` HTML 문법만으로 판단한다.
 
 
 
@@ -1074,99 +1175,6 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
 개발 중 ``dev``
 ====================================
-
-data-src 속성 지원
----------------------
-
-lazy-loading 방식에 활용되는 data-src 속성의 리소스를 처리대상으로 지정한다. ::
-
-   # m2.mixed
-
-   "options" : {
-      "images" : {
-         "data-src" : false
-      }
-   }
-
-
-다음은 동작 예제이다. ::
-
-   // 원본
-   <img data-src="http://foo.com/1.jpg">
-
-   // "data-src" : false 
-   <img data-src="http://foo.com/1.jpg">
-
-   // "data-src" : true
-   <img data-src="https://example.com/.../m2x/mixed/resource/http://foo.com/1.jpg">
-
-
-
-base64 이미지 지원
----------------------
-
-``<img>`` 태그는 ``src`` 속성으로 ``base64`` 형식으로 변환된 `이미지 <https://jsfiddle.net/casiano/Xadvz/>`_ 를 지원한다. ::
-
-   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
-
-
-리소스 트래픽을 처리할 때 해당 이미지를 처리할 수 있다. ::
-
-   # m2.mixed
-
-   "options" : {
-      "images" : {
-         "base64" : false
-      }
-   }
-
-
-``"base64" : true`` 설정이라면 다음과 같이 동작한다. ::
-
-   // 원본
-   <img src="data:image/gif;base64,R0lGODlhPQBEAPe ...">
-
-   // base64 이미지 대신 리소스 트래픽 링크가 포함삽입된다.
-   <img src="https://example.com/.../m2x/mixed/resource/@3378">
-
-
-
-원본주소 암호화
----------------------
-
-상품기술서 엔진은 구분자 뒤에 원본주소를 포함한다. 
-파생(리바운드, 리소스) 트래픽의 경우 다음과 같다. ::
-
-   https://example.com/products/100/m2x/mixed/rebound/http://foo.com/embed/1000
-   https://example.com/products/100/m2x/mixed/resource/http://foo.com/1.jpg
-
-
-연결되는 원본 주소를 숨기고 싶다면 암호화를 사용한다. ::
-
-   # m2.mixed
-
-   "options" : {
-      "encrpytSrcUrl" : {
-         "enable" : false,
-         "algorithm" : "aes-128-cbc",
-         "key" : "0123456789abcdef",
-         "iv" : null
-      }
-   }
-
-
-위 설정에서 ``"enable" : true`` 라면 다음과 같이 소스 URL 영역이 암호화된다. ::
-
-   https://example.com/products/100/m2x/mixed/rebound/DsTmmNcO3SGY2LmBzTrTwqK2UtK42bjaHDnqcWwOK1s=
-   https://example.com/products/100/m2x/mixed/resource/h0p3XqkSt3RK0oEg86+hMgeZDeBEf3DBpUKLBhJ6Tiw=
-
-
-.. warning::
-
-   실행 중 이 설정을 변경하는 것은 매우 위험하다.
-   ``plain text`` 로 배포된 URL과 ``cipher text`` 를 기대하는 현재 설정이 호환되지 않기 때문이다. 
-   그 반대로 같다.
-
 
 
 네이티브 앱 지원 API
