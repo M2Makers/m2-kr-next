@@ -1,9 +1,17 @@
 .. _example:
 
-Appendix C: Hooking 함수 제작가이드
+Appendix C: Hooking 함수
 ***********************
 
-M2 후킹(Hooking) 함순를 이용해 HTTP 트랜잭션을 통제할 수 있다.
+M2 후킹(Hooking) 함수를 이용하면 자유롭게 HTTP 트랜잭션을 제어할 수 있다. ::
+
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <Options>
+      <Customize Name="m2_hook1" />
+   </Options>
+   
+
 
 -  클라이언트 HTTP 요청에 대한 재정의
 -  캐싱키 정의
@@ -14,13 +22,14 @@ M2 후킹(Hooking) 함순를 이용해 HTTP 트랜잭션을 통제할 수 있다
    :align: center
 
 
-   1.  클라이언트 요청을 M2의 Hooking 함수로 보낸다.
 
-   2.  Hooking 함수는 캐싱키와 ``MISS`` 시 원본에 보낼 요청을 정의하여 응답한다. ``200 OK`` 가 아니라면 M2RT는 ``403 Forbidden`` 을 응답한다.
+1.  클라이언트 요청을 M2의 Hooking 함수로 보낸다.
 
-   3.  재정의된 캐싱키를 사용해 캐싱엔진에서 찾는다.
+2.  Hooking 함수는 캐싱키와 ``MISS`` 시 원본에 보낼 요청을 정의하여 응답한다. ``200 OK`` 가 아니라면 M2RT는 ``403 Forbidden`` 을 응답한다.
 
-   4.  원본 요청 시 Hooking 함수가 정의한 요청 모델을 참조해 원본서버에 요청한다.
+3.  재정의된 캐싱키를 사용해 캐싱엔진에서 찾는다.
+
+4.  원본 요청 시 Hooking 함수가 정의한 요청 모델을 참조해 원본서버에 요청한다.
 
 
 .. note::
