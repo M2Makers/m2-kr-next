@@ -9,8 +9,9 @@ M2 후킹(Hooking) 함순를 이용해 HTTP 트랜잭션을 통제할 수 있다
 -  캐싱키 정의
 -  원본 HTTP 요청에 대한 재정의
 
-.. figure:: img/m2_13.png
-    :align: center
+
+.. figure:: img/m2_34.png
+   :align: center
 
 
    1.  클라이언트 요청을 M2의 Hooking 함수로 보낸다.
@@ -32,7 +33,7 @@ M2는 ``/usr/local/ston/svc/{가상호스트}/hook1.js`` 를 로딩한다.
 
 
 
-클라이언트 요청위임
+클라이언트 요청전달
 ====================================
 
 클라이언트가 보낸 HTTP 요청을 Hooking 함수로 위임한다. ::
@@ -67,7 +68,7 @@ M2는 ``/usr/local/ston/svc/{가상호스트}/hook1.js`` 를 로딩한다.
 오류
 ====================================
 
-M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 함께 오류 메시지를 보낸다.
+M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 함께 오류 메시지를 보낸다. ::
 
    {
       "name": "m2hook1", 
@@ -83,7 +84,7 @@ M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 
 
 
 
-응답
+요청 재정의
 ====================================
 
 Hooking 함수의 응답에 클라이언트 HTTP 요청을 재정의한다. ::
@@ -110,9 +111,9 @@ Hooking 함수의 응답에 클라이언트 HTTP 요청을 재정의한다. ::
    }
 
 
--  ``sessionId 세션 고유번호 (디버그 용, USERDATA 개념)
+-  ``sessionId`` 세션 고유번호 (디버그 용, USERDATA 개념)
 
--  ``resCode 응답코드
+-  ``resCode`` 응답코드
 
    -  ``100`` - Continue (흐름 지속)
 
