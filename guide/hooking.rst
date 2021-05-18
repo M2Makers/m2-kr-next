@@ -1,17 +1,9 @@
-.. _example:
+.. _hooking:
 
 Appendix C: Hooking 함수
 ***********************
 
-M2 후킹(Hooking) 함수를 이용하면 자유롭게 HTTP 트랜잭션을 제어할 수 있다. ::
-
-   # vhosts.xml - <Vhosts><Vhost>
-
-   <Options>
-      <Customize Name="m2_hook1" />
-   </Options>
-   
-
+M2 후킹(Hooking) 함수를 이용하면 자유롭게 HTTP 트랜잭션을 제어할 수 있다. 
 
 -  클라이언트 HTTP 요청에 대한 재정의
 -  캐싱키 정의
@@ -37,12 +29,35 @@ M2 후킹(Hooking) 함수를 이용하면 자유롭게 HTTP 트랜잭션을 제�
    Purge의 경우 2, 3 항에서 사용하는 캐싱 키를 사용한다.
 
 
+.. _hooking-conf:
 
-M2는 ``/usr/local/ston/svc/{가상호스트}/hook1.js`` 를 로딩한다.
+설정
+====================================
+
+아래와 같이 가상호스트 설정파일 ``/usr/local/ston/vhosts.xml`` 의 확장 커스터마이징으로 구성한다.  ::
+
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <Customize Name="M2_HOOK1">
+      <OriginOptions>
+         <ConnectTimeout>3</ConnectTimeout>
+         <ReceiveTimeout>3</ReceiveTimeout>
+      </OriginOptions>
+      <Log Dir="/cache_log">
+         <Origin Type="time" Unit="1440" Retention="10">ON</Origin>
+      </Log>
+   </Customize>
 
 
+-  ``Customize`` 의 ``Name`` 속성이 ``M2_HOOK1`` 일 때만 활성화된다.
+-  M2는 ``/usr/local/ston/svc/{가상호스트}/hook1.js`` 를 로딩한다.
+-  Hooking 함수는 비동기 Loopback 통신으로 구성된다. 따라서 ``OriginOptions`` 의 ``ConnectTimeout`` , ``ReceiveTimeout`` 으로 최대 대기시간을 설정한다.
+-  Hooking 함수에 대한 접근 로그를 origin.log 형식으로 구성한다.
 
-클라이언트 요청전달
+
+.. _hooking-client:
+
+클라이언트 요청후킹
 ====================================
 
 클라이언트가 보낸 HTTP 요청을 Hooking 함수로 위임한다. ::
@@ -73,8 +88,9 @@ M2는 ``/usr/local/ston/svc/{가상호스트}/hook1.js`` 를 로딩한다.
 개발 호환성을 위해 요청 헤더에 ``Content-Type: application/json`` 를 명시한다.
 
 
+.. _hooking-error:
 
-오류
+에러 처리
 ====================================
 
 M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 함께 오류 메시지를 보낸다. ::
@@ -92,6 +108,7 @@ M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 
 -  ``body`` M2-Core가 보낸 Body
 
 
+.. _hooking-continue:
 
 요청 재정의
 ====================================
@@ -126,7 +143,7 @@ Hooking 함수의 응답에 클라이언트 HTTP 요청을 재정의한다. ::
 
    -  ``100`` - Continue (흐름 지속)
 
-   -  그 외에는 code 와 body를 응답한다.
+   -  그 외에는 트랜잭션을 더 진행하지 않고 ``code`` 와 ``body`` 를 즉시 응답한다. 이는 디버깅에 용이하다.
 
 -  ``cacheKey`` 캐싱엔진에서 사용할 키
 
