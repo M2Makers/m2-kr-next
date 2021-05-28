@@ -521,12 +521,18 @@ SSL onloading을 해야하는 경우 ``originProtocol (기본: http)`` 설정으
 
    "sizeLimit" : {
       "enable": true,
-      "max" : 1048576
+      "max" : 1048576,
+      "timing": "download"
    }
 
 
-``max (기본: 1048576 bytes)`` 설정을 통해 상품기술서 엔진에서 처리가능한 최대 크기를 제한한다. 
+``max (기본: 1048576 bytes)`` 설정을 통해 상품기술서 엔진에서 처리가능한 최대 크기를 제한한다.
 설정된 크기 이상이라면 처리하지 않고 원본을 응답한다.
+
+-  ``timing``
+
+      -  ``download (기본)`` 다운로드 완료 후 용량을 검사한다.
+      -  ``preprocess`` 상품기술서 전처리 ``m2.mixed.edit`` 수행 후 용량을 검사한다.
 
 
 .. _engine-prditem-mixed-options-data-src:
@@ -1189,7 +1195,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 
 .. _engine-prditem-edit:
 
-상품기술서 수정 ``dev``
+상품기술서 수정
 ====================================
 
 상품기술서 중 문자열을 치환하거나 유해 태그등을 삭제한다. ::
