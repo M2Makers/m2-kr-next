@@ -493,6 +493,12 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 -  ``onloadingAll (기본: false)`` 설정이 ``true`` 라면 모든 이미지를 SSL Onloading시킨다. ``false (기본)`` 라면 꼭 필요한 이미지만 SSL Onloading 시킨다.
 
 
+.. note::
+
+   상품기술서 내 이미지가 모두 백엔드로 유입되는 것은 매우 부담스럽다.
+   따라서 이 기능을 활성화하기 전에 최소한만 처리되도록 CDN 또는 캐싱의 TTL을 최대한 길게 유지하는 것이 바람직하다.
+
+
 .. _engine-prditem-mixed-options-anchor:
 
 
