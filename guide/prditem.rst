@@ -446,6 +446,53 @@ Mixed Contents - 처리옵션
 상품기술서 SSL Onloading 이외의 세부 처리정책을 구성한다. 
 
 
+.. _engine-prditem-image:
+
+이미지 로딩개선
+---------------------
+
+상품기술서를 구성하는 이미지는 매우 긴 경우가 많다. 
+
+.. figure:: img/prditem15.png
+   :align: center
+
+   2만 pixel이 넘는 이미지
+
+
+특히 모바일 환경이라면 보이지 않는 영역까지 로딩하거나, 너무 큰 이미지를 로딩하는 것은 고객 경험을 헤친다.
+
+
+M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 분석하여 분할, 최적화가 가능하다. ::
+
+   // 원본
+   https://example.com/product/100
+
+   // Mixed Contents 처리
+   https://example.com/product/100/m2x/mixed/main
+
+   // Mixed Contents 처리 + 이미지 분할로딩
+   https://example.com/product/100/m2x/mixed/main/image/split/400
+
+   // Mixed Contents 처리 + 이미지 최적화
+   https://example.com/product/100/m2x/mixed/main/image/optimize
+
+
+   // Mixed Contents 처리 + 이미지 분할로딩 + 이미지 최적화
+   https://example.com/product/100/m2x/mixed/main/image/split/400/optimize
+
+
+이상의 이미지 처리는 이미지 트래픽이 반드시 M2를 거쳐야만 동작한다.
+모든 이미지가 M2를 경유(SSL Onloading)하도록 구성하고 싶다면 다음 기능을 활성화한다. ::
+
+   # m2.mixed.options
+
+   "images" : {
+      "onloadingAll" : false
+   }
+
+-  ``onloadingAll (기본: false)`` 설정이 ``true`` 라면 모든 이미지를 SSL Onloading시킨다. ``false (기본)`` 라면 꼭 필요한 이미지만 SSL Onloading 시킨다.
+
+
 .. _engine-prditem-mixed-options-anchor:
 
 
@@ -1004,41 +1051,6 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
          }
       }
 
-
-
-.. _engine-prditem-image:
-
-이미지 로딩개선
-====================================
-
-상품기술서를 구성하는 이미지는 매우 긴 경우가 많다. 
-
-.. figure:: img/prditem15.png
-   :align: center
-
-   2만 pixel이 넘는 이미지
-
-
-특히 모바일 환경이라면 보이지 않는 영역까지 로딩하거나, 너무 큰 이미지를 로딩하는 것은 고객 경험을 헤친다.
-
-
-M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 분석하여 분할, 최적화가 가능하다. ::
-
-   // 원본
-   https://example.com/product/100
-
-   // Mixed Contents 처리
-   https://example.com/product/100/m2x/mixed/main
-
-   // Mixed Contents 처리 + 이미지 분할로딩
-   https://example.com/product/100/m2x/mixed/main/image/split/400
-
-   // Mixed Contents 처리 + 이미지 최적화
-   https://example.com/product/100/m2x/mixed/main/image/optimize
-
-
-   // Mixed Contents 처리 + 이미지 분할로딩 + 이미지 최적화
-   https://example.com/product/100/m2x/mixed/main/image/split/400/optimize
 
 
 
