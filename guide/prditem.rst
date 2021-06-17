@@ -115,6 +115,7 @@ JSON
    :align: center
 
 
+.. _engine-prditem-mixed-contents-traffic-embed:
 
 웹페이지 Embed
 ---------------------
@@ -153,6 +154,8 @@ JSON
    -  ``m2cdn.example.com`` 상품기술서에서 파생된 리소스 트래픽을 <CDN>에 위임하는 용도
 
 
+
+.. _engine-prditem-mixed-contents-traffic-separate:
 
 독립 도메인
 ---------------------
@@ -197,6 +200,8 @@ JSON
    만약 상품기술서 트래픽 전부를 CDN에 위임한다면 1개의 도메인으로 서비스가 가능하다.
 
 
+.. _engine-prditem-mixed-contents-traffic-frontcache:
+
 
 통합 도메인
 ---------------------
@@ -240,6 +245,7 @@ M2의 URL 전처리 기능을 이용해 상품기술서 트래픽을 정확히 �
    -  ``m2cdn.example.com`` 상품기술서에서 파생된 리소스 트래픽을 <CDN>에 위임하는 용도
 
 
+.. _engine-prditem-mixed-contents-traffic-separate-recmd:
 
 독립 도메인 추천 이유
 ---------------------
