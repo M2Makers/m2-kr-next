@@ -232,9 +232,14 @@ Smart API 모듈은 서비스 중단없이 교체가 가능하며 테스트 환�
             "ver": 10
          },  
          "request": {
-            // node.js 스타일로 패킷 구조화
+            "url": "http://127.0.0.1/availity",
+            "method": "POST",
+            "headers": {
+               "host": "baq.com",
+               "cookie": "NNB=LS3KUV63E5RV6; NRTK=ag#all_gr#1_ma#-2_si#0_en#0_sp#0;"
+            },
+            "body": "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <s:Body>\r\n    <serviceCall xmlns=\"http://webservice.B2BOnline.com\">\r\n      <AvailRQ>\r\n        <AgencyId>JJSEL13157</AgencyId>\r\n        <CarrierCode>7C</CarrierCode>\r\n        <DepApoCode>CJU</DepApoCode>\r\n        <DepApoName></DepApoName>\r\n        <ArrApoCode>PUS</ArrApoCode>\r\n        <ArrApoName></ArrApoName>\r\n        <FlightDate>20171228</FlightDate>\r\n        <PaxCount>1</PaxCount>\r\n      </AvailRQ>\r\n    </serviceCall>\r\n  </s:Body>\r\n</s:Envelope>"
          },
-         
          "hooking": {
             "sessionId": 2,
             "response": {
