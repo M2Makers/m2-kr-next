@@ -520,7 +520,7 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    }
 
 
-``enable(기본: false)`` 설정이 ``true`` 라면 Mixed Contents 정책에 따라 ``https``로 업그레이드만 진행하며 proxying 하지 않는다. ::
+``enable(기본: false)`` 설정이 ``true`` 라면 Mixed Contents 정책에 따라 ``https`` 로 업그레이드만 진행하며 proxying 하지 않는다. ::
 
    // AS-IS
    <a href="http://foo.com/index.html">
@@ -558,14 +558,14 @@ SSL onloading을 해야하는 경우 ``originProtocol (기본: http)`` 설정으
    <script src="//foo.com/common.js">
 
 
-   -  ``http (기본)`` http 프로토콜을 사용한다. ::
+-  ``http (기본)`` http 프로토콜을 사용한다. ::
 
-         <script src=".../m2x/mixed/resource/http://foo.com/common.js">
+      <script src=".../m2x/mixed/resource/http://foo.com/common.js">
 
 
-   -  ``https`` https 프로토콜을 사용한다. ::
+-  ``https`` https 프로토콜을 사용한다. ::
 
-         <script src=".../m2x/mixed/resource/https://foo.com/common.js">
+      <script src=".../m2x/mixed/resource/https://foo.com/common.js">
 
 
 
