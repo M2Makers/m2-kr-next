@@ -109,7 +109,7 @@ M2-Core가 ``200 OK`` 를 보내지 않는다면 ``510 Not Extended`` 응답과 
 -  ``body`` M2-Core가 보낸 Body
 
 
-.. _hooking-continue:
+.. _hooking-overwrite:
 
 요청 재정의
 ====================================
@@ -169,6 +169,34 @@ Hooking 함수의 응답에 클라이언트 HTTP 요청을 재정의한다. ::
    -  ``response.code`` 를 ``100`` 으로 설정하여 요청을 진행시킨다.
    -  ``cacheKey`` 를 ``null`` 로 설정하여 캐싱엔진을 우회시키도록 한다. 
 
+
+
+.. _hooking-overwrite-post:
+
+POST 요청 상세
+-----------------------------------------------
+
+POST 요청을 Hooking처리하기 다음 설정이 선행되어야 한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <BypassPostRequest>ON</BypassPostRequest>
+   <PostRequest MaxContentLength="102400" BodySensitive="ON">ON</PostRequest>
+
+
+-  바이패스하는 POST요청이라면 Hooking을 통한 재정의는 불필요하다.
+-  Hooking 모듈을 동작시키려면 POST요청을 캐싱해야 한다.
+
+
+캐싱엔진은 POST 요청에 대해 URL과 Body의 조합으로 캐싱키를 생성한다.
+Hooking 모듈에 의해 요청이 재정의될 경우 다음과 같은 규칙을 따른다.
+
+-  캐싱키는 Hooking 응답의 ``cacheKey`` 만을 사용한다. 클라이언트 POST 요청의 URL 및 Body는 무시된다.
+-  캐싱엔진이 원본에 요청을 보낼 때는 Hooking 응답의 ``originRequest`` 만을 사용한다. 캐싱키 및 클라이언트 요청은 모두 무시된다.
+
+
+정리하면 Hooking 모듈은 요청을 완전히 재정의하는 개념이기 때문에 POST 요청은 Hooking 모듈로 전달되기 전까지만 의미를 가진다고 볼 수 있다.
 
 
 
