@@ -176,7 +176,7 @@ Hooking 함수의 응답에 클라이언트 HTTP 요청을 재정의한다. ::
 POST 요청 상세
 -----------------------------------------------
 
-POST 요청을 Hooking처리하기 다음 설정이 선행되어야 한다. ::
+POST 요청을 Hooking 하려면 다음 설정이 선행되어야 한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
