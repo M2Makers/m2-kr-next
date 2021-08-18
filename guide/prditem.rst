@@ -1225,7 +1225,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 따라서 기본 설정은 `deprecated <https://www.tutorialspoint.com/html/html_deprecated_tags.htm>`_ , `obsolete <https://www.w3.org/TR/html52/obsolete.html#non-conforming-features>`_ 에서 언급된 목록들을 포함하여 배포되지만, 임의의 태그를 추가하여도 동작한다.
 
 
-.. note:
+.. note::
 
    `W3C - Obsolete features <https://www.w3.org/TR/html52/obsolete.html#obsolete>`_ 는 꾸준히 제안되고 있으며, M2는 ``HTML 5.2`` 제안을 따른다.
 
@@ -1312,7 +1312,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    }
 
 
-.. note:
+.. note::
 
    위 설정에서 ``"mode" : "blacklist"`` 으로 설정한다면 YouTube에 대해서만 태그를 수정한다로 의미가 변경된다.
 
