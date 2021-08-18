@@ -1292,7 +1292,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    <hr>
 
 
-다음은 YouTube를 제외한 어떠한 ``<iframe>`` 참조를 허용하지 않는 설정이다. ::
+다음은 YouTube를 제외한 어떠한 ``<iframe>`` 참조도 허용하지 않는 설정이다. ::
 
    # m2.mixed
 
