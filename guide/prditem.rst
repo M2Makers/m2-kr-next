@@ -1231,6 +1231,134 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
 
 
+.. _engine-prditem-edit-srcontrol:
+
+참조 소스 제어 ``dev``
+---------------------
+
+상품기술서 등 ``HTML`` 본문에서 참조되는 임의의 리소스가 허가된 도메인이 아닐 경우(또는 해당할 경우) 참조되지 않도록 상품기술서를 변경한다 ::
+
+   # m2.mixed
+
+   "edit" : {
+      "srcControl" : {
+         "enabe" : false,
+         "mode" : "whitelist",
+         "domains" : [ ],
+         "tags" : [
+            {
+               "name" : "iframe",
+               "attr" : "src",
+               "action" : "removeTag"
+            }
+         ]
+      },
+   }
+
+
+-  ``srcControl`` 참조되는 소스 ``src`` 에 대해 ``domains`` 필드를 참조하여 수정한다.
+
+   -  ``enable (기본: false)`` 활성화 설정. ``true`` 인 경우에만 참조 소스를 제어한다.
+
+   -  ``mode`` 도메인 목록 ``domain`` 사용 정책
+
+      -  ``whitelist (기본)`` 도메인 목록에 존재하지 않는 리소스 참조만 허용한다. 다시 말해 존재하지 않는다면 수정한다.
+
+      -  ``blacklist`` 도메인 목록에 존재하는 리소스만 수정한다.
+
+   -  ``domains`` 대상 도메인 목록. 문자열 배열이다.
+
+   -  ``tags`` 수정대상 태그와 속성, 정책 세트를 구성한다.
+
+      -  ``name`` 태그 명칭
+
+      -  ``attr`` 태그가 리소스를 참조하는 속성. 예를 들어 ``<iframe>`` 의 경우 ``src`` 속성이며, ``<a>`` 의 경우 ``href`` 이다.
+
+      -  ``action`` 수정 정책. 다음 값 중 하나를 가진다.
+
+         -  ``removeTag (기본)`` 해당 태그를 삭제한다.
+
+         -  ``removeAttr`` 해당 속성을 삭제한다.
+
+         -  ``replaceAttr`` 속성명을 변경한다. 값은 그대로 유지된다.
+
+         -  ``appendAttr`` 추가 속성을 삽입한다.
+
+
+다음과 같이 ``HTML`` 내 알 수 없는 ``<iframe>`` 이 존재하는 경우 이를 제어하는 방법을 알아본다. ::
+
+   <p>foo bar</p>
+   <iframe width="560" height="315" src="https://foo.com/embed/xW95ui6xDNM" title="Unknown video player" allowfullscreen></iframe>
+   <hr>
+
+
+다음은 YouTube를 제외한 어떤 ``<iframe>`` 참조를 허용하지 않는 설정이다. ::
+
+   # m2.mixed
+
+   "edit" : {
+      "srcControl" : {
+         "enabe" : true,
+         "mode" : "whitelist",
+         "domains" : [ "youtube.com", "www.youtube.com" ],
+         "tags" : [
+            {
+               "name" : "iframe",
+               "attr" : "src",
+               "action" : "removeTag"
+            }
+         ]
+      },
+   }
+
+
+``tags.action`` 값에 따라 태그가 수정 정책을 설명한다. 
+
+-  ``"action" : "removeTag"`` 해당 태그를 삭제한다. ::
+
+      <p>foo bar</p>
+      <hr>
+
+
+-  ``"action" : "removeAttr"`` 해당 태그의 속성을 삭제한다. ::
+
+      <p>foo bar</p>
+      <iframe width="560" height="315" title="Unknown video player" allowfullscreen></iframe>
+      <hr>
+
+-  ``"action" : "replaceAttr"`` 해당 태그의 속성을 삭제한다. ::
+
+      <p>foo bar</p>
+      <iframe width="560" height="315" alt="https://foo.com/embed/xW95ui6xDNM" title="Unknown video player" allowfullscreen></iframe>
+      <hr>
+
+   이를 위해 대체 ``replaceAttr`` 속성을 추가 구성해야 한다. ::
+
+      {
+         "name" : "iframe",
+         "attr" : "src",
+         "action" : "removeTag",
+         "replaceAttr" : "alt"
+      }
+
+-  ``"action" : "appendAttr"`` 설정된 속성을 추가로 태그에 삽입한다. ::
+
+      <p>foo bar</p>
+      <iframe width="560" height="315" src="https://foo.com/embed/xW95ui6xDNM" style="display:none;" alt="hidden by m2" title="Unknown video player" allowfullscreen></iframe>
+      <hr>
+
+   이를 위해 대체 ``appendAttr`` 속성을 추가 구성해야 한다. ::
+
+      {
+         "name" : "iframe",
+         "attr" : "src",
+         "action" : "appendAttr",
+         "appendAttr" : "style=\"display:none;\" alt=\"hidden by m2\""
+      }
+
+
+
+
 .. _engine-prditem-mixed-log:
 
 상품기술서 엔진로그
@@ -1371,4 +1499,5 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
    ``JPG`` 포맷의 가로, 세로 최대 길이는 65,535 pixel이다.
    따라서 ``single`` 로 생성하는 경우 스크린샷이 실패할 수 있다.
+
 
