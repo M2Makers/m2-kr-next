@@ -1231,7 +1231,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
 
 
-.. _engine-prditem-edit-srcontrol:
+.. _engine-prditem-edit-refontrol:
 
 참조 소스 제어 ``dev``
 ---------------------
@@ -1241,7 +1241,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    # m2.mixed
 
    "edit" : {
-      "srcControl" : {
+      "refControl" : {
          "enabe" : false,
          "mode" : "whitelist",
          "domains" : [ ],
@@ -1256,7 +1256,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    }
 
 
--  ``srcControl`` 참조되는 소스 ``src`` 에 대해 ``domains`` 필드를 참조하여 수정한다.
+-  ``refControl`` 참조되는 리소스(i.e ``src`` 또는 ``href`` 등) 에 대해 ``domains`` 필드에 기반하여 리소스 참조 정책을 수정한다.
 
    -  ``enable (기본: false)`` 활성화 설정. ``true`` 인 경우에만 참조 소스를 제어한다.
 
@@ -1297,7 +1297,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    # m2.mixed
 
    "edit" : {
-      "srcControl" : {
+      "refControl" : {
          "enabe" : true,
          "mode" : "whitelist",
          "domains" : [ "youtube.com", "www.youtube.com" ],
