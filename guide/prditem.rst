@@ -1282,7 +1282,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
          -  ``replaceAttr`` 속성명을 변경한다. 값은 그대로 유지된다.
 
-         -  ``appendAttr`` 추가 속성을 삽입한다.
+         -  ``insertAttr`` 추가 속성을 삽입한다.
 
 
 다음과 같이 ``HTML`` 내 알 수 없는 리소스를 ``<iframe>`` 으로 참조하는 경우 이를 제어하는 방법에 대해 설명한다. ::
@@ -1292,7 +1292,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
    <hr>
 
 
-다음은 YouTube를 제외한 어떤 ``<iframe>`` 참조를 허용하지 않는 설정이다. ::
+다음은 YouTube를 제외한 어떠한 ``<iframe>`` 참조를 허용하지 않는 설정이다. ::
 
    # m2.mixed
 
@@ -1310,6 +1310,11 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
          ]
       },
    }
+
+
+.. note:
+
+   위 설정에서 ``"mode" : "blacklist"`` 으로 설정한다면 YouTube에 대해서만 태그를 수정한다로 의미가 변경된다.
 
 
 ``tags.action`` 값에 따라 태그가 수정 정책을 정교하게 구성한다. 
@@ -1337,7 +1342,7 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
       {
          "name" : "iframe",
          "attr" : "src",
-         "action" : "removeTag",
+         "action" : "replaceAttr",
          "replaceAttr" : "alt"
       }
 
@@ -1347,13 +1352,13 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
       <iframe width="560" height="315" src="https://foo.com/embed/xW95ui6xDNM" style="display:none;" alt="hidden by m2" title="Unknown video player" allowfullscreen></iframe>
       <hr>
 
-   이를 위해 덧붙여질 ``appendAttr`` 속성을 추가 구성해야 한다. ::
+   이를 위해 덧붙여질 ``insertAttr`` 속성을 추가 구성해야 한다. ::
 
       {
          "name" : "iframe",
          "attr" : "src",
-         "action" : "appendAttr",
-         "appendAttr" : "style=\"display:none;\" alt=\"hidden by m2\""
+         "action" : "insertAttr",
+         "insertAttr" : "style=\"display:none;\" alt=\"hidden by m2\""
       }
 
 
