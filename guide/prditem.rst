@@ -516,17 +516,34 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    # m2.mixed.options
 
    "anchor" : {
-      "enable": false
+      "enable": false,
+      "mixed": false,
+      "enableLink": true
    }
 
 
-``enable(기본: false)`` 설정이 ``true`` 라면 Mixed Contents 정책에 따라 ``https`` 로 업그레이드만 진행하며 proxying 하지 않는다. ::
+.. note::
+
+   ``enable(기본: false)`` 설정이 ``true`` 인 경우에만 앵커태그를 처리한다.
+
+
+``mixed(기본: false)`` 가 ``true`` 라면 Mixed Contents 정책에 따라 ``https`` 로 업그레이드만 진행하며 proxying 하지 않는다. ::
 
    // AS-IS
-   <a href="http://foo.com/index.html">
+   <a href="http://foo.com/index.html">link</a>
 
    // TO-BE
-   <a href="https://foo.com/index.html">
+   <a href="https://foo.com/index.html">link</a>
+
+
+
+``enableLink(기본: true)`` 가 ``false`` 라면 ``href`` 속성을 제거한다.  ::
+
+   // AS-IS
+   <a href="http://foo.com/index.html">link</a>
+
+   // TO-BE
+   <a>link</a>
 
 
 
