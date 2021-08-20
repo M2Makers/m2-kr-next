@@ -7,12 +7,12 @@ Appendix A: 릴리스 노트
 v21.x
 ====================================
 
-.. _release-21-07-2:
+.. _release-21-08-0:
 
 v21.08.0 (2021.08.20)
 ----------------------------
 
--  상품기술서 엔진 - ``<video>`` , ``<embed>`` 태그 SSL 온로딩 지원
+-  상품기술서 엔진/ :ref:`engine-prditem-mixed-options-anchor` - ``href`` 속성제거 기능 추가
 -  Hooking 함수 요청시 간헐적인 Server-Close 문제 수정
 
 
