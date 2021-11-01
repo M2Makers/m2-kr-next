@@ -1000,7 +1000,7 @@ SSL Onloading은 다음 <태그.속성> 목록을 기반으로 동작한다. ::
    # m2.mixed
 
    "upgradeHttps" : {
-      "targetTags" : {
+      "targetTags" : [
          "img.src", 
          "img.data-src", 
          "input.src", 
@@ -1011,7 +1011,7 @@ SSL Onloading은 다음 <태그.속성> 목록을 기반으로 동작한다. ::
          "script.src",
          "a.href",
          "embed.src"
-      }
+      ]
    }
 
 
