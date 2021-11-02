@@ -992,7 +992,7 @@ URL 형식만 보고 문법적으로 판단한다. ::
 
 .. _engine-prditem-mixed-contents-targettags:
 
-<태그.속성> 지정
+태그속성 지정
 ---------------------
 
 SSL Onloading은 다음 <태그.속성> 목록을 기반으로 동작한다. ::
