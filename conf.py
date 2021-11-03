@@ -15,25 +15,7 @@
 
 import sys
 import os
-
-install_requires = [
-    'sphinxcontrib-applehelp',
-    'sphinxcontrib-devhelp',
-    'sphinxcontrib-jsmath',
-    'sphinxcontrib-htmlhelp>=2.0.0',
-    'sphinxcontrib-serializinghtml>=1.1.5',
-    'sphinxcontrib-qthelp',
-    'Jinja2>=2.3',
-    'Pygments>=2.0',
-    'docutils>=0.14,<0.18',
-    'snowballstemmer>=1.1',
-    'babel>=1.3',
-    'alabaster>=0.7,<0.8',
-    'imagesize',
-    'requests>=2.5.0',
-    'setuptools',
-    'packaging',
-]
+import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -48,8 +30,20 @@ install_requires = [
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+sys.path.append(os.path.abspath('_ext'))
 extensions = [
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
+    'sphinxcontrib.httpdomain',
+    'djangodocs',
+    'doc_extensions',
+    'sphinx_tabs.tabs',
+    'sphinx-prompt',
+    'notfound.extension',
+    'hoverxref.extension',
+    'sphinx_search.extension',
+    'sphinxemoji.sphinxemoji',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
