@@ -16,6 +16,25 @@
 import sys
 import os
 
+install_requires = [
+    'sphinxcontrib-applehelp',
+    'sphinxcontrib-devhelp',
+    'sphinxcontrib-jsmath',
+    'sphinxcontrib-htmlhelp>=2.0.0',
+    'sphinxcontrib-serializinghtml>=1.1.5',
+    'sphinxcontrib-qthelp',
+    'Jinja2>=2.3',
+    'Pygments>=2.0',
+    'docutils>=0.14,<0.18',
+    'snowballstemmer>=1.1',
+    'babel>=1.3',
+    'alabaster>=0.7,<0.8',
+    'imagesize',
+    'requests>=2.5.0',
+    'setuptools',
+    'packaging',
+]
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -47,7 +66,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'M2'
-copyright = '2020, WineSOFT Inc.'
+copyright = '2021, WineSOFT Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
