@@ -15,7 +15,6 @@
 
 import sys
 import os
-import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -31,18 +30,7 @@ import sphinx_rtd_theme
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-    'sphinxcontrib.httpdomain',
-    'djangodocs',
-    'doc_extensions',
-    'sphinx_tabs.tabs',
-    'sphinx-prompt',
-    'notfound.extension',
-    'hoverxref.extension',
-    'sphinx_search.extension',
-    'sphinxemoji.sphinxemoji',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
