@@ -1285,6 +1285,50 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
 
 
 
+.. _engine-prditem-edit-pinchzoom:
+
+핀치 줌 삽입
+---------------------
+
+M2의 프론트엔드 모듈인 ``m2fe.min.js`` 를 ``<HEAD>`` 영역에 삽입한다. ::
+
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <script src="/your-path/m2fe.min.js"></script>
+      <script>
+         window.M2OPTION = {};
+      </script>
+   </head>
+   <body>
+      <div id="m2-product-area">
+         <div style="margin-top: 20px;">
+               <strong style="color: rgb(51, 51, 51);">소개합니다</strong>
+         </div>
+
+         <ul style="margin-top: 10px;">
+               <li>- 편안하게 입을 수 있는 남성 폴리 사틴 파자마 상하세트입니다.</li>
+               <li>- 허리 밴딩 처리로 편안하며 허리 조절 스트링으로 사이즈 조절이 가능합니다.</li>
+               <li>- 양쪽 포켓으로 간단한 수납이 가능합니다.</li>
+               <li>- 비침이 없으며 배색 파이핑과 가슴판 포켓으로 포인트를 준 디자인입니다.</li>
+         </ul>
+
+         <img src="pajama.jpg">
+      </div>
+   </body>
+   </html>
+
+`CSS Selector <https://www.w3schools.com/cssref/css_selectors.asp>`_ 로 ``m2-product-area`` 영역을 지정한다. ::
+
+   window.M2OPTION = {
+      contentSelector: '#m2-product-area',
+      pinchzoom: {
+         enable: true
+      }
+   };
+
+
+
 .. _engine-prditem-edit-refontrol:
 
 참조 소스 제어 ``dev``
