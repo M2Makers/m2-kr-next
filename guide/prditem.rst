@@ -1243,14 +1243,13 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
             "font",
             "marquee",
             "menu",
-            "menuitem,
+            "menuitem",
             "multicol",
             "nobr",
             "spacer",
             "tt",
             "rb",
-            "rtc",
-            
+            "rtc"            
          ]
       }
    }
