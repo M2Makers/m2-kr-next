@@ -299,6 +299,8 @@ Mixed Contents - 트래픽 라우팅
 
 
 
+.. _engine-prditem-mixed-traffic-rebound:
+
 리바운드 트래픽 ``/m2x/mixed/rebound``
 ---------------------
 웹 페이지는 구조적으로 다른 문서를 포함(Embed)할 수 있다. 
