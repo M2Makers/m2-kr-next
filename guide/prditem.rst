@@ -343,6 +343,48 @@ Browser에서 상품기술서가 로딩 된 이후에 발생하는 리바운드 
    따라서 검증된 메인 트래픽 URL인 ``/product/100`` 에 참조 소스를 덧 붙이는 규칙을 사용한다.
 
 
+리바운드 트래픽을 CDN등 별도의 도메인으로 위임할 수 있다. ::
+
+   # m2.mixed
+
+   "traffics" : {
+      "rebound" : {
+         "domain" : "foo.com",
+         "tags" : {
+            "domain" : "bar.com",
+            "targets" : [
+               "script.src",
+               "link.href"
+            ]
+         }
+      }
+   }
+
+
+리바운드 트래픽은 태그 레벨로 조절이 가능한 만큼 우선순위를 명확히 인지해야 한다.
+
+-  ``traffics.rebound.tags.targets`` 에 매칭되는 ``<태그.속성>`` 은 ``traffics.rebound.tags.domain`` 으로 URL이 변경된다. ::
+
+      // AS-IS
+      <link href="http://www.example.com/main.css">
+
+      // TO BE
+      <link href="https://bar.com/products/100/m2x/mixed/rebound/http://www.example.com/main.css">
+
+
+-  ``traffics.rebound.tags.targets`` 에 매칭되지 않는 리바운드 트래픽은 ``traffics.rebound.domain`` 으로 URL이 변경된다. ::
+
+      // AS-IS
+      <iframe href="http://www.another.com/page">
+
+      // TO BE
+      <iframe href="https://foo.com/products/100/m2x/mixed/rebound/http://www.another.com/page">
+
+
+-  ``traffics.rebound`` 설정이 구성되지 않았다면 트래픽이 유입된 가상호스트 이름을 따른다.
+
+
+
 리소스 트래픽 ``/m2x/mixed/resource``
 ---------------------
 
@@ -368,7 +410,7 @@ M2 도입 전 후 트래픽 흐름은 다음과 같이 바뀐다.
    }
 
 
-메인, 리바운드 트래픽은 가상호스트 이름을 따른다. 하지만 리소스의 경우 설정에 따라 변경된다. ::
+다음은 설정에 따른 URL 예시이다. ::
 
    // 메인, 리바운드 트래픽
    https://example.com/products/100/m2x/mixed/main
@@ -1118,6 +1160,27 @@ M2와 ``https://svl.m2live.co.kr`` 의 통신이 가능해야 정상동작한다
       }
 
 
+
+.. _engine-prditem-postmain:
+
+Mixed Contents - POST API
+====================================
+
+구성된 상품기술서 엔진을 ``POST`` 메소드를 통해 연동할 수 있다. 
+대상 경로는 ``/m2x/mixed/query`` 이다. ::
+
+   POST /m2x/mixed/query HTTP/1.1
+   Host: example.com
+   Content-Type: text/plain
+   Content-Length: 2043
+
+   <html>
+     <body>
+      ...
+     </body>
+   </html>
+
+M2는 Mixed Contents 문제가 처리된 ``HTML`` 을 응답한다.
 
 
 .. _engine-prditem-responsive:
