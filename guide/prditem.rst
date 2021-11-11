@@ -552,10 +552,10 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
 .. _engine-prditem-mixed-options-anchor:
 
 
-앵커태그
+<a> 태그
 ---------------------
 
-앵커태그 ``<a href="http://...">`` 에 대한 처리정책을 설정한다. ::
+``<a href="http://...">`` 에 대한 처리정책을 설정한다. ::
 
    # m2.mixed.options
 
@@ -589,6 +589,50 @@ M2는 서비스 품질을 개선하기 위해 상품기술서 내 이미지를 �
    // TO-BE
    <a>link</a>
 
+
+.. _engine-prditem-mixed-options-video:
+
+<video> 태그
+---------------------
+
+``<video src="http://...">`` 에 대한 처리정책을 설정한다. ::
+
+   # m2.mixed.options
+
+   "video" : {
+      "enable": false
+   }
+
+
+-  ``enable (기본: false)`` - ``<video>`` 태그를 처리하지 않는다.
+-  ``enable: true`` - 가능하다면 URL을 ``https`` 로 업그레이드한다.
+
+.. note::
+
+   ``<video>`` 콘텐츠는 용량이 과도할 수 있어 SSL Onloading하지 않는다.
+
+
+.. _engine-prditem-mixed-options-embed:
+
+<embed> 태그
+---------------------
+
+``<embed src="http://...">`` 에 대한 처리정책을 설정한다. ::
+
+   # m2.mixed.options
+
+   "embed" : {
+      "enable": false
+   }
+
+
+-  ``enable (기본: false)`` - ``<embed>`` 태그를 처리하지 않는다.
+-  ``enable: true`` - 가능하다면 URL을 ``https`` 로 업그레이드한다.
+
+.. note::
+
+   ``<embed>`` 콘텐츠는 용량이 과도할 수 있어 SSL Onloading하지 않는다.
+   
 
 
 .. _engine-prditem-mixed-options-schemeless:
