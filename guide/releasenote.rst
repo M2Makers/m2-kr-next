@@ -16,8 +16,7 @@ v21.11.1 (2021.11.25)
 
    -  Data-URI 처리시 리소스 트래픽 도메인 미적용 증상 수정
    -  Mixed-Contents 처리를 위한 원본 요청시 ``304 Not Modified`` 응답인 경우, ``200 OK`` 으로 전송되는 버그 수정
-   -  schemeless <IMG> 태그의 리소스 트래픽 처리시 M2RT요청을 위해 프로토콜을 명시
-   -  CSS style 내 Background 이미지 주소의 SSL 온로딩 시 간헐적 미처리 증상 개선
+   -  CSS style 내 ``background-image`` 의 SSL 온로딩 시 간헐적 미처리 증상 개선
    -  CSS 파일의 ``@import`` , ``font`` 등의 url 에 대한 SSL 온로드 기능 추가
    -  CSS 파일의 SSL 온로딩시 URL의 따옴표가 제거되는 증상 수정
 
