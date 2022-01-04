@@ -1454,7 +1454,7 @@ M2의 프론트엔드 모듈인 ``m2fe.min.js`` 를 ``<HEAD>`` 영역에 삽입�
 
    "edit" : {
       "refControl" : {
-         "enabe" : false,
+         "enable" : false,
          "mode" : "whitelist",
          "domains" : [ "www.youtube.com", "youtu.be" ],
          "tags" : [
