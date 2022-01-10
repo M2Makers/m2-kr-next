@@ -13,7 +13,11 @@ v21.x
 v21.12.0 (2021.12.31)
 ----------------------------
 
--  상품기술서 엔진 - :ref:`engine-prditem-edit-refontrol` 기능 추가
+-  상품기술서 엔진
+
+   - :ref:`engine-prditem-edit-refontrol` 기능 추가
+   - SSL 온로딩 시 문자열 공백제거 처리와 HTML Comment Tag 누락버그 수정
+   - ``<LINK>`` , ``<SCRIPT>`` 태그만 존재하는 HTML의 SSL 온로딩 시 Tag 누락버그 수정
 
 
 
