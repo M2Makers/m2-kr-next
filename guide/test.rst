@@ -19,6 +19,20 @@ sections of your page. This allows you to:
 You can also add a toggle button to arbitrary chunks of content.
 For example, click the toggle button to the right just below.
 
+
+toggle::
+
+    .. admonition:: Wow!
+       :class: tip
+
+       It's a code block!
+
+       .. code-block:: python
+
+           a = "wow, very python"
+           
+           
+
 .. toggle::
 
     .. admonition:: Wow!
