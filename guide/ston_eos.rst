@@ -158,7 +158,7 @@ M2를 활용해볼 수 있는 데모페이지가 있나요?
   
   - 또한 아래의 주소를 통하여 데모 페이지, 매뉴얼 페이지에 직접 접속할 수 있습니다. 
 
-▶ `M2 데모 페이지 <https://www.winesoft.co.kr/>`_　　　▶ `M2 데모 페이지 <https://demo.winesoft.co.kr/>`_　　　▶ `M2 매뉴얼 페이지 <https://m2-kr.readthedocs.io/ko/latest/>`_
+▶ `와인소프트 홈페이지 <https://www.winesoft.co.kr/>`_　　　▶ `M2 데모 페이지 <https://demo.winesoft.co.kr/>`_　　　▶ `M2 매뉴얼 페이지 <https://m2-kr.readthedocs.io/ko/latest/>`_
 
 |
 
