@@ -7,9 +7,13 @@
 
 |
 
------------------------------
+FAQ
+******************
+
+|
+
 STON과 M2 통합 관련 질문
------------------------------
+====================================
 
 |
 
@@ -35,7 +39,8 @@ STON과 M2 통합 후에도 STON을 계속 사용할 수 있나요?
 
  - 기존 계약과 동일한 조건일 경우에는 STON을 계속 사용 하실 수 있습니다.
  
- - 다만, 서버 증설 등의 사유로 인하여 STON 수량을 추가되거나, 맞춤형 기능 개선 등이 필요할 경우에는 M2로의 전환이 필요 합니다.
+ - 다만, 서버 증설 등의 사유로 인하여 STON 수량을 추가되거나, 
+   맞춤형 기능 개선 등이 필요할 경우에는 M2로의 전환이 필요 합니다.
 
 |
 
@@ -44,9 +49,9 @@ STON과 M2 통합 후에도 STON을 계속 사용할 수 있나요?
 
 ::
  
-- 기존과 동일 하게 문의하시면 됩니다.
+  - 기존과 동일 하게 문의하시면 됩니다.
 
-- 제품 통합과 무관하게 기존 고객에 대한 지원은 계속됩니다.
+  - 제품 통합과 무관하게 기존 고객에 대한 지원은 계속됩니다.
 
 |
 
@@ -59,7 +64,7 @@ M2에서는 STON의 모든 기능을 사용할 수 있나요? 사용할 수 있�
    뿐만 아니라, M2는 웹 서비스를 간편하고 효율적으로 사용할 수 있는 수 많은 기능을 제공합니다.
    
  - M2의 기능에 대하여 보다 상세하게 알고 싶으시면 sales@winesoft.co.kr로 연락 주시거나, 아래의 'M2 소개문서'를 확인해 주시기 바랍니다.
-　　　　　　　　　　　　　　▶ `M2 소개문서 다운로드 <https://drive.google.com/file/d/1G9u2k8BZpUTDElKLYXZK6VYjTgDXCsPA/view?usp=sharing>`_　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ `M2 소개문서 다운로드 <https://drive.google.com/file/d/1G9u2k8BZpUTDElKLYXZK6VYjTgDXCsPA/view?usp=sharing>`_　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
 
 |
 
@@ -72,7 +77,7 @@ M2제품의 가격 정책은 어떠한가요? STON을 사용하다 M2로 전환 
    또한, 기존 STON 고객께서 M2로 전환할 경우에는 추가적인 할인 혜택이 주어지므로, 가격 확정을 위해 사전 점검이 필요합니다.
    
  - M2에 관심이 있으실 경우 담당 영업사원 또는 sales@winesoft.co.kr로 연락 주시기 바랍니다.
-　　　　　　　　　　　　　　　　　　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ E-mail 보내기: sales@winesoft.co.kr
 
 |
 
@@ -84,15 +89,14 @@ STON에서 M2로 이관 시 즉시 사용이 가능한가요?
   - 필요한 제품 수량의 확인 및 환경 Setting 등을 위한 사전 작업이 필요할 수 있습니다.
   
   - 보다 정확한 정보는 담당 영업사원 또는 이메일(sales@winesoft.co.kr) 문의를 통해 확인하실 수 있습니다.
-　　　　　　　　　　　　　　　　　　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ E-mail 보내기: sales@winesoft.co.kr
  
 |
 |
 |
  
------------------------------
 M2 관련 질문
------------------------------
+====================================
 
 |
 
@@ -106,7 +110,7 @@ M2제품은 어떠한 기능을 제공하나요?
     또한, M2는 STON의 모든 기능에 더하여 Web Page Modernize를 위한 다양한 기능들을 추가 제공합니다.  
     
   - M2와 관련된 보다 자세한 내용은 아래의 첨부파일을 참고하여주시기 바랍니다.
-　　　　　　　　　　　　　　　　　　　　　　▶ `M2 소개문서 다운로드 <https://drive.google.com/file/d/1G9u2k8BZpUTDElKLYXZK6VYjTgDXCsPA/view?usp=sharing>`_　  
+▶ `M2 소개문서 다운로드 <https://drive.google.com/file/d/1G9u2k8BZpUTDElKLYXZK6VYjTgDXCsPA/view?usp=sharing>`_　  
 
 |
 
@@ -121,7 +125,8 @@ M2가 해결할 수 있는 문제는 무엇인가요?
   - M2의 Image 기능과 다른 기능을 연결하여 사용할 경우에는, 무중단 · 실시간으로 상품기술서의 이미지를 수정하거나, 
     정해진 시간 동안만 특정 이미지를 화면에 노출시키는 등의 작업을 간단한 Setting만으로 해결할 수 있습니다.
     
-  - 특히, 외부의 비보안(HTTP) 이미지와 내부의 보안(HTTPS) 이미지를 결합 후 SSL Onloading함으로써 보안Issue를 간단하게 해결할 수도 있습니다.
+  - 특히, 외부의 비보안(HTTP) 이미지와 내부의 보안(HTTPS) 이미지를 결합 후 SSL Onloading함으로써
+    보안Issue를 간단하게 해결할 수도 있습니다.
   
   - 이 외에도 웹 서비스를 운영함에 있어 발생하는 다양한 문제들을 매우 간이한 방법으로 해결해 드리며, 
     필요할 경우에는 고객사의 환경에 최적화된 Customizing 서비스를 제공하여 드립니다.
@@ -151,7 +156,7 @@ M2를 활용해볼 수 있는 데모페이지가 있나요?
   
   - 또한 아래의 주소를 통하여 데모 페이지, 매뉴얼 페이지에 직접 접속할 수 있습니다. 
 
-　　　　　　　　　　　　▶ `M2 데모 페이지 <https://www.winesoft.co.kr/>`_　　　▶ `M2 데모 페이지 <https://demo.winesoft.co.kr/>`_　　　▶ `M2 매뉴얼 페이지 <https://m2-kr.readthedocs.io/ko/latest/>`_
+▶ `M2 데모 페이지 <https://www.winesoft.co.kr/>`_　　　▶ `M2 데모 페이지 <https://demo.winesoft.co.kr/>`_　　　▶ `M2 매뉴얼 페이지 <https://m2-kr.readthedocs.io/ko/latest/>`_
 
 |
 
@@ -172,15 +177,14 @@ M2에 대한 보다 자세한 제품설명을 받고 싶은데 어떻게 요청�
 ::
 
   - 현재 STON을 담당하고 있는 영원사원에게 문의하시거나, sales@winesoft.co.kr 로 연락 주시기 바랍니다.
-　　　　　　　　　　　　　　　　　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ E-mail 보내기: sales@winesoft.co.kr
 
 |
 |
 |
 
---------------------
 기타 질문
---------------------
+====================================
 
 |
 
@@ -192,7 +196,7 @@ M2에 대한 보다 자세한 제품설명을 받고 싶은데 어떻게 요청�
   - 와인소프트 홈페이지 첫 화면에서 ‘Contact Sales’를 통하여 컨설팅을 받을 수 있습니다.
   
   - 또는 sales@winesoft.co.kr 로 메일을 주시면 확인 즉시 연락 드리도록 하겠습니다.
-　　　　　　　　　　　　　　▶ `와인소프트 홈페이지 <https://www.winesoft.co.kr>`_　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ `와인소프트 홈페이지 <https://www.winesoft.co.kr>`_　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
 
 |
 
@@ -203,7 +207,7 @@ M2에 대한 보다 자세한 제품설명을 받고 싶은데 어떻게 요청�
 
   - 귀사를 담당하는 영업사원이 있을 경우 영업사원을 통하여 문의하시거나,
     sales@winesoft.co.kr 로 메일을 주시면 됩니다.
-　　　　　　　　　　　　　　　　　　　　　　▶ E-mail 보내기: sales@winesoft.co.kr
+▶ E-mail 보내기: sales@winesoft.co.kr
 
 |
 |
