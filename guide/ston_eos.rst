@@ -1,7 +1,3 @@
-.. _faq_ston_integration:
-
-.. toctree::
-   :maxdepth: 3
 
 .. image:: img/STON_EOS_FAQ_small.png
 
