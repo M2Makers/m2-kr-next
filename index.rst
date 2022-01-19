@@ -62,6 +62,6 @@ FAQ
 ==========================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    
    guide/ston_eos.rst
