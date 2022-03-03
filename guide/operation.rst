@@ -211,40 +211,41 @@ M2가 진행하는 모든 HTTP 트랜잭션을 기록한다.
 .. _op-log-backup:
 
 실시간 로그백업
-====================================
+=================================================
 
 M2는 실시간으로 적재되는 로그를 S3등 오브젝트 스토리지로 백업할 수 있다. ::
 
    # /usr/local/m2/conf/config.json
 
    {
-      "env": {
-         "log": {
-            "repository": [
-            "concurrent": 1,
-            "list": [
-               {
-                  "name": "backup",
-                  "type": "aws-s3",
-                  "rolling": "0 0",
-                  "path": "/edgelog/{domain}/{timestamp}/{hostname}_{logtype}.log",
-                  "compression": {
-                     "enable": false
-                  },
-                  "endpoint": {
-                     "bucket": "s3-backup",
-                     "region": "ap-northeast-2",
-                     "accessKey": "AKKKUPB5555557S4RTTT",
-                     "secretKey": "cqavykf6lPMc4KaJ6mETMQQQQQQLBmj4LWKiejq"
-                  },
-                  "targetLogs": [
-                     "/ston_log/foo.com/access.log",
-                     "/ston_log/foo.com/origin.log"
-                  ]
-               }
-            ]
+     "env": {
+       "log": {
+         "repository": {
+           "concurrent": 1,
+           "list": [
+             {
+               "name": "backup",
+               "type": "aws-s3",
+               "rolling": "0 0",
+               "path": "/edgelog/{domain}/{timestamp}/{hostname}_{logtype}.log",
+               "compression": {
+                 "enable": false
+               },
+               "endpoint": {
+                 "bucket": "s3-backup",
+                 "region": "ap-northeast-2",
+                 "accessKey": "AKKKUPB5555557S4RTTT",
+                 "secretKey": "cqavykf6lPMc4KaJ6mETMQQQQQQLBmj4LWKiejq"
+               },
+               "targetLogs": [
+                 "/ston_log/foo.com/access.log",
+                 "/ston_log/foo.com/origin.log"
+               ]
+             }
+           ]
          }
-      }
+       }
+     }
    }
 
 
@@ -323,6 +324,7 @@ M2는 실시간으로 적재되는 로그를 S3등 오브젝트 스토리지로 
   - ``accessKey`` 액세스 키
   - ``secretKey`` 시크릿 키
 
+- ``targetLogs`` 백업할 로컬로그 파일경로
 
 
 S3 + Athena 가이드
@@ -370,8 +372,8 @@ S3 + Athena를 이용하면 매우 효과적인 분석도구를 손쉽게 구축
 
 
 
-athena 테이블 - access.log
----------------------------
+``athena`` access.log 테이블 스키마
+------------------------------------
 
 ::
 
@@ -407,8 +409,8 @@ athena 테이블 - access.log
    TBLPROPERTIES ("has_encrypted_data"="false");
 
 
-athena 테이블 - access.log
----------------------------
+``athena`` origin.log 테이블 스키마
+------------------------------------
 
 ::
 
