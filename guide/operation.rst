@@ -218,45 +218,45 @@ M2는 실시간으로 적재되는 로그를 S3등 오브젝트 스토리지로 
    # /usr/local/m2/conf/config.json
 
    {
-     "env": {
-       "log": {
-         "repository": {
-           "concurrent": 1,
-           "list": [
-             {
-               "name": "backup",
-               "type": "aws-s3",
-               "rolling": "0 0",
-               "path": "/edgelog/{domain}/{timestamp}/{hostname}_{logtype}.log",
-               "compression": {
-                 "enable": false
-               },
-               "endpoint": {
-                 "bucket": "s3-backup",
-                 "region": "ap-northeast-2",
-                 "accessKey": "AKKKUPB5555557S4RTTT",
-                 "secretKey": "cqavykf6lPMc4KaJ6mETMQQQQQQLBmj4LWKiejq"
-               },
-               "targetLogs": [
-                 "/ston_log/foo.com/access.log",
-                 "/ston_log/foo.com/origin.log"
-               ]
+     "m2": {
+       "backup": {
+         "enable": false,
+         "repository": [
+           {
+             "name": "backup",
+             "type": "aws-s3",
+             "rolling": "0 0",
+             "path": "/edgelog/{domain}/{timestamp}/{hostname}_{logtype}.log",
+             "compression": {
+               "enable": false
+             },
+             "endpoint": {
+               "bucket": "s3-backup",
+               "region": "ap-northeast-2",
+               "accessKey": "AKKKUPB5555557S4RTTT",
+               "secretKey": "cqavykf6lPMc4KaJ6mETMQQQQQQLBmj4LWKiejq"
              }
-           ]
-         }
+           }
+         ],
+         "source": [
+           {
+             "path": "/ston_log/foo.com/access.log",
+             "backup": "backup"
+           }
+         ]
        }
      }
    }
 
 
--  ``concurrent (기본: 1)`` 로그 백업 동시 세션
+-  ``enable (기본: false)`` 로그백업 활성화
   
    .. note:: 
   
       로그 백업 때문에 서비스 성능저하가 발생하면 안되어 스펙만 존재, 구현하지 않는다.
      
 
--  ``list`` 로그 저장소 목록
+-  ``repository`` 로그 저장소 목록
 
    - ``name`` 저장소 이름. 중복불가.
    - ``type`` 저장소 타입. 현재는 ``aws-s3`` 만 지원한다.
@@ -316,15 +316,19 @@ M2는 실시간으로 적재되는 로그를 S3등 오브젝트 스토리지로 
      ====================== ========================================================
 
 
-- ``compression`` 로그 gzip 압축.
-- ``endpoint`` 저장소 연결구성
+   - ``compression`` 로그 gzip 압축.
 
-  - ``bucket`` 버킷
-  - ``region`` 리젼
-  - ``accessKey`` 액세스 키
-  - ``secretKey`` 시크릿 키
+   - ``endpoint`` 저장소 연결구성
+     - ``bucket`` 버킷
+     - ``region`` 리젼
+     - ``accessKey`` 액세스 키
+     - ``secretKey`` 시크릿 키
 
-- ``targetLogs`` 백업할 로컬로그 파일경로
+- ``source`` 백업할 로컬로그 목록
+
+  - ``path`` 로컬로그 경로
+  - ``backup`` 백업할 ``repository.name``
+
 
 
 S3 + Athena 가이드
