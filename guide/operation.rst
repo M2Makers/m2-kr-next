@@ -340,25 +340,26 @@ S3 + Athena를 이용하면 매우 효과적인 분석도구를 손쉽게 구축
 
 ::
 
-  {
-    "env": {
-      "log": {
-        "repository": [
-          "list": [
-            {
-              ...
-              "path": "/mypath/year={timestamp.year}/month={timestamp.month}/day={timestamp.day}/hour={timestamp.hour}/min={timestamp.minute}/type={logtype}/domain={domain}/{hostname}_{ip}_{timestamp}.log"
+   # /usr/local/m2/conf/config.json
+
+   {
+     "m2": {
+       "backup": {
+         "enable": true,
+         "repository": [
+           {
+             ...
+             "path": "/mypath/year={timestamp.year}/month={timestamp.month}/day={timestamp.day}/hour={timestamp.hour}/min={timestamp.minute}/type={logtype}/domain={domain}/{hostname}_{ip}_{timestamp}.log"
               "rolling": "*/5 *",
               "compression": {
                 "enable": true
               },
-              "endpoint": ...
-            }
-          ]
-        ]
-      }
-    }
-  }
+              ...
+           }
+         ]
+       }
+     }
+   }
 
 
 -  ``path`` 파티셔닝 전략은 ``path`` 의 {key=value} 형식을 통해 로그분석 목적을 분명히 한다. ::
